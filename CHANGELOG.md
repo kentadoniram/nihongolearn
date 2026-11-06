@@ -7,6 +7,12 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.4.2026108 (2026-11-06)
+- New words are taught inside the first question (no confirm button); correct answers move on automatically (can be turned off)
+- Sentence patterns: pattern cards with formulas, examples and the English-order trap; Build practices them
+- Lab shows one activity at a time; navigation moved to the bottom; sticky feedback; round progress bar
+- Content 1.1.0: more vocabulary, kanji, sentences and 9 patterns
+
 ## v1.3.2026107 (2026-11-06)
 - Fix: lesson loader also works when all files sit in one flat folder; data manifest renamed content.json (it clashed with the app manifest.json); load errors now name the missing file
 
