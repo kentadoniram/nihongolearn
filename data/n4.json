@@ -1,0 +1,70 @@
+{
+ "schema": 1,
+ "pack": "n4-core",
+ "level": 4,
+ "title": "N4 core",
+ "words": [
+  {"w":"開ける","r":"あける","m":"to open (something)","l":4,"e":["窓を開けます。","I open the window."]},
+  {"w":"開く","r":"あく","m":"to open (by itself)","l":4,"e":["ドアが開きます。","The door opens by itself."]},
+  {"w":"閉める","r":"しめる","m":"to close (something)","l":4,"e":["窓を閉めます。","I close the window."]},
+  {"w":"閉まる","r":"しまる","m":"to close (by itself)","l":4,"e":["店が閉まります。","The shop closes."]},
+  {"w":"始める","r":"はじめる","m":"to start (something)","l":4,"e":["勉強を始めます。","I start studying."]},
+  {"w":"始まる","r":"はじまる","m":"to begin (by itself)","l":4,"e":["会議が始まります。","The meeting begins."]},
+  {"w":"消す","r":"けす","m":"to turn off, to erase","l":4,"e":["電気を消します。","I turn off the light."]},
+  {"w":"消える","r":"きえる","m":"to go out, to vanish","l":4,"e":["電気が消えました。","The light went out."]},
+  {"w":"運動","r":"うんどう","m":"exercise","l":4},
+  {"w":"勉強","r":"べんきょう","m":"study","l":4,"e":["図書館で勉強します。","I study at the library."]},
+  {"w":"料理","r":"りょうり","m":"cooking","l":4},
+  {"w":"便利","r":"べんり","m":"convenient","l":4},
+  {"w":"会議","r":"かいぎ","m":"meeting","l":4},
+  {"w":"旅行","r":"りょこう","m":"travel","l":4,"e":["来月、旅行します。","I will travel next month."]},
+  {"w":"意味","r":"いみ","m":"meaning","l":4},
+  {"w":"場所","r":"ばしょ","m":"place","l":4},
+  {"w":"病院","r":"びょういん","m":"hospital","l":4},
+  {"w":"自転車","r":"じてんしゃ","m":"bicycle","l":4},
+  {"w":"野菜","r":"やさい","m":"vegetables","l":4},
+  {"w":"理由","r":"りゆう","m":"reason","l":4},
+  {"w":"予定","r":"よてい","m":"plan, schedule","l":4},
+  {"w":"心配","r":"しんぱい","m":"worry","l":4},
+  {"w":"石","r":"いし","m":"stone","l":4},
+  {"w":"体","r":"からだ","m":"body","l":4},
+  {"w":"持つ","r":"もつ","m":"to hold","l":4,"e":["かばんを持ちます。","I carry a bag."]},
+  {"w":"待つ","r":"まつ","m":"to wait","l":4,"e":["駅で友達を待ちます。","I wait for a friend at the station."]},
+  {"w":"売る","r":"うる","m":"to sell","l":4,"e":["古い本を売ります。","I sell old books."]},
+  {"w":"太い","r":"ふとい","m":"thick","l":4},
+  {"w":"有名","r":"ゆうめい","m":"famous","l":4},
+  {"w":"夢","r":"ゆめ","m":"dream","l":4},
+  {"w":"参考","r":"さんこう","m":"reference","l":4,"e":["これは参考になります。","This is useful as a reference."]},
+  {"w":"参加","r":"さんか","m":"taking part","l":4,"e":["会議に参加します。","I take part in the meeting."]},
+  {"w":"少ない","r":"すくない","m":"few","l":4}
+ ],
+ "kanji": [
+  {"k":"開","m":"open","on":"カイ","kun":"あける・あく","l":4},
+  {"k":"閉","m":"close","on":"ヘイ","kun":"しめる・しまる","l":4},
+  {"k":"始","m":"begin","on":"シ","kun":"はじめる","l":4},
+  {"k":"消","m":"extinguish","on":"ショウ","kun":"けす・きえる","l":4},
+  {"k":"待","m":"wait","on":"タイ","kun":"まつ","l":4},
+  {"k":"持","m":"hold","on":"ジ","kun":"もつ","l":4},
+  {"k":"参","m":"attend","on":"サン","kun":"まいる","l":4},
+  {"k":"考","m":"think","on":"コウ","kun":"かんがえる","l":4}
+ ],
+ "questions": [
+  {"c":"k","l":4,"w":"待つ","q":"Which one means “to wait” (まつ)?","o":["待つ","持つ","侍つ","特つ"],"a":0,"y":"待 has 彳 (a step): waiting is pacing in place. 持 has 扌 (hand): to hold. The left-side radical carries the meaning."},
+  {"c":"v","l":4,"w":"開く","q":"ドアが___ (the door opens by itself)","o":["あく","あける","あかる","あけく"],"a":0,"y":"あく is the intransitive verb: it happens by itself, with が. あける needs a person doing it: ドアを開ける."},
+  {"c":"r","l":4,"w":"参考","q":"How do you read 参考 (reference)?","o":["さんこう","さんか","さんせい","ざんこう"],"a":0,"y":"参 (さん) + 考 (こう, to think). 参加 (さんか, take part) and 賛成 (さんせい, agree) start the same, so the second kanji decides. Read the whole word, not just the start."},
+  {"c":"g","l":4,"q":"ドアが開いて___。","o":["います","あります","いません","ありません"],"a":0,"y":"Intransitive verb + ている shows the resulting state: the door is open. Transitive verb + てある (開けてある) means someone left it that way on purpose.","id":"g12"},
+  {"c":"g","l":4,"q":"雨が降っている___、出かけません。","o":["ので","のに","けど","ても"],"a":0,"y":"ので gives a reason: because it is raining, I will not go out. のに means “even though” (unexpected), けど “but”, ても “even if”.","id":"g13"},
+  {"x":1,"c":"g","l":4,"q":"宿題をしなければ___。","o":["なりません","なります","できません","ありません"],"a":0,"y":"～なければならない means must: literally “if you don’t do it, it won’t be okay”.","id":"g16"}
+ ],
+ "sentences": [
+  {"en":"My friend is studying Japanese.","t":["友達","は","日本語","を","勉強して","います"],"tail":2,"y":"Verb て-form + います means “is doing”. The two words stay together at the end.","l":4},
+  {"en":"I opened the window.","t":["私","は","窓","を","開けました"],"tail":1,"y":"The transitive verb 開ける takes を: someone opens something.","l":4},
+  {"en":"The window is open.","t":["窓","が","開いて","います"],"tail":2,"y":"The intransitive 開く with が, plus ている, describes the resulting state.","l":4}
+ ],
+ "patterns": [
+  {"t":"Pairs: someone does it, or it happens","ex":[["開ける","open (something)"],["開く","open (by itself)"],["閉める","close (something)"],["閉まる","close (by itself)"],["始める","start (something)"],["始まる","begin (by itself)"]],"q":"Which group means 'someone does it to something'?","o":["開ける, 閉める, 始める","開く, 閉まる, 始まる","There is no difference"],"a":0,"y":"Tendency: endings like -eru/-su belong to the doer, endings like -u/-aru to things that happen on their own. A tendency, not a law, so exceptions will come back later.","id":"1","l":4}
+ ],
+ "reading": [
+  {"t":"Reading","l":4,"p":"きのうは雨が降っていたので、出かけませんでした。家で料理をして、野菜のスープを作りました。","q":"Why did the writer stay home?","o":["It was raining","They were ill","They had a meeting","The station was closed"],"a":0,"y":"ので marks the reason: 雨が降っていたので means “because it was raining”. 出かけませんでした means “did not go out”.","id":"4"}
+ ]
+}

@@ -183,7 +183,9 @@ function applyPacks(ps){V=[];DIAG=[];KJ={};SN=[];LAB=[];SIM=[];const seen=new Se
   (p.patterns||[]).concat(p.reading||[]).forEach(u=>LAB.push({...u,ex:u.ex||[],l:u.l||L}));(p.lookalike||[]).forEach(g=>SIM.push(g))});
  GI=DIAG.filter(q=>q.c=='g'&&q.id).map(q=>({w:q.id,g:1,l:q.l,q:q.q,o:q.o,a:q.a,y:q.y}));DX=DIAG.filter(q=>!q.x)}
 async function loadContent(){fetch('version.json').then(r=>r.json()).then(j=>{VER.app=j.app;VER.content=j.content}).catch(()=>{});
- const m=await(await fetch('data/manifest.json')).json();PK=await Promise.all(m.packs.map(f=>fetch('data/'+f).then(r=>r.json())));applyPacks(PK.concat(S.cp))}
+ const get=async u=>{const r=await fetch(u);if(!r.ok)throw new Error('Could not load '+u+' (error '+r.status+')');return r.json()};
+ let b='data/',m;try{m=await get(b+'content.json')}catch(x){b='';m=await get('content.json')}
+ PK=await Promise.all(m.packs.map(f=>get(b+f)));applyPacks(PK.concat(S.cp))}
 const RM={};'あa いi うu えe おo かka きki くku けke こko さsa しshi すsu せse そso たta ちchi つtsu てte とto なna にni ぬnu ねne のno はha ひhi ふfu へhe ほho まma みmi むmu めme もmo やya ゆyu よyo らra りri るru れre ろro わwa をo んn がga ぎgi ぐgu げge ごgo ざza じji ずzu ぜze ぞzo だda ぢji づzu でde どdo ばba びbi ぶbu べbe ぼbo ぱpa ぴpi ぷpu ぺpe ぽpo'.split(' ').forEach(p=>RM[p[0]]=p.slice(1));
 function romaji(r){r=hira(r);let o='';for(let i=0;i<r.length;i++){const c=r[i],n=r[i+1];
  if(c=='っ'){const nx=RM[n]||'';o+=nx.startsWith('ch')?'t':nx[0]||'';continue}
@@ -235,5 +237,5 @@ function dn(){dg.i++;if(dg.i<DX.length)return dq();
  S.diag={t:n,n5:a,n4:b,lv};save();
  $('#m').innerHTML=`<div class="card"><b>Your starting point: ${lv}</b><p>N5 questions: ${a[0]} of ${a[1]}. N4 questions: ${b[0]} of ${b[1]}.</p><p class="mu" style="text-align:left">Words you got right are scheduled for review instead of being taught again. Everything else is introduced step by step.</p><button class="pri" onclick="practice()">Start practising</button></div>`}
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
-loadContent().then(()=>go('p')).catch(()=>{$('#m').innerHTML='<div class="card"><b>Lesson files could not be loaded</b><p>The data folder is needed. Open the app from GitHub Pages or a local web server, not by opening the file directly.</p></div>'});
+loadContent().then(()=>go('p')).catch(x=>{$('#m').innerHTML='<div class="card"><b>Lesson files could not be loaded</b><p>'+e(x.message)+'</p><p class="mu" style="text-align:left">Keep content.json and the n5, n4, n3 .json files in a folder called data next to index.html (or all in the same folder as index.html), and open the app from its web address, not by double-clicking the file.</p></div>'});
 </script></body></html>
