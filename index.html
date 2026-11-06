@@ -47,16 +47,11 @@ nav button{padding:6px 9px;font-size:.85rem}
 .opt.ok{animation:pop .35s}.opt.bad{animation:shk .3s}
 @media(prefers-reduced-motion:reduce){.opt.ok,.opt.bad{animation:none}}
 textarea{width:100%;min-height:90px;background:var(--bg);color:var(--fg);border:1px solid var(--bd);border-radius:4px;padding:8px;font:12px monospace}
-header{flex-wrap:wrap}nav button{padding:5px 7px;font-size:.78rem}
-.lv{font-size:.7rem;border:1px solid var(--bd);border-radius:3px;padding:0 4px;color:var(--mu);margin-left:4px;vertical-align:middle}
-.wl{color:var(--ink);text-decoration:underline dotted;cursor:pointer}.kj{cursor:pointer;border-bottom:1px dashed var(--ink)}
-#dv{position:fixed;inset:0;background:var(--bg);overflow:auto;padding:env(safe-area-inset-top) 0 40px;z-index:5}#dv[hidden]{display:none}
 </style></head><body><div class="w">
-<header><h1>日本語 Lab</h1><nav><button data-v="p" onclick="go('p')">Play</button><button data-v="b" onclick="go('b')">Build</button><button data-v="l" onclick="go('l')">Lab</button><button data-v="g" onclick="go('g')">Progress</button><button data-v="m" onclick="go('m')">Memory</button></nav></header>
+<header><h1>日本語 Lab</h1><nav><button data-v="p" onclick="go('p')">Play</button><button data-v="l" onclick="go('l')">Patterns</button><button data-v="g" onclick="go('g')">Progress</button><button data-v="m" onclick="go('m')">Memory</button></nav></header>
 <div id="bn"></div><div id="st"></div><main id="m"></main>
 <p class="mu"><a href="#" onclick="go('p',1);practice(1);return false">Learn a new word now</a></p>
 </div>
-<div id="dv" hidden></div>
 <script>
 const V=`学校|がっこう|school|5
 先生|せんせい|teacher|5
@@ -147,39 +142,11 @@ const V=`学校|がっこう|school|5
 参考|さんこう|reference|4
 参加|さんか|taking part|4
 少ない|すくない|few|4
-多い|おおい|many|5
-経験|けいけん|experience|3
-目的|もくてき|purpose|3
-環境|かんきょう|environment|3
-関係|かんけい|relationship|3
-準備|じゅんび|preparation|3
-習慣|しゅうかん|habit|3
-説明|せつめい|explanation|3
-約束|やくそく|promise, appointment|3
-相談|そうだん|consultation|3
-連絡|れんらく|contact|3
-結果|けっか|result|3
-原因|げんいん|cause|3
-増える|ふえる|to increase (by itself)|3
-増やす|ふやす|to increase (something)|3
-決める|きめる|to decide (something)|3
-決まる|きまる|to be decided|3
-続ける|つづける|to continue (something)|3
-続く|つづく|to continue (by itself)|3
-伝える|つたえる|to convey|3
-比べる|くらべる|to compare|3
-文化|ぶんか|culture|3
-社会|しゃかい|society|3
-教育|きょういく|education|3
-経済|けいざい|economy|3
-趣味|しゅみ|hobby|3`.split("\n").map(l=>{const a=l.split("|");return{w:a[0],r:a[1],m:a[2],l:+a[3]}});
+多い|おおい|many|5`.split("\n").map(l=>{const a=l.split("|");return{w:a[0],r:a[1],m:a[2],l:+a[3]}});
 const LAB=[
 {t:"Place + 人 means a person from there",ex:[["日本人","Japanese person"],["中国人","Chinese person"],["外国人","foreign person"]],q:"What does adding 人 (じん) after a place do?",o:["Makes 'a person from there'","Makes 'the language of there'","Makes 'the food of there'"],a:0,y:"Place + 人 = person from it. The same slot with 語 gives the language. Exception for your ledger: 人 alone is ひと."},
 {t:"Pairs: someone does it, or it happens",ex:[["開ける","open (something)"],["開く","open (by itself)"],["閉める","close (something)"],["閉まる","close (by itself)"],["始める","start (something)"],["始まる","begin (by itself)"]],q:"Which group means 'someone does it to something'?",o:["開ける, 閉める, 始める","開く, 閉まる, 始まる","There is no difference"],a:0,y:"Tendency: endings like -eru/-su belong to the doer, endings like -u/-aru to things that happen on their own. A tendency, not a law, so exceptions will come back later."},
-{t:"Katakana is English sound in Japanese clothes",ex:[["コーヒー","coffee"],["ホテル","hotel"],["テレビ","TV"],["レストラン","restaurant"]],q:"ジュース is most likely…",o:["juice","jealousy","a kind of tree"],a:0,y:"Say it aloud with Japanese sounds: ju-u-su. The long mark ー just stretches the vowel. Decode first, memorize second."},
-{t:"Reading",l:5,p:"私は毎日、駅で友達に会います。二人で電車に乗って、学校に行きます。",ex:[],q:"How do they get to school?",o:["By train, together","By bicycle, alone","On foot, with a teacher","By bus"],a:0,y:"二人で means “the two of us” and 電車に乗って means “ride the train”. 駅で友達に会います tells you where they meet (で marks the place of an action)."},
-{t:"Reading",l:4,p:"きのうは雨が降っていたので、出かけませんでした。家で料理をして、野菜のスープを作りました。",ex:[],q:"Why did the writer stay home?",o:["It was raining","They were ill","They had a meeting","The station was closed"],a:0,y:"ので marks the reason: 雨が降っていたので means “because it was raining”. 出かけませんでした means “did not go out”."},
-{t:"Reading",l:3,p:"新しい環境に慣れるまでは時間がかかりますが、毎日少しずつ続ければ、必ず上手になります。",ex:[],q:"What does the writer recommend?",o:["Keep going a little every day","Quit when it is hard","Study once a week","Move to a new place"],a:0,y:"続ければ is the ば conditional of 続ける: “if you keep going”. 少しずつ means little by little and 必ず means without fail."}];
+{t:"Katakana is English sound in Japanese clothes",ex:[["コーヒー","coffee"],["ホテル","hotel"],["テレビ","TV"],["レストラン","restaurant"]],q:"ジュース is most likely…",o:["juice","jealousy","a kind of tree"],a:0,y:"Say it aloud with Japanese sounds: ju-u-su. The long mark ー just stretches the vowel. Decode first, memorize second."}];
 const DIAG=[
 {c:'v',l:5,w:'水',q:'水 means…',o:['water','fire','tree','money'],a:0,y:'水 (みず) is drawn from flowing water. Compare 火 (ひ, flames) and 木 (き, a tree): each kanji is a small picture.'},
 {c:'k',l:5,w:'木',q:'Which kanji means “tree”?',o:['木','本','末','未'],a:0,y:'木 is a trunk with branches and roots. 本 adds a stroke at the base (book). 末 and 未 differ only in which line is longer, so compare the top line with the bottom line.'},
@@ -197,122 +164,11 @@ const DIAG=[
 {c:'g',l:4,q:'雨が降っている___、出かけません。',o:['ので','のに','けど','ても'],a:0,y:'ので gives a reason: because it is raining, I will not go out. のに means “even though” (unexpected), けど “but”, ても “even if”.'},
 {x:1,c:'g',l:5,q:'りんご___食べます。',o:['を','に','で','が'],a:0,y:'を marks the thing acted on.'},
 {x:1,c:'g',l:5,q:'公園___友達に会いました。',o:['で','に','を','は'],a:0,y:'で marks the place where an action happens; に would mean a destination or where something exists.'},
-{x:1,c:'g',l:4,q:'宿題をしなければ___。',o:['なりません','なります','できません','ありません'],a:0,y:'～なければならない means must: literally “if you don’t do it, it won’t be okay”.'},
-{x:1,c:'g',l:3,q:'日本語が話せる___、毎日練習しています。',o:['ように','ために','ので','のに'],a:0,y:'～ように means “so that (a state becomes possible)” and goes with potential or non-volitional verbs: 話せるように. ～ために is for goals you control, like 日本に行くために働く.'},
-{x:1,c:'g',l:3,q:'雨が降り___だ。',o:['そう','よう','らしい','みたい'],a:0,y:'Verb stem + そう means “looks like it is about to”, based on what you see now: 降りそう. らしい and よう rest on information or inference.'},
-{x:1,c:'g',l:3,q:'財布を忘れて___ました。',o:['しまい','おき','あり','みい'],a:0,y:'～てしまう shows completion or regret: 忘れてしまいました is “I ended up forgetting”.'},
-{x:1,c:'g',l:3,q:'彼は医者___のに、病気に詳しくない。',o:['な','の','だ','で'],a:0,y:'のに means “even though”. After a noun it needs な: 医者なのに. After verbs and い-adjectives it follows the plain form.'},
-{x:1,c:'g',l:3,q:'時間が___ば、旅行に行きたい。',o:['あれ','ある','あって','あった'],a:0,y:'The ば conditional is the e-row form plus ば: ある becomes あれば, “if there is”.'},
-{x:1,c:'g',l:3,q:'この薬は一日に三回飲む___になっています。',o:['こと','もの','ところ','はず'],a:0,y:'～ことになっている states a rule or arrangement: “it is set that…”. はず expresses expectation.'}];
-const EXM={},KJ={};
-`学校|毎日、学校に行きます。|I go to school every day.
-先生|先生は日本語を教えます。|The teacher teaches Japanese.
-学生|兄は大学の学生です。|My older brother is a university student.
-水|水を飲みます。|I drink water.
-本|この本は面白いです。|This book is interesting.
-食べる|朝ご飯を食べます。|I eat breakfast.
-飲む|お茶を飲みます。|I drink tea.
-行く|駅に行きます。|I go to the station.
-来る|友達が来ます。|My friend is coming.
-読む|毎日、本を読みます。|I read a book every day.
-書く|名前を書いてください。|Please write your name.
-聞く|音楽を聞きます。|I listen to music.
-買う|パンを買います。|I buy bread.
-今日|今日は天気がいいです。|The weather is nice today.
-明日|明日、会議があります。|I have a meeting tomorrow.
-電車|電車で会社に行きます。|I go to work by train.
-駅|駅はどこですか。|Where is the station?
-友達|友達と話します。|I talk with a friend.
-会社|父は会社で働いています。|My father works at a company.
-犬|犬が好きです。|I like dogs.
-持つ|かばんを持ちます。|I carry a bag.
-待つ|駅で友達を待ちます。|I wait for a friend at the station.
-売る|古い本を売ります。|I sell old books.
-開ける|窓を開けます。|I open the window.
-開く|ドアが開きます。|The door opens by itself.
-閉める|窓を閉めます。|I close the window.
-閉まる|店が閉まります。|The shop closes.
-始める|勉強を始めます。|I start studying.
-始まる|会議が始まります。|The meeting begins.
-消す|電気を消します。|I turn off the light.
-消える|電気が消えました。|The light went out.
-勉強|図書館で勉強します。|I study at the library.
-旅行|来月、旅行します。|I will travel next month.
-参考|これは参考になります。|This is useful as a reference.
-参加|会議に参加します。|I take part in the meeting.
-経験|いい経験になりました。|It was a good experience.
-決める|旅行の日を決めます。|I decide the travel date.
-決まる|予定が決まりました。|The plan has been decided.
-続ける|毎日、勉強を続けます。|I keep studying every day.
-伝える|友達に予定を伝えます。|I tell my friend the plan.
-約束|友達と約束があります。|I have an appointment with a friend.`.split("\n").forEach(l=>{const a=l.split("|");EXM[a[0]]=[a[1],a[2]]});
-`学|study|ガク|まなぶ|5
-校|school|コウ|-|5
-先|previous|セン|さき|5
-生|life, birth|セイ|いきる・うまれる|5
-大|big|ダイ|おおきい|5
-小|small|ショウ|ちいさい|5
-日|day, sun|ニチ|ひ|5
-本|book, origin|ホン|もと|5
-人|person|ジン|ひと|5
-水|water|スイ|みず|5
-火|fire|カ|ひ|5
-木|tree|モク|き|5
-金|gold, money|キン|かね|5
-食|eat|ショク|たべる|5
-飲|drink|イン|のむ|5
-見|see|ケン|みる|5
-行|go|コウ|いく|5
-来|come|ライ|くる|5
-話|talk|ワ|はなす|5
-読|read|ドク|よむ|5
-書|write|ショ|かく|5
-聞|hear, ask|ブン|きく|5
-言|say|ゲン|いう|5
-買|buy|バイ|かう|5
-今|now|コン|いま|5
-明|bright|メイ|あかるい|5
-時|time|ジ|とき|5
-間|interval|カン|あいだ|5
-電|electricity|デン|-|5
-車|vehicle|シャ|くるま|5
-駅|station|エキ|-|5
-友|friend|ユウ|とも|5
-会|meet|カイ|あう|5
-社|company|シャ|-|5
-休|rest|キュウ|やすむ|5
-右|right|ウ|みぎ|5
-左|left|サ|ひだり|5
-上|up|ジョウ|うえ|5
-下|down|カ|した|5
-犬|dog|ケン|いぬ|5
-開|open|カイ|あける・あく|4
-閉|close|ヘイ|しめる・しまる|4
-始|begin|シ|はじめる|4
-消|extinguish|ショウ|けす・きえる|4
-待|wait|タイ|まつ|4
-持|hold|ジ|もつ|4
-参|attend|サン|まいる|4
-考|think|コウ|かんがえる|4
-経|pass through|ケイ|へる|3
-験|test|ケン|-|3
-続|continue|ゾク|つづく|3
-決|decide|ケツ|きめる・きまる|3
-増|increase|ゾウ|ふえる・ふやす|3`.split("\n").forEach(l=>{const a=l.split("|");KJ[a[0]]={m:a[1],on:a[2],kun:a[3],l:+a[4]}});
-const SN=`I eat sushi.|私 は 寿司 を 食べます|1|Pattern: Topic は + Object を + Verb. The verb closes the sentence.|5
-I go to school by train.|私 は 電車 で 学校 に 行きます|1|で marks the means, に marks the destination. These blocks can swap places, but the verb stays last.|5
-Where is the station?|駅 は どこ です か|3|A question keeps the statement order and adds か at the end. The question word sits where the answer would.|5
-I will meet a friend tomorrow.|明日 友達 に 会います|1|Time words usually come first. に marks the person you meet.|5
-I drink coffee at the cafe.|私 は 喫茶店 で コーヒー を 飲みます|1|で marks where an action happens, を marks what is acted on.|5
-My friend is studying Japanese.|友達 は 日本語 を 勉強して います|2|Verb て-form + います means “is doing”. The two words stay together at the end.|4
-I opened the window.|私 は 窓 を 開けました|1|The transitive verb 開ける takes を: someone opens something.|4
-The window is open.|窓 が 開いて います|2|The intransitive 開く with が, plus ている, describes the resulting state.|4
-The teacher taught me Japanese.|私 は 先生 に 日本語 を 教えて もらいました|2|Giver に + thing を + て-form + もらう: you received the favor. The two-word ending stays together.|3
-I will tell my friend the plan.|私 は 友達 に 予定 を 伝えます|1|に marks the receiver, を marks the thing conveyed.|3`.split("\n").map(l=>{const a=l.split("|");return{en:a[0],t:a[1].split(" "),tail:+a[2],y:a[3],l:+a[4]}});
+{x:1,c:'g',l:4,q:'宿題をしなければ___。',o:['なりません','なります','できません','ありません'],a:0,y:'～なければならない means must: literally “if you don’t do it, it won’t be okay”.'}];
 const $=s=>document.querySelector(s),e=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const KEY='nihongoLab1',K=/[\u4e00-\u9fff]/;
 let S;try{S=JSON.parse(localStorage.getItem(KEY))}catch(x){}
-S=S||{};S.i=S.i||{};S.lab=S.lab||{};S.custom=S.custom||[];S.rec=S.rec||[];S.bq=S.bq||[];S.cnt=S.cnt||0;S.xp=S.xp||0;S.beta=S.beta||{};S.nl=S.nl||[];S.nt=S.nt||0;S.nn=S.nn||0;
+S=S||{};S.i=S.i||{};S.lab=S.lab||{};S.custom=S.custom||[];S.rec=S.rec||[];S.bq=S.bq||[];S.cnt=S.cnt||0;S.xp=S.xp||0;
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(x){}};
 const GI=DIAG.map((q,i)=>q.c=='g'?{w:'g'+i,g:1,l:q.l,q:q.q,o:q.o,a:q.a,y:q.y}:0).filter(Boolean),W=()=>V.concat(S.custom,GI),rnd=a=>a[Math.random()*a.length|0],shuffle=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
 const hira=s=>s.replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-96));
@@ -332,45 +188,38 @@ if(!S.mdl||S.mdl.w.length!=13)S.mdl={w:[1.2,0,0,0,0,0,0,0,0,0,0,0,0],n:0};
 const sg=z=>1/(1+Math.exp(-z));
 function feat(w,t,it){const k=[...w.w].filter(c=>K.test(c)).length,cf=w.g?0:Math.min(5,Math.max(0,...W().filter(x=>x!==w&&!x.g).map(x=>sim(w,x))))/5;
  return[1,w.l==4?1:0,k/3,(w.g?4:w.w.length)/4,cf,...['jm','mj','jr','tr','gq','oo','bt'].map(x=>x==t?1:0),it?Math.min(it.l,6)/3:0]}
-// Rasch-style prediction: p = sigmoid(w.x - beta_item). w.x holds ability and feature difficulty; beta_item is learned per item.
-const pr=(x,id)=>sg(S.mdl.w.reduce((a,v,i)=>a+v*x[i],0)-(S.beta[id]||0));
-const nrm=()=>Math.sqrt(-2*Math.log(1-Math.random()))*Math.cos(2*Math.PI*Math.random());
-function rg(k){const d=k-1/3,c=1/Math.sqrt(9*d);for(;;){let x,v;do{x=nrm();v=1+c*x}while(v<=0);v=v*v*v;if(Math.log(Math.random())<.5*x*x+d-d*v+d*Math.log(v))return d*v}}
-const rb=(a,b)=>{const x=rg(a),y=rg(b);return x/(x+y)};
-// One SGD step on the negative log-likelihood. Returns this answer's -log L (surprise). Learning rate rises when recent fit is poor.
-function learn(x,y,id){const p=Math.min(.999,Math.max(.001,pr(x,id))),m=S.mdl,ls=-Math.log(y?p:1-p),rc=S.nl.slice(-20),lr=rc.length>=10&&rc.reduce((a,b)=>a+b,0)/rc.length>.75?.18:.1;
- m.w=m.w.map((v,i)=>v+lr*((y-p)*x[i]-.004*v));if(id)S.beta[id]=(S.beta[id]||0)*.99-.15*(y-p);
- m.n++;S.nl.push(ls);if(S.nl.length>60)S.nl.shift();S.nt+=ls;S.nn++;return ls}
-function go(v,skip){banner();$('#st').innerHTML='';document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v==v));if(skip)return;v=='p'?practice():v=='l'?lab():v=='b'?bld():v=='m'?mem():prog()}
+const pr=x=>sg(S.mdl.w.reduce((a,v,i)=>a+v*x[i],0));
+function learn(x,y){const p=pr(x),m=S.mdl;m.w=m.w.map((v,i)=>v+.1*((y-p)*x[i]-.004*v));m.n++}
+function go(v,skip){banner();$('#st').innerHTML='';document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v==v));if(skip)return;v=='p'?practice():v=='l'?lab():v=='m'?mem():prog()}
 function ruby(w,on){return on&&K.test(w.w)?`<ruby>${e(w.w)}<rt>${e(w.r)}</rt></ruby>`:e(w.w)}
-function pick(fn){const now=Date.now(),all=W(),L=all.filter(w=>S.i[w.w]),b4=all.filter(w=>w.l>=4),n3=S.n3||L.filter(w=>w.l>=4).length/b4.length>.7,un=all.filter(w=>!S.i[w.w]&&(w.l>=4||n3)),rc=S.rec;
+function pick(fn){const now=Date.now(),all=W(),L=all.filter(w=>S.i[w.w]),un=all.filter(w=>!S.i[w.w]),rc=S.rec;
  const day=new Date().setHours(0,0,0,0),nt=L.filter(w=>S.i[w.w].f>=day).length,R=w=>ret(S.i[w.w],now),fresh=a=>a.filter(w=>!rc.includes(w.w)),
  wp=(a,f)=>{const t=a.map(f);let r=Math.random()*t.reduce((x,y)=>x+y,0),i=0;for(;i<a.length-1;i++){r-=t[i];if(r<=0)break}return a[i]},
- ts=a=>a.reduce((b,w)=>{const it=S.i[w.w],m=rb(1+Math.max(0,it.n-it.l)*R(w),1+it.l);return!b||m<b.m?{w,m}:b},0).w;
- const uv=un.filter(w=>!w.g),nx=(un.length>uv.length&&Math.random()<.25)?un.find(w=>w.g):(uv.length?wp(uv.slice(0,14),a=>Math.exp(-4*Math.abs(pr(feat(a,'jm'),a.w)-.75))):un[0]);
+ need=w=>1.2-R(w)+S.i[w.w].l*.15;
+ const uv=un.filter(w=>!w.g),nx=(un.length>uv.length&&Math.random()<.25)?un.find(w=>w.g):(uv.length?wp(uv.slice(0,14),a=>Math.exp(-4*Math.abs(pr(feat(a,'jm'))-.75))):un[0]);
  if(fn&&un.length)return{w:nx,intro:1};
  const bi=S.bq.findIndex(b=>b.at<=S.cnt&&L.some(w=>w.w==b.id));
  if(bi>=0){const id=S.bq.splice(bi,1)[0].id;return{w:L.find(w=>w.w==id)}}
  const F=fresh(L);
  if(F.length>5&&Math.random()<.12)return{w:rnd(F)};
  const due=fresh(L.filter(w=>R(w)<.9));
- if(due.length)return{w:ts(due)};
+ if(due.length)return{w:wp(due,need)};
  if(un.length&&nt<10)return{w:nx,intro:1};
- if(F.length)return{w:ts(F)};
+ if(F.length)return{w:wp(F,need)};
  return L.length?{w:rnd(L)}:un.length?{w:nx,intro:1}:null}
 function practice(fn){banner();strip();const m=$('#m');
  const p=pick(fn);
  if(!p){m.innerHTML='<div class="card"><p>You have met every word. Add more in Progress with Import.</p></div>';return}
  if(p.intro&&p.w.g)return meet(W().indexOf(p.w));
- if(p.intro){const w=p.w;m.innerHTML=`<div class="card"><p class="mu">New word</p><div class="big">${ruby(w,1)}</div><p class="mean">${e(w.m)} ${lvb(w)}</p><p class="mu"><a class="wl" onclick="dict(${W().indexOf(w)})">dictionary entry</a></p><button class="pri" onclick="meet(${W().indexOf(w)})">Got it, quiz me</button></div>`;return}
+ if(p.intro){const w=p.w;m.innerHTML=`<div class="card"><p class="mu">New word</p><div class="big">${ruby(w,1)}</div><p class="mean">${e(w.m)}</p><button class="pri" onclick="meet(${W().indexOf(w)})">Got it, quiz me</button></div>`;return}
  cur=build(p.w);show()}
-function meet(i){const w=W()[i],p=pr(feat(w,w.g?'gq':'jm',null),w.w);S.i[w.w]={s:.5,d:Math.min(9,Math.max(2,10*(1-p))),t:Date.now(),f:Date.now(),n:0,l:0,x:{}};save();cur=build(w,w.g?undefined:'mj');show()}
-function opts(w,key){const it=S.i[w.w],c=W().filter(x=>!x.g&&(x.l>=4||S.i[x.w]||S.n3||w.l==3)&&x.w!==w.w&&x[key]!==w[key]&&(key!='r'||K.test(x.w)));
+function meet(i){const w=W()[i],p=pr(feat(w,w.g?'gq':'jm',null));S.i[w.w]={s:.5,d:Math.min(9,Math.max(2,10*(1-p))),t:Date.now(),f:Date.now(),n:0,l:0,x:{}};save();cur=build(w,w.g?undefined:'mj');show()}
+function opts(w,key){const it=S.i[w.w],c=W().filter(x=>!x.g&&x.w!==w.w&&x[key]!==w[key]&&(key!='r'||K.test(x.w)));
  const wt=x=>1+Math.pow(sim(w,x),2)+((it.x&&it.x[x.w])||0)*6,out=[];
  while(out.length<3&&c.length){let r=Math.random()*c.reduce((a,x)=>a+wt(x),0),i=0;for(;i<c.length-1;i++){r-=wt(c[i]);if(r<=0)break}out.push(c.splice(i,1)[0])}
  return shuffle(out.concat(w))}
 function build(w,t){const it=S.i[w.w],k=K.test(w.w);if(w.g){it.lt='gq';return{w,t:'gq',o:shuffle(w.o.map((x,i)=>({t:x,c:i==w.a})))}}let ts=['jm','mj'];if(k){ts.push('jr');if(it.s>=3)ts.push('tr')}if(w.r.length>=3&&w.r.length<=8)ts.push('bt');if(oddg(w))ts.push('oo');
- ts=ts.filter(x=>x!=it.lt);ts=ts.length?ts:['jm'];ts=ts.map(x=>[Math.abs(pr(feat(w,x,it),w.w)-.8),x]).sort((a,b)=>a[0]-b[0]).slice(0,2).map(x=>x[1]);t=t||rnd(ts);it.lt=t;
+ ts=ts.filter(x=>x!=it.lt);ts=ts.length?ts:['jm'];ts=ts.map(x=>[Math.abs(pr(feat(w,x,it))-.8),x]).sort((a,b)=>a[0]-b[0]).slice(0,2).map(x=>x[1]);t=t||rnd(ts);it.lt=t;
  if(t=='oo'){const og=oddg(w);if(og)return{w,t,o:og.o,odd:og.odd,ch:og.ch}}
  if(t=='bt'){const sm=W().filter(x=>!x.g&&x.w!=w.w).sort((a,b)=>sim(w,b)-sim(w,a))[0],pool=[...w.r];[...sm.r].filter(c=>!pool.includes(c)).slice(0,2).forEach(c=>pool.push(c));return{w,t,o:0,pool:shuffle(pool),sel:[]}}
  return{w,t,o:t=='tr'?0:opts(w,{jm:'m',mj:'w',jr:'r'}[t])}}
@@ -381,20 +230,20 @@ function show(){const{w,t,o}=cur,it=S.i[w.w],pct=Math.round(ret(it,Date.now())*1
  $('#m').innerHTML=h+'</div><div id="fb"></div>';
  if(t=='bt')bshow();if(t=='tr'){const i=$('#ti');i.focus();i.onkeydown=ev=>{if(ev.key=='Enter')ans(0,i.value)}}}
 function ans(i,val){if(cur.done)return;cur.done=1;const{w,t,o}=cur,it=S.i[w.w],ty=t=='tr'||t=='bt',x=ty?null:o[i];
- const ok=ty?hira(String(val).trim())==hira(w.r):t=='gq'?x.c:t=='oo'?x===cur.odd:x.w==w.w,R=ret(it,Date.now()),ls=learn(feat(w,t,it),ok?1:0,w.w);if(!ok&&ls>1.3&&!S.bq.some(b=>b.id==w.w))S.bq.push({id:w.w,at:S.cnt+2});
+ const ok=ty?hira(String(val).trim())==hira(w.r):t=='gq'?x.c:t=='oo'?x===cur.odd:x.w==w.w,R=ret(it,Date.now());learn(feat(w,t,it),ok?1:0);
  if(ok){it.s*=1.3+2.2*(1-R)+.15*(10-it.d);it.d=Math.max(1,it.d-.2)}
  else{it.s=Math.max(.4,it.s*.25);it.d=Math.min(10,it.d+1);it.l++;if(x&&x.w){it.x[x.w]=(it.x[x.w]||0)+1;if(S.i[x.w]&&!S.bq.some(b=>b.id==x.w))S.bq.push({id:x.w,at:S.cnt+3})}}
  it.t=Date.now();it.n++;S.cnt++;S.rec.push(w.w);if(S.rec.length>6)S.rec.shift();
  cmb=ok?cmb+1:0;const gain=ok?10+Math.min(cmb,10)*2:0,d=new Date().toDateString();S.xp+=gain;if(ok){S.q=S.q&&S.q.d==d?S.q:{d,n:0};S.q.n++}
  rd.n++;rd.ok+=ok?1:0;rd.xp+=gain;rd.bc=Math.max(rd.bc,cmb);save();strip();
  document.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true;if(o&&(t=='gq'?o[j].c:t=='oo'?o[j]===cur.odd:o[j].w==w.w))b.classList.add('ok');else if(j==i)b.classList.add('bad')});
- const info=t=='gq'?e(w.y)+' '+lvb(w):t=='oo'?`${e(cur.ch)} is in the other three. ${lk(cur.odd)} (${e(cur.odd.r)}) = ${e(cur.odd.m)}`:`${lk(w)} (${e(w.r)}) = ${e(w.m)} ${lvb(w)}`;
- $('#fb').innerHTML=`<div class="card fb ${ok?'':'r'}"><b>${ok?(cmb>2?'Combo x'+cmb+'! +'+gain+' XP':'Correct, +'+gain+' XP'):'Not quite'}</b><br>${info}${!ok&&t!='gq'&&t!='oo'?'<br>'+(ty?tyWhy(w,val):why(w,x)):''}${!S.diag&&S.mdl.n>=20&&S.mdl.n<24?'<p class="mu" style="text-align:left">Curious where you stand? There is a check-up in the Patterns tab.</p>':''}<button class="pri" onclick="nq()">Next</button></div>`}
+ const info=t=='gq'?e(w.y):t=='oo'?`${e(cur.ch)} is in the other three. ${e(cur.odd.w)} (${e(cur.odd.r)}) = ${e(cur.odd.m)}`:`${e(w.w)} (${e(w.r)}) = ${e(w.m)}`;
+ $('#fb').innerHTML=`<div class="card fb ${ok?'':'r'}"><b>${ok?(cmb>2?'Combo x'+cmb+'! +'+gain+' XP':'Correct, +'+gain+' XP'):'Not quite'}</b><br>${info}${!ok&&x&&x.w&&t!='gq'&&t!='oo'?`<br><span class="mu">You chose ${e(x.w)} (${e(x.r)}) = ${e(x.m)}</span>`:''}${!S.diag&&S.mdl.n>=20&&S.mdl.n<24?'<p class="mu" style="text-align:left">Curious where you stand? There is a check-up in the Patterns tab.</p>':''}<button class="pri" onclick="nq()">Next</button></div>`}
 function nq(){if(rd.n>=8){const r=rd;rd={n:0,ok:0,xp:0,bc:0};$('#m').innerHTML=`<div class="card"><b>Round complete</b><p>${r.ok} of ${r.n} correct. +${r.xp} XP. Best combo x${r.bc}.</p><p class="mu" style="text-align:left">Stop here or keep going. Your words are rescheduled either way.</p><button class="pri" onclick="practice()">Another round</button></div>`;return}practice()}
-function lab(){$('#m').innerHTML=LAB.map((u,i)=>`<div class="card"><b>${e(u.t)}</b>${u.l&&!S.hl?' <span class="lv">N'+u.l+'</span>':''}${S.lab[i]==1?' (solved)':''}${u.p?`<p>${[...u.p].map(kc).join('')}</p>`:''}<div class="ex">${u.ex.map(x=>`<span><big>${e(x[0])}</big><small>${e(x[1])}</small></span>`).join('')}</div><p>${e(u.q)}</p><div id="lq${i}">${u.o.map((o,j)=>`<button class="opt" onclick="lq(${i},${j})">${e(o)}</button>`).join('')}</div></div>`).join('')+`<div class="card"><b>Curious where you stand?</b><p class="mu" style="text-align:left">A 14-question check-up with an explanation for every answer. Safe to start from zero knowledge.</p><button class="sec" onclick="diag()">Start check-up</button></div>`}
+function lab(){$('#m').innerHTML=LAB.map((u,i)=>`<div class="card"><b>${e(u.t)}</b>${S.lab[i]==1?' (solved)':''}<div class="ex">${u.ex.map(x=>`<span><big>${e(x[0])}</big><small>${e(x[1])}</small></span>`).join('')}</div><p>${e(u.q)}</p><div id="lq${i}">${u.o.map((o,j)=>`<button class="opt" onclick="lq(${i},${j})">${e(o)}</button>`).join('')}</div></div>`).join('')+`<div class="card"><b>Curious where you stand?</b><p class="mu" style="text-align:left">A 14-question check-up with an explanation for every answer. Safe to start from zero knowledge.</p><button class="sec" onclick="diag()">Start check-up</button></div>`}
 function lq(i,j){const u=LAB[i];S.lab[i]=j==u.a?1:0;save();const c=$('#lq'+i);c.querySelectorAll('button').forEach((b,k)=>{b.disabled=true;if(k==u.a)b.classList.add('ok');else if(k==j)b.classList.add('bad')});c.insertAdjacentHTML('beforeend',`<p class="mu">${e(u.y)}</p>`)}
 function prog(){const A=W(),n=Date.now(),L=A.filter(w=>S.i[w.w]),sol=L.filter(w=>S.i[w.w].s>=7).length;
- $('#m').innerHTML=`<div class="card"><b>${L.length}</b> items met, <b>${sol}</b> solid, ${A.length} in the deck</div><div class="card"><div class="grid">${A.map(w=>{const it=S.i[w.w],o=it?Math.max(.25,ret(it,n)):.08;return`<span onclick="dict(${A.indexOf(w)})" style="cursor:pointer;opacity:${o}" title="${e(w.m||w.q||'')}">${e(w.g?'文法':w.w)}</span>`}).join('')}</div><p class="mu">Bright words are strong in memory. Faded ones are due for a visit.</p></div><div class="card"><b>Difficulty model</b><p class="mu" style="text-align:left">Logistic regression predicting your chance of a correct answer, trained on ${S.mdl.n} answers. Positive weights make a question easier, negative weights make it harder. It picks new words and question types near an 80% success rate. Words you keep missing also get their own extra difficulty term, like a Rasch model.</p><p class="mu" style="text-align:left">Fit check, −log L (lower is better, a coin flip scores 0.69): last 20 answers ${nlq()[0]}, all answers ${nlq()[1]}.</p>${FN.map((n,i)=>`<div>${n}: ${S.mdl.w[i].toFixed(2)}</div>`).join('')}</div><div class="card"><button class="sec" onclick="go('m')">Backup and transfer</button></div>`}
+ $('#m').innerHTML=`<div class="card"><b>${L.length}</b> items met, <b>${sol}</b> solid, ${A.length} in the deck</div><div class="card"><div class="grid">${A.map(w=>{const it=S.i[w.w],o=it?Math.max(.25,ret(it,n)):.08;return`<span style="opacity:${o}" title="${e(w.m||w.q||'')}">${e(w.g?'文法':w.w)}</span>`}).join('')}</div><p class="mu">Bright words are strong in memory. Faded ones are due for a visit.</p></div><div class="card"><b>Difficulty model</b><p class="mu" style="text-align:left">Logistic regression predicting your chance of a correct answer, trained on ${S.mdl.n} answers. Positive weights make a question easier, negative weights make it harder. It picks new words and question types near an 80% success rate.</p>${FN.map((n,i)=>`<div>${n}: ${S.mdl.w[i].toFixed(2)}</div>`).join('')}</div><div class="card"><button class="sec" onclick="go('m')">Backup and transfer</button></div>`}
 async function exp(){const f=new File([JSON.stringify(S)],'nihongo-lab-'+new Date().toISOString().slice(0,10)+'.json',{type:'application/json'});
  try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'Nihongo Lab backup'});S.bk=Date.now();save();banner();if($('nav .on')&&$('nav .on').dataset.v=='m')mem();return}}catch(x){if(x.name=='AbortError')return}
  const a=document.createElement('a');a.href=URL.createObjectURL(f);a.download=f.name;a.click();S.bk=Date.now();save();banner();if($('nav .on')&&$('nav .on').dataset.v=='m')mem()}
@@ -407,47 +256,14 @@ function rst(){if(confirm('Erase all progress on this device?')){S.i={};S.lab={}
 const LV=['Seedling','Student','Reader','Decoder','Tracker','Sage'];
 function strip(){const x=S.xp,l=Math.floor(Math.sqrt(x/40)),lo=40*l*l,hi=40*(l+1)*(l+1),q=S.q&&S.q.d==new Date().toDateString()?S.q.n:0;
  $('#st').innerHTML=`<div class="strip"><span>Lv ${l+1} ${LV[Math.min(l,5)]}</span><div class="xp"><i style="width:${(x-lo)/(hi-lo)*100}%"></i></div><span class="cmb">${cmb>1?'Combo x'+cmb:''}</span><span class="mu" style="margin:0">${q}/12 today</span></div>`}
-function oddg(w){const A=W().filter(x=>!x.g&&(x.l>=4||S.i[x.w]||S.n3)),ks=[...w.w].filter(c=>K.test(c)&&A.filter(x=>x.w.includes(c)).length>=3);
+function oddg(w){const A=W().filter(x=>!x.g),ks=[...w.w].filter(c=>K.test(c)&&A.filter(x=>x.w.includes(c)).length>=3);
  if(!ks.length)return null;const ch=rnd(ks),g=shuffle(A.filter(x=>x.w.includes(ch)&&x.w!=w.w)).slice(0,2).concat(w),
  od=rnd(A.filter(x=>!x.w.includes(ch)).sort((a,b)=>sim(g[0],b)-sim(g[0],a)).slice(0,5));return{ch,odd:od,o:shuffle(g.concat(od))}}
 function bshow(){const c=cur;$('#bs').innerHTML=c.sel.map((k,i)=>`<button class="tile on" onclick="bu(${i})">${e(c.pool[k])}</button>`).join('')||'<span class="mu">Tap the kana in order</span>';
  $('#bp').innerHTML=c.pool.map((ch,k)=>`<button class="tile" ${c.sel.includes(k)?'disabled':''} onclick="bp(${k})">${e(ch)}</button>`).join('')}
 function bp(k){cur.sel.push(k);bshow()}function bu(i){cur.sel.splice(i,1);bshow()}
 function mem(){const d=S.bk?new Date(S.bk).toLocaleDateString():'never';
- $('#m').innerHTML=`<div class="card"><b>Your learning memory</b><p>Everything the app knows about you: words you have met, how strong each memory is, your mistakes, your XP and the difficulty model. It lives only on this device until you save it.</p><p class="mu" style="text-align:left">Last backup: ${d}</p><button class="pri" onclick="exp()">Download my memory</button></div><div class="card"><b>Continue on another device</b><p>1. Download the memory here. 2. Open the app on the other device. 3. Memory tab, then Load memory from file. Progress from both devices is merged, keeping the newer record of each word.</p><label class="pri" style="display:block;text-align:center;cursor:pointer">Load memory from file<input type="file" accept=".json,application/json" hidden onchange="imp(this)"></label></div><div class="card"><b>No file option? Use text</b><textarea id="mt" placeholder="Paste memory text here to load it"></textarea><button class="sec" onclick="$('#mt').value=JSON.stringify(S)">Show memory as text</button><button class="sec" onclick="navigator.clipboard&&navigator.clipboard.writeText(JSON.stringify(S))">Copy</button><button class="sec" onclick="impt()">Load from text</button></div><div class="card"><b>Settings</b><p><label><input type="checkbox" ${S.hl?'checked':''} onchange="S.hl=this.checked;save()"> Hide JLPT level labels</label></p><p><label><input type="checkbox" ${S.n3?'checked':''} onchange="S.n3=this.checked;save()"> Open N3 content now (otherwise it opens once most N5 and N4 words are met)</label></p></div><div class="card"><button class="sec" onclick="rst()">Erase everything on this device</button></div>`}
-const RM={};'あa いi うu えe おo かka きki くku けke こko さsa しshi すsu せse そso たta ちchi つtsu てte とto なna にni ぬnu ねne のno はha ひhi ふfu へhe ほho まma みmi むmu めme もmo やya ゆyu よyo らra りri るru れre ろro わwa をo んn がga ぎgi ぐgu げge ごgo ざza じji ずzu ぜze ぞzo だda ぢji づzu でde どdo ばba びbi ぶbu べbe ぼbo ぱpa ぴpi ぷpu ぺpe ぽpo'.split(' ').forEach(p=>RM[p[0]]=p.slice(1));
-function romaji(r){r=hira(r);let o='';for(let i=0;i<r.length;i++){const c=r[i],n=r[i+1];
- if(c=='っ'){const nx=RM[n]||'';o+=nx.startsWith('ch')?'t':nx[0]||'';continue}
- if(c=='ー'){o+=o.slice(-1);continue}
- let b=RM[c]||c;if(n&&'ゃゅょ'.includes(n)){b=(b=='shi'?'sh':b=='chi'?'ch':b=='ji'?'j':b.slice(0,-1)+'y')+{ゃ:'a',ゅ:'u',ょ:'o'}[n];i++}o+=b}return o}
-const kc=c=>K.test(c)&&KJ[c]?`<span class="kj" onclick="kd('${c}')">${c}</span>`:e(c);
-const lk=w=>`<a class="wl" onclick="dict(${W().indexOf(w)})">${[...w.w].map(c=>K.test(c)&&KJ[c]?`<span class="kj" onclick="event.stopPropagation();kd('${c}')">${c}</span>`:e(c)).join('')}</a>`;
-const lvb=w=>S.hl||!w.l?'':`<span class="lv">N${w.l}</span>`,exOf=w=>w.e||EXM[w.w],exLine=w=>{const x=exOf(w);return x?`<span class="mu">Correct usage: ${e(x[0])} (${e(x[1])})</span>`:''};
-function why(w,x){const A=[...x.w].filter(c=>K.test(c)),B=[...w.w].filter(c=>K.test(c)),lkp=[];A.forEach(a=>B.forEach(b=>{if(a!=b&&look(a,b))lkp.push([a,b])}));let r;
- if(lkp.length)r=`${lkp[0][0]} and ${lkp[0][1]} look alike, so they are easy to swap. ${e(x.w)} means “${e(x.m)}”, while ${e(w.w)} means “${e(w.m)}”.`;
- else if(A.some(a=>B.includes(a)))r=`Both words share a kanji, which is why they feel alike. ${e(x.w)} means “${e(x.m)}”, while ${e(w.w)} means “${e(w.m)}”.`;
- else if([...bg(x.r)].some(b=>bg(w.r).has(b)))r=`They sound alike (${e(x.r)} and ${e(w.r)}), so listen for the difference. ${e(x.w)} means “${e(x.m)}”.`;
- else r=`${e(x.w)} (${e(x.r)}) means “${e(x.m)}”, which is a different word.`;
- return r+'<br>'+(exLine(w)||`${e(w.w)} (${e(w.r)}) means “${e(w.m)}”.`)}
-const tyWhy=(w,v)=>`You wrote ${e(v||'nothing')}. The reading is ${e(w.r)} (${romaji(w.r)}). Long vowels (ou, ei) and the small っ pause are the usual traps.<br>${exLine(w)}`;
-function dv(h){const d=$('#dv');d.innerHTML=`<div class="w"><button class="sec" onclick="$('#dv').hidden=true">Close</button>${h}</div>`;d.hidden=false;d.scrollTop=0}
-function dict(i){const w=W()[i];if(!w||w.g)return;const ex=exOf(w),it=S.i[w.w],ks=[...new Set([...w.w].filter(c=>K.test(c)))],rel=W().filter(x=>!x.g&&x!==w&&ks.some(c=>x.w.includes(c))).slice(0,8),la=[...new Set(ks.flatMap(c=>SIM.filter(g=>g.includes(c)).join('').split('')))].filter(x=>!ks.includes(x));
- dv(`<div class="big">${ruby(w,1)}</div><p class="mean">${e(w.m)} ${lvb(w)}</p><p class="mu">Reading ${e(w.r)} (${romaji(w.r)}). Audio comes later.</p>${ex?`<div class="card"><b>Example</b><p>${[...ex[0]].map(kc).join('')}</p><p class="mu" style="text-align:left">${e(ex[1])}</p></div>`:''}${ks.length?`<p>Kanji</p>${ks.map(c=>`<a class="wl" onclick="kd('${c}')">${c}</a>`).join(' ')}`:''}${rel.length?`<p>Related words</p>${rel.map(x=>`<a class="wl" onclick="dict(${W().indexOf(x)})">${e(x.w)}</a>`).join(' ')}`:''}${la.length?`<p>Look-alike kanji</p>${la.map(x=>KJ[x]?`<a class="wl" onclick="kd('${x}')">${x}</a>`:e(x)).join(' ')}`:''}${it?`<p class="mu" style="text-align:left">Your memory of this word: ${Math.round(ret(it,Date.now())*100)}%, seen ${it.n} times, missed ${it.l}.</p>`:''}`)}
-function kd(c){const k=KJ[c],ws=W().filter(x=>!x.g&&x.w.includes(c)),la=[...new Set(SIM.filter(g=>g.includes(c)).join('').split(''))].filter(x=>x!=c);
- dv(`<div class="big">${c}</div>${k?`<p class="mean">${e(k.m)} ${S.hl?'':'<span class="lv">N'+k.l+'</span>'}</p><p class="mu">On: ${e(k.on)}. Kun: ${e(k.kun)}.</p>`:'<p class="mu">No detailed entry yet.</p>'}<p>Words in your deck</p>${ws.map(x=>`<a class="wl" onclick="dict(${W().indexOf(x)})">${e(x.w)}</a>`).join(' ')||'<span class="mu">none yet</span>'}${la.length?`<p>Looks like</p>${la.map(x=>KJ[x]?`<a class="wl" onclick="kd('${x}')">${x}</a>`:e(x)).join(' ')}`:''}`)}
-const nlq=()=>{const r=S.nl.slice(-20);return[r.length?(r.reduce((a,b)=>a+b,0)/r.length).toFixed(2):'n/a',S.nn?(S.nt/S.nn).toFixed(2):'n/a']};
-const PT='はがをにでへとも';let bq=null;
-function bld(){const P=SN.filter(x=>x.l>=4||S.n3||S.cnt>120),q=rnd(P.length>1?P.filter(x=>!bq||x!==bq.q):P);bq={q,pool:shuffle(q.t.map((_,i)=>i)),sel:[]};bsh()}
-function bsh(){const{q,pool,sel}=bq;$('#m').innerHTML=`<div class="card"><p class="mu">Put these words in natural Japanese order ${S.hl?'':'<span class="lv">N'+q.l+'</span>'}</p><div class="mean">${e(q.en)}</div><div id="bs">${sel.map((k,j)=>`<button class="tile on" onclick="su(${j})">${e(q.t[k])}</button>`).join('')||'<span class="mu">Tap the words in order</span>'}</div><div>${pool.map(k=>`<button class="tile" ${sel.includes(k)?'disabled':''} onclick="sp(${k})">${e(q.t[k])}</button>`).join('')}</div><button class="pri" onclick="sc()">Check</button></div><div id="fb"></div>`}
-function sp(k){bq.sel.push(k);bsh()}function su(j){bq.sel.splice(j,1);bsh()}
-function sc(){const{q,sel}=bq,t=sel.map(k=>q.t[k]);if(t.length<q.t.length)return;
- const un=a=>{const u=[];a.forEach(x=>{if(PT.includes(x)&&x.length==1&&u.length)u[u.length-1]+=x;else u.push(x)});return u.sort().join('|')},n=q.t.length-q.tail,tl=q.t.slice(n).join(''),tailOk=t.slice(n).join('')==tl,
- ok=tailOk&&un(t.slice(0,n))==un(q.t.slice(0,n)),same=t.join(' ')==q.t.join(' ');let m='';
- if(!tailOk)m='In Japanese the verb (the predicate) always comes last. English says “I eat sushi” (subject, verb, object). Japanese says “I sushi eat”. Move '+tl+' to the end.';
- else if(t.some((x,i)=>PT.includes(x)&&x.length==1&&(i==0||PT.includes(t[i-1]))))m='A particle sticks right after the word it marks (寿司 を, never を 寿司). Check which word each particle belongs to.';
- else m='All the pieces are there, but a particle sits next to the wrong word. Check which word each は, が, を, に or で belongs to.';
- if(ok){S.xp+=15;save()}
- $('#fb').innerHTML=`<div class="card fb ${ok?'':'r'}"><b>${ok?'Natural Japanese, +15 XP':'Not quite'}</b><p>${ok?(same?'':'Japanese lets you move these blocks around. The usual order is: ')+(same?'':e(q.t.join(' '))):e(m)}</p>${ok?'':`<p>Correct: ${e(q.t.join(' '))}</p>`}<p class="mu" style="text-align:left">${e(q.y)}</p><button class="pri" onclick="bld()">Next sentence</button></div>`}
+ $('#m').innerHTML=`<div class="card"><b>Your learning memory</b><p>Everything the app knows about you: words you have met, how strong each memory is, your mistakes, your XP and the difficulty model. It lives only on this device until you save it.</p><p class="mu" style="text-align:left">Last backup: ${d}</p><button class="pri" onclick="exp()">Download my memory</button></div><div class="card"><b>Continue on another device</b><p>1. Download the memory here. 2. Open the app on the other device. 3. Memory tab, then Load memory from file. Progress from both devices is merged, keeping the newer record of each word.</p><label class="pri" style="display:block;text-align:center;cursor:pointer">Load memory from file<input type="file" accept=".json,application/json" hidden onchange="imp(this)"></label></div><div class="card"><b>No file option? Use text</b><textarea id="mt" placeholder="Paste memory text here to load it"></textarea><button class="sec" onclick="$('#mt').value=JSON.stringify(S)">Show memory as text</button><button class="sec" onclick="navigator.clipboard&&navigator.clipboard.writeText(JSON.stringify(S))">Copy</button><button class="sec" onclick="impt()">Load from text</button></div><div class="card"><button class="sec" onclick="rst()">Erase everything on this device</button></div>`}
 try{navigator.storage.persist()}catch(x){}
 function banner(){const b=$('#bn');if(!b)return;const old=!S.bk||Date.now()-S.bk>6048e5;
  b.innerHTML=Object.keys(S.i).length>3&&old?`<div class="card fb r"><b>Back up your progress</b><p class="mu" style="text-align:left">iPhone browsers can erase a website’s data after days or months of inactivity. Save a backup file to Files, and add this page to your Home Screen, which iOS keeps much longer.</p><button class="pri" onclick="exp()">Save backup file</button></div>`:''}
@@ -456,7 +272,7 @@ function diag(){dg={i:0,r:[]};go('p',1);dq()}
 function dq(){const q=DX[dg.i];q.p=shuffle(q.o.map((t,i)=>({t,c:i==q.a})));
  $('#m').innerHTML=`<div class="card"><p class="mu">Question ${dg.i+1} of ${DX.length}</p><p style="font-size:1.3rem;text-align:center;margin:8px 0">${e(q.q)}</p><div id="dc">${q.p.map((o,j)=>`<button class="opt" onclick="da(${j})">${e(o.t)}</button>`).join('')}<button class="opt" style="color:var(--mu)" onclick="da(-1)">I don’t know yet</button></div></div><div id="fb"></div>`}
 function da(j){const q=DX[dg.i],ok=j>=0&&q.p[j].c,id=q.w||'g'+DIAG.indexOf(q),w=W().find(x=>x.w==id);
- if(w)learn(feat(w,q.c=='g'?'gq':'jm',null),ok?1:0,w.w);dg.r.push({q,ok});
+ if(w)learn(feat(w,q.c=='g'?'gq':'jm',null),ok?1:0);dg.r.push({q,ok});
  document.querySelectorAll('#dc .opt').forEach((b,k)=>{b.disabled=true;if(q.p[k]&&q.p[k].c)b.classList.add('ok');else if(k==j)b.classList.add('bad')});
  $('#fb').innerHTML=`<div class="card fb ${ok?'':'r'}"><b>${ok?'Correct':j<0?'No problem, here is how it works':'Not quite'}</b><p>Answer: ${e(q.o[q.a])}</p><p>${e(q.y)}</p><button class="pri" onclick="dn()">${dg.i+1<DX.length?'Next':'See my result'}</button></div>`}
 function dn(){dg.i++;if(dg.i<DX.length)return dq();
