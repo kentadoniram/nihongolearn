@@ -3,9 +3,14 @@
 Version format: MAJOR.MINOR.BUILD
 - MAJOR: breaking change to saved memory or content schema
 - MINOR: new feature
-- BUILD: year followed by a 3-digit release number within that year (2026106 = release 106 of 2026)
+- BUILD: release date as YYYYMMDD (a second release on the same day adds a letter, for example 20261106b). Releases before v1.5.20261106 used a running number instead.
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
+
+## v1.5.20261106 (2026-11-06)
+- Fix: Lab now picks activities with the forgetting model, Thompson sampling and the difficulty regression, shuffles answer options and avoids repeats; it also generates word-decoding puzzles from the data
+- Content 1.3.0: first large N4 batch (95 words, 95 kanji)
+- Release zips are named with the version
 
 ## v1.5.2026109 (2026-11-06)
 - Kanji details are now tooltips (tap a kanji); settings choose what they show
