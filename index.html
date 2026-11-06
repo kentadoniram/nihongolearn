@@ -65,17 +65,20 @@ nav button.on{background:color-mix(in srgb,var(--ink) 14%,var(--card));color:var
 .q-jm{border-top:4px solid var(--ink)}.q-mj,.q-gq{border-top:4px solid #6a4fb3}.q-jr,.q-oo{border-top:4px solid #2a8f8a}.q-tr,.q-bt{border-top:4px solid #c27a1a}
 .blks{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.blk{padding:6px 10px;border-radius:6px;background:var(--bg);border:1px solid var(--bd)}.blk.v{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .pat{cursor:pointer}
+#tip{position:fixed;z-index:6;max-width:250px;background:var(--card);border:1px solid var(--ink);border-radius:8px;padding:8px 10px;box-shadow:0 4px 16px rgba(0,0,0,.25);font-size:.9rem}#tip[hidden]{display:none}.tg{font:600 1.5rem "Hiragino Mincho ProN","Noto Serif JP",serif}
+.st{cursor:pointer}.tm{height:4px;margin:12px 0 0}.tm i{background:var(--ink);animation:shr 3.5s linear forwards}@keyframes shr{from{width:100%}to{width:0}}
 </style></head><body><div class="w">
 <header><h1>日本語 Lab</h1><nav><button data-v="p" onclick="go('p')">Play</button><button data-v="b" onclick="go('b')">Build</button><button data-v="l" onclick="go('l')">Lab</button><button data-v="g" onclick="go('g')">Progress</button><button data-v="m" onclick="go('m')">Memory</button></nav></header>
 <div id="bn"></div><div id="st"></div><main id="m"></main>
 </div>
 <div id="dv" hidden></div>
+<div id="tip" role="tooltip" hidden></div>
 <script>
 let V=[],DIAG=[],KJ={},SN=[],LAB=[],SIM=[],GI=[],DX=[],PK=[],FM=[];const VER={app:'?',content:'?'};
 const $=s=>document.querySelector(s),e=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const KEY='nihongoLab1',K=/[\u4e00-\u9fff]/;
 let S;try{S=JSON.parse(localStorage.getItem(KEY))}catch(x){}
-S=S||{};S.i=S.i||{};S.lab=S.lab||{};S.custom=S.custom||[];S.rec=S.rec||[];S.bq=S.bq||[];S.cnt=S.cnt||0;S.xp=S.xp||0;S.beta=S.beta||{};S.cp=S.cp||[];if(S.aa===undefined)S.aa=true;S.nl=S.nl||[];S.nt=S.nt||0;S.nn=S.nn||0;
+S=S||{};S.i=S.i||{};S.lab=S.lab||{};S.custom=S.custom||[];S.rec=S.rec||[];S.bq=S.bq||[];S.cnt=S.cnt||0;S.xp=S.xp||0;S.beta=S.beta||{};S.cp=S.cp||[];if(S.aa===undefined)S.aa=true;if(!S.tf)S.tf={r:1,m:1,p:0,l:1,w:0,s:0};S.nl=S.nl||[];S.nt=S.nt||0;S.nn=S.nn||0;
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(x){}};
 const W=()=>V.concat(S.custom,GI),rnd=a=>a[Math.random()*a.length|0],shuffle=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
 const hira=s=>s.replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-96));
@@ -125,7 +128,10 @@ function practice(fn){banner();strip();const m=$('#m');
  if(!p){m.innerHTML='<div class="card"><p>You have met every word. Add more in Progress with Import.</p></div>';return}
  if(p.intro)return meet(W().indexOf(p.w));
  cur=build(p.w);show()}
-function meet(i){const w=W()[i],p=pr(feat(w,w.g?'gq':'jm',null),w.w);S.i[w.w]={s:.5,d:Math.min(9,Math.max(2,10*(1-p))),t:Date.now(),f:Date.now(),n:0,l:0,x:{}};save();cur=build(w,w.g?undefined:'mj');cur.fresh=!w.g;show()}
+function meet(i){const w=W()[i],p=pr(feat(w,w.g?'gq':'jm',null),w.w);S.i[w.w]={s:.5,d:Math.min(9,Math.max(2,10*(1-p))),t:Date.now(),f:Date.now(),n:0,l:0,x:{}};save();
+ if(w.g){cur=build(w);show();return}
+ const c=cur={w,study:1},x=exOf(w);$('#m').innerHTML=`<div class="card nw st" onclick="goq()"><p class="mu">New word. Look closely, it will be hidden.</p><div class="big">${ruby(w,1)}</div><p class="mean">${e(w.m)} ${lvb(w)}</p>${x?`<p class="mu">${e(x[0])}</p>`:''}<div class="rb tm"><i></i></div></div>`;c.tm=setTimeout(()=>goq(c),3500)}
+function goq(c){c=c||cur;if(!c||!c.study||cur!==c)return;clearTimeout(c.tm);if(!$('nav .on')||$('nav .on').dataset.v!='p')return;cur=build(c.w,'mj');show()}
 function opts(w,key){const it=S.i[w.w],c=W().filter(x=>!x.g&&(x.l>=4||S.i[x.w]||S.n3||w.l==3)&&x.w!==w.w&&x[key]!==w[key]&&(key!='r'||K.test(x.w)));
  const wt=x=>1+Math.pow(sim(w,x),2)+((it.x&&it.x[x.w])||0)*6,out=[];
  while(out.length<3&&c.length){let r=Math.random()*c.reduce((a,x)=>a+wt(x),0),i=0;for(;i<c.length-1;i++){r-=wt(c[i]);if(r<=0)break}out.push(c.splice(i,1)[0])}
@@ -181,15 +187,16 @@ function bshow(){const c=cur;$('#bs').innerHTML=c.sel.map((k,i)=>`<button class=
 function bp(k){cur.sel.push(k);bshow()}function bu(i){cur.sel.splice(i,1);bshow()}
 function mem(){const d=S.bk?new Date(S.bk).toLocaleDateString():'never',pk=PK.concat(S.cp),ck=(k,t)=>`<p><label><input type="checkbox" ${S[k]?'checked':''} onchange="S.${k}=this.checked;save()"> ${t}</label></p>`;
  $('#m').innerHTML=`<details class="card" open><summary>Backup and transfer</summary><p class="mu" style="text-align:left">Last backup: ${d}. Memory means your progress, mistakes, XP and difficulty model.</p><button class="pri" onclick="exp()">Download my memory</button><label class="pri" style="display:block;text-align:center;cursor:pointer">Load memory from file<input type="file" accept=".json,application/json" hidden onchange="imp(this)"></label><details><summary class="mu">Use text instead</summary><textarea id="mt" placeholder="Paste memory text here"></textarea><button class="sec" onclick="$('#mt').value=JSON.stringify(S)">Show as text</button><button class="sec" onclick="navigator.clipboard&&navigator.clipboard.writeText(JSON.stringify(S))">Copy</button><button class="sec" onclick="impt()">Load from text</button></details></details>
-<details class="card"><summary>Display</summary>${ck('hl','Hide JLPT level labels')}</details>
+<details class="card"><summary>Display</summary>${ck('hl','Hide JLPT level labels')}<p class="mu" style="text-align:left;margin:8px 0 2px">Kanji tooltip shows</p>${[['r','Readings'],['m','Meaning'],['p','Part of speech of the word'],['l','JLPT level'],['w','Example words'],['s','Look-alike kanji']].map(([k,t])=>`<p style="margin:4px 0"><label><input type="checkbox" ${S.tf[k]?'checked':''} onchange="S.tf.${k}=this.checked;save()"> ${t}</label></p>`).join('')}<button class="sec" onclick="S.tf={r:1,m:0,p:0,l:0,w:0,s:0};save();mem()">Reading only</button><button class="sec" onclick="S.tf={r:1,m:1,p:0,l:1,w:0,s:0};save();mem()">Reading + meaning</button><button class="sec" onclick="S.tf={r:1,m:1,p:1,l:1,w:0,s:0};save();mem()">+ part of speech</button><button class="sec" onclick="S.tf={r:1,m:1,p:1,l:1,w:1,s:1};save();mem()">Everything</button></details>
 <details class="card"><summary>Learning</summary>${ck('aa','Move on automatically after a correct answer')}${ck('n3','Open N3 content now')}<p class="mu" style="text-align:left">Otherwise N3 opens once most N5 and N4 words are met.</p></details>
 <details class="card"><summary>Content</summary><p class="mu" style="text-align:left">${V.length} words, ${Object.keys(KJ).length} kanji, ${SN.length} sentences, ${GI.length} grammar items. Lessons load from the data folder, and you can add a content pack here.</p>${pk.map(p=>`<div class="mu">${e(p.pack||p.title||'pack')}${p.level?' (N'+p.level+')':''}</div>`).join('')}<label class="sec" style="cursor:pointer">Import content pack<input type="file" accept=".json" hidden onchange="imp(this)"></label></details>
 <details class="card"><summary>Advanced</summary><button class="sec" onclick="rst()">Erase everything on this device</button></details>
 <details class="card"><summary>About</summary><p>Nihongo Lab v${e(VER.app)}</p><p class="mu" style="text-align:left">Lesson data ${e(VER.content)}. Version format is MAJOR.MINOR.BUILD.</p></details>`}
 // Content comes from data/*.json packs (see data/SCHEMA.md) plus any packs imported by the user.
+const rows=t=>Array.isArray(t)?t:(t.rows||[]).map(r=>Object.fromEntries(t.cols.map((c,i)=>[c,r[i]])));
 function applyPacks(ps){V=[];DIAG=[];KJ={};SN=[];LAB=[];SIM=[];FM=[];const seen=new Set();
- ps.forEach(p=>{const L=+p.level||5;(p.words||[]).forEach(w=>{if(w.w&&w.r&&w.m&&!seen.has(w.w)){seen.add(w.w);V.push({w:w.w,r:w.r,m:w.m,l:+w.l||L,e:w.e})}});
-  (p.kanji||[]).forEach(k=>{KJ[k.k]={m:k.m,on:k.on,kun:k.kun,l:+k.l||L}});(p.questions||[]).forEach(q=>DIAG.push(q));
+ ps.forEach(p=>{const L=+p.level||5;rows(p.words||[]).forEach(w=>{if(w.w&&w.r&&w.m&&!seen.has(w.w)){seen.add(w.w);V.push({w:w.w,r:w.r,m:w.m,l:+w.l||L,e:w.e||undefined,p:w.p||undefined})}});
+  rows(p.kanji||[]).forEach(k=>{KJ[k.k]={m:k.m,on:k.on,kun:k.kun,l:+k.l||L}});(p.questions||[]).forEach(q=>DIAG.push(q));
   (p.sentences||[]).forEach(x=>SN.push({en:x.en,t:x.t,tail:+x.tail||1,y:x.y,l:+x.l||L,f:x.f}));
   (p.patterns||[]).concat(p.reading||[]).forEach(u=>LAB.push({...u,ex:u.ex||[],l:u.l||L}));(p.lookalike||[]).forEach(g=>SIM.push(g));(p.forms||[]).forEach(f=>FM.push({...f,l:+f.l||L}))});
  GI=DIAG.filter(q=>q.c=='g'&&q.id).map(q=>({w:q.id,g:1,l:q.l,q:q.q,o:q.o,a:q.a,y:q.y}));DX=DIAG.filter(q=>!q.x)}
@@ -202,8 +209,8 @@ function romaji(r){r=hira(r);let o='';for(let i=0;i<r.length;i++){const c=r[i],n
  if(c=='っ'){const nx=RM[n]||'';o+=nx.startsWith('ch')?'t':nx[0]||'';continue}
  if(c=='ー'){o+=o.slice(-1);continue}
  let b=RM[c]||c;if(n&&'ゃゅょ'.includes(n)){b=(b=='shi'?'sh':b=='chi'?'ch':b=='ji'?'j':b.slice(0,-1)+'y')+{ゃ:'a',ゅ:'u',ょ:'o'}[n];i++}o+=b}return o}
-const kc=c=>K.test(c)&&KJ[c]?`<span class="kj" onclick="kd('${c}')">${c}</span>`:e(c);
-const lk=w=>`<a class="wl" onclick="dict(${W().indexOf(w)})">${[...w.w].map(c=>K.test(c)&&KJ[c]?`<span class="kj" onclick="event.stopPropagation();kd('${c}')">${c}</span>`:e(c)).join('')}</a>`;
+const kc=c=>K.test(c)&&KJ[c]?`<span class="kj" tabindex="0" data-k="${c}">${c}</span>`:e(c);
+const lk=w=>`<a class="wl" onclick="dict(${W().indexOf(w)})">${[...w.w].map(c=>K.test(c)&&KJ[c]?`<span class="kj" tabindex="0" data-k="${c}" data-w="${W().indexOf(w)}">${c}</span>`:e(c)).join('')}</a>`;
 const lvb=w=>S.hl||!w.l?'':`<span class="lv">N${w.l}</span>`,exOf=w=>w.e,exLine=w=>{const x=exOf(w);return x?`<span class="mu">Correct usage: ${e(x[0])} (${e(x[1])})</span>`:''};
 function why(w,x){const A=[...x.w].filter(c=>K.test(c)),B=[...w.w].filter(c=>K.test(c)),lkp=[];A.forEach(a=>B.forEach(b=>{if(a!=b&&look(a,b))lkp.push([a,b])}));let r;
  if(lkp.length)r=`${lkp[0][0]} and ${lkp[0][1]} look alike, so they are easy to swap. ${e(x.w)} means “${e(x.m)}”, while ${e(w.w)} means “${e(w.m)}”.`;
@@ -214,9 +221,9 @@ function why(w,x){const A=[...x.w].filter(c=>K.test(c)),B=[...w.w].filter(c=>K.t
 const tyWhy=(w,v)=>`You wrote ${e(v||'nothing')}. The reading is ${e(w.r)} (${romaji(w.r)}). Long vowels (ou, ei) and the small っ pause are the usual traps.<br>${exLine(w)}`;
 function dv(h){const d=$('#dv');d.innerHTML=`<div class="w"><button class="sec" onclick="$('#dv').hidden=true">Close</button>${h}</div>`;d.hidden=false;d.scrollTop=0}
 function dict(i){const w=W()[i];if(!w||w.g)return;const ex=exOf(w),it=S.i[w.w],ks=[...new Set([...w.w].filter(c=>K.test(c)))],rel=W().filter(x=>!x.g&&x!==w&&ks.some(c=>x.w.includes(c))).slice(0,8),la=[...new Set(ks.flatMap(c=>SIM.filter(g=>g.includes(c)).join('').split('')))].filter(x=>!ks.includes(x));
- dv(`<div class="big">${ruby(w,1)}</div><p class="mean">${e(w.m)} ${lvb(w)}</p><p class="mu">Reading ${e(w.r)} (${romaji(w.r)}). Audio comes later.</p>${ex?`<div class="card"><b>Example</b><p>${[...ex[0]].map(kc).join('')}</p><p class="mu" style="text-align:left">${e(ex[1])}</p></div>`:''}${ks.length?`<p>Kanji</p>${ks.map(c=>`<a class="wl" onclick="kd('${c}')">${c}</a>`).join(' ')}`:''}${rel.length?`<p>Related words</p>${rel.map(x=>`<a class="wl" onclick="dict(${W().indexOf(x)})">${e(x.w)}</a>`).join(' ')}`:''}${la.length?`<p>Look-alike kanji</p>${la.map(x=>KJ[x]?`<a class="wl" onclick="kd('${x}')">${x}</a>`:e(x)).join(' ')}`:''}${it?`<p class="mu" style="text-align:left">Your memory of this word: ${Math.round(ret(it,Date.now())*100)}%, seen ${it.n} times, missed ${it.l}.</p>`:''}`)}
+ dv(`<div class="big">${ruby(w,1)}</div><p class="mean">${e(w.m)} ${lvb(w)}</p><p class="mu">Reading ${e(w.r)} (${romaji(w.r)}). Audio comes later.</p>${ex?`<div class="card"><b>Example</b><p>${[...ex[0]].map(kc).join('')}</p><p class="mu" style="text-align:left">${e(ex[1])}</p></div>`:''}${ks.length?`<p>Kanji</p>${ks.map(c=>`<span class="kj" tabindex="0" data-k="${c}" data-w="${i}">${c}</span>`).join(' ')}`:''}${rel.length?`<p>Related words</p>${rel.map(x=>`<a class="wl" onclick="dict(${W().indexOf(x)})">${e(x.w)}</a>`).join(' ')}`:''}${la.length?`<p>Look-alike kanji</p>${la.map(x=>kc(x)).join(' ')}`:''}${it?`<p class="mu" style="text-align:left">Your memory of this word: ${Math.round(ret(it,Date.now())*100)}%, seen ${it.n} times, missed ${it.l}.</p>`:''}`)}
 function kd(c){const k=KJ[c],ws=W().filter(x=>!x.g&&x.w.includes(c)),la=[...new Set(SIM.filter(g=>g.includes(c)).join('').split(''))].filter(x=>x!=c);
- dv(`<div class="big">${c}</div>${k?`<p class="mean">${e(k.m)} ${S.hl?'':'<span class="lv">N'+k.l+'</span>'}</p><p class="mu">On: ${e(k.on)}. Kun: ${e(k.kun)}.</p>`:'<p class="mu">No detailed entry yet.</p>'}<p>Words in your deck</p>${ws.map(x=>`<a class="wl" onclick="dict(${W().indexOf(x)})">${e(x.w)}</a>`).join(' ')||'<span class="mu">none yet</span>'}${la.length?`<p>Looks like</p>${la.map(x=>KJ[x]?`<a class="wl" onclick="kd('${x}')">${x}</a>`:e(x)).join(' ')}`:''}`)}
+ dv(`<div class="big">${c}</div>${k?`<p class="mean">${e(k.m)} ${S.hl?'':'<span class="lv">N'+k.l+'</span>'}</p><p class="mu">On: ${e(k.on)}. Kun: ${e(k.kun)}.</p>`:'<p class="mu">No detailed entry yet.</p>'}<p>Words in your deck</p>${ws.map(x=>`<a class="wl" onclick="dict(${W().indexOf(x)})">${e(x.w)}</a>`).join(' ')||'<span class="mu">none yet</span>'}${la.length?`<p>Looks like</p>${la.map(x=>kc(x)).join(' ')}`:''}`)}
 const nlq=()=>{const r=S.nl.slice(-20);return[r.length?(r.reduce((a,b)=>a+b,0)/r.length).toFixed(2):'n/a',S.nn?(S.nt/S.nn).toFixed(2):'n/a']};
 const PT='はがをにでへとも';let bq=null;
 const fm=id=>FM.find(f=>f.id==id),open3=x=>x.l>=4||S.n3||S.cnt>120;
@@ -238,6 +245,20 @@ function sc(){const{q,sel}=bq,t=sel.map(k=>q.t[k]),f=fm(q.f);if(t.length<q.t.len
  if(ok){S.xp+=15;S.pf=S.pf||{};S.pf[q.f]=(S.pf[q.f]||0)+1;save()}
  $('#fb').innerHTML=`<div class="card fb ${ok?'':'r'}"><b>${ok?'✓ Natural Japanese, +15 XP':'✗ Not quite'}</b><p>${ok?(same?'':'Japanese lets you move these blocks around. The usual order is: '+e(q.t.join(' '))):e(m)}</p>${ok?'':`<p>Correct: ${e(q.t.join(' '))}</p>`}${!ok&&f?`<div class="blks">${blk(f)}</div>`:''}<p class="mu" style="text-align:left">${e(q.y||(f&&f.note)||'')}</p><button class="pri" onclick="bld()">Next sentence</button></div>`;
  if(ok&&S.aa!==false){const b0=bq;setTimeout(()=>{if(bq===b0&&$('nav .on')&&$('nav .on').dataset.v=='b')bld()},2400)}}
+const posOf=w=>w.p||(/^to /.test(w.m)?'verb':/い$/.test(w.w)&&/い$/.test(w.r)&&K.test(w.w)?'i-adjective':/^[ァ-ヶー]+$/.test(w.w)?'noun (loanword)':'noun');
+function tipHTML(c,wi){const k=KJ[c],w=wi==null||isNaN(wi)?null:W()[wi],f=S.tf,o=[];if(!k)return`<b class="tg">${c}</b><div class="mu">No entry yet</div>`;
+ const ws=W().filter(x=>!x.g&&x.w.includes(c)).slice(0,4),la=[...new Set(SIM.filter(g=>g.includes(c)).join('').split(''))].filter(x=>x!=c);
+ o.push(`<b class="tg">${c}</b>${f.l&&!S.hl?` <span class="lv">N${k.l}</span>`:''}`);
+ if(f.r)o.push(`<div>On ${e(k.on)}<br>Kun ${e(k.kun)}</div>`);if(f.m)o.push(`<div>${e(k.m)}</div>`);
+ if(f.p&&w)o.push(`<div class="mu">${e(w.w)}: ${posOf(w)}</div>`);
+ if(f.w&&ws.length)o.push(`<div class="mu">${ws.map(x=>e(x.w)).join(' ')}</div>`);
+ if(f.s&&la.length)o.push(`<div class="mu">Looks like ${la.map(e).join(' ')}</div>`);
+ return o.join('')}
+function showTip(el){const t=$('#tip');t.innerHTML=tipHTML(el.dataset.k,el.dataset.w==null?null:+el.dataset.w);t.hidden=false;
+ const r=el.getBoundingClientRect(),h=t.offsetHeight,w=t.offsetWidth;t.style.left=Math.max(8,Math.min(innerWidth-w-8,r.left+r.width/2-w/2))+'px';t.style.top=(r.bottom+h+12>innerHeight?Math.max(8,r.top-h-8):r.bottom+8)+'px'}
+if(document.addEventListener){document.addEventListener('click',ev=>{const t=ev.target,k=t.closest&&t.closest('.kj');if(t.closest&&t.closest('#tip'))return;if(k){ev.stopPropagation();ev.preventDefault();showTip(k)}else $('#tip').hidden=true},true);
+ document.addEventListener('keydown',ev=>{if(ev.key=='Escape')$('#tip').hidden=true;else if(ev.key=='Enter'&&ev.target.classList&&ev.target.classList.contains('kj'))showTip(ev.target)});
+ document.addEventListener('scroll',()=>{$('#tip').hidden=true},true)}
 try{navigator.storage.persist()}catch(x){}
 function banner(){const b=$('#bn');if(!b)return;const old=!S.bk||Date.now()-S.bk>6048e5,sn=S.bs&&Date.now()-S.bs<864e5;
  b.innerHTML=Object.keys(S.i).length>3&&old&&!sn?`<div class="bn"><span>${S.bk?'Backup is over a week old':'No backup yet'}</span><button class="mini" onclick="exp()">Save</button><button class="mini" aria-label="Dismiss" onclick="S.bs=Date.now();save();banner()">×</button></div>`:''}

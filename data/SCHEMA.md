@@ -3,8 +3,8 @@
 List each pack file in `data/content.json` (`packs`). Every key below is optional. Ids must stay stable once published, because progress is saved against them.
 
 - `pack` (name), `level` (default JLPT level 5, 4, 3, 2 or 1), `title`
-- `words`: `{w, r, m, l?, e?: [japanese, english]}`. The word `w` is its id.
-- `kanji`: `{k, m, on, kun, l?}`
+- `words`: objects `{w, r, m, l?, p?, e?: [japanese, english]}` or a compact table `{cols: ["w","r","m","p","e"], rows: [[...]]}`. The word `w` is its id. `p` (part of speech) is optional: verbs, い-adjectives, loanwords and nouns are detected automatically, so only set `p` for things like na-adjective or noun (suru).
+- `kanji`: objects `{k, m, on, kun, l?}` or a table with cols `["k","m","on","kun"]`. Which kanji appear in which words is computed, never listed by hand.
 - `questions`: `{c: "v"|"k"|"r"|"g", l, q, o: [options], a: index of the right option, y: explanation, w?: word id, id?: required for c "g", x?: 1 to keep out of the diagnostic}`
 - `sentences`: `{en, t: [tokens], tail: number of final tokens that stay fixed, y?, l?, f?: pattern id}`
 - `forms` (sentence patterns): `{id, l, name, blocks: [labels], note, trap, ex: [[jp, en]]}`
