@@ -7,6 +7,12 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.9.20261107b
+- Everyday-use tiers (1 very common to 5 rare or specialised) rank new words; a Rare words slider (0 to 40%) mixes rare words in between
+- Word relation graph (synonyms, antonyms, gradable antonyms, transitive/intransitive pairs) shown in the dictionary
+- Lab gains Meaning questions: same idea with synonyms or antonyms, and sentences with different structure but the same meaning (comparison swap, negated antonym, time word fronting, polite and plain forms, ので and だから)
+- Content 1.6.0
+
 ## v1.8.20261107
 - New Today screen: one Start button runs a mixed 10-activity session across Play, Lab, typing and Build; shows Zipf-weighted coverage, a daily goal from a Poisson model, a 14-day Monte Carlo forecast and the most worthwhile next words
 - Word order now uses frequency value divided by study cost (greedy knapsack, unknown kanji add cost)

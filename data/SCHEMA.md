@@ -17,3 +17,6 @@ To add N2, create `data/n2.json` and append it to `packs` in the manifest.
 - `gen`: `{subj, tm, cues, frames: table, reads: [templates]}`. A reading template has `t` with {slot} markers, `slots` (lists of values), `qs` (question, English hint, explanation, each tied to a slot) and optional `tr: "work"`. Wrong options come from the other values of the asked slot.
 
 - Optional word columns: `fr` (frequency rank, lower is more common; used for Zipf ordering when present). A pack with `"autolevel": true` assigns a level to words that have none, using the n-gram classifiers.
+
+- `freq`: `{"1": "word,word,...", "2": ..., "4": ..., "5": ...}`: everyday-use tiers (3 is the default). The order inside a tier is the order of commonness.
+- `rel`: table with cols `["a","b","t"]`; `t` is `s` synonym, `a` antonym, `g` gradable antonym, `p` transitive/intransitive pair. `grad`: `[adjective, opposite, "nouns that suit both"]`. `bec`: `[cause noun, effect clause]` for ので and だから paraphrases. Frames in `gen` may carry a `dc` (dictionary form) column.

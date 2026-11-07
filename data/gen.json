@@ -102,7 +102,8 @@
     "e3",
     "e2",
     "y",
-    "f"
+    "f",
+    "dc"
    ],
    "rows": [
     [
@@ -118,7 +119,8 @@
      "goes to school",
      "went to school",
      "に marks the destination of 行く.",
-     "ni"
+     "ni",
+     "行く"
     ],
     [
      "図書館",
@@ -133,7 +135,8 @@
      "studies at the library",
      "studied at the library",
      "で marks the place where an action happens.",
-     "de"
+     "de",
+     "勉強する"
     ],
     [
      "パン",
@@ -148,7 +151,8 @@
      "eats bread",
      "ate bread",
      "を marks the thing that is eaten.",
-     "wo"
+     "wo",
+     "食べる"
     ],
     [
      "友達",
@@ -163,7 +167,8 @@
      "meets a friend",
      "met a friend",
      "に marks the person you meet.",
-     "ni"
+     "ni",
+     "会う"
     ],
     [
      "電車",
@@ -178,7 +183,8 @@
      "goes by train",
      "went by train",
      "で marks the means of transport.",
-     "de"
+     "de",
+     "行く"
     ],
     [
      "水",
@@ -193,7 +199,8 @@
      "drinks water",
      "drank water",
      "を marks the thing that is drunk.",
-     "wo"
+     "wo",
+     "飲む"
     ],
     [
      "窓",
@@ -208,7 +215,8 @@
      "opens the window",
      "opened the window",
      "を marks the thing someone opens (the transitive verb 開ける).",
-     "wo"
+     "wo",
+     "開ける"
     ],
     [
      "本",
@@ -223,7 +231,8 @@
      "reads a book",
      "read a book",
      "を marks the thing that is read.",
-     "wo"
+     "wo",
+     "読む"
     ],
     [
      "手紙",
@@ -238,7 +247,8 @@
      "writes a letter",
      "wrote a letter",
      "を marks the thing that is written.",
-     "wo"
+     "wo",
+     "書く"
     ],
     [
      "テレビ",
@@ -253,7 +263,8 @@
      "watches TV",
      "watched TV",
      "を marks the thing you watch.",
-     "wo"
+     "wo",
+     "見る"
     ],
     [
      "音楽",
@@ -268,7 +279,8 @@
      "listens to music",
      "listened to music",
      "を marks what you listen to.",
-     "wo"
+     "wo",
+     "聞く"
     ],
     [
      "駅",
@@ -283,7 +295,8 @@
      "waits at the station",
      "waited at the station",
      "で marks where the waiting happens.",
-     "de"
+     "de",
+     "待つ"
     ],
     [
      "部屋",
@@ -298,7 +311,8 @@
      "enters the room",
      "entered the room",
      "に marks the place you enter.",
-     "ni"
+     "ni",
+     "入る"
     ],
     [
      "会社",
@@ -313,7 +327,8 @@
      "goes to the office",
      "went to the office",
      "に marks the destination of 行く.",
-     "ni"
+     "ni",
+     "行く"
     ]
    ]
   },
