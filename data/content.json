@@ -1,1 +1,1 @@
-{"schema": 1, "contentVersion": "1.6.0", "packs": ["n5.json", "n4.json", "n4b.json", "n3.json", "work.json", "translate.json", "gen.json", "semantics.json", "freq.json"]}
+{"schema": 1, "contentVersion": "1.7.0", "packs": ["n5.json", "n4.json", "n4b.json", "n3.json", "work.json", "translate.json", "gen.json", "semantics.json", "freq.json"]}

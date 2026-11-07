@@ -20,3 +20,5 @@ To add N2, create `data/n2.json` and append it to `packs` in the manifest.
 
 - `freq`: `{"1": "word,word,...", "2": ..., "4": ..., "5": ...}`: everyday-use tiers (3 is the default). The order inside a tier is the order of commonness.
 - `rel`: table with cols `["a","b","t"]`; `t` is `s` synonym, `a` antonym, `g` gradable antonym, `p` transitive/intransitive pair. `grad`: `[adjective, opposite, "nouns that suit both"]`. `bec`: `[cause noun, effect clause]` for ので and だから paraphrases. Frames in `gen` may carry a `dc` (dictionary form) column.
+
+- `rel` rows may carry a fourth column `n`: a usage note shown when a learner uses that word instead of the target (register, nuance).

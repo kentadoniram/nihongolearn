@@ -7,6 +7,15 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.10.20261107c
+- Behaviour log: engaged time versus idle time (pauses over 20 s are not counted as thinking), robust z-score outliers (slow, fast, long pause), recorded per question type
+- Context of slow questions is kept (words, options, picked answer, sentence) and aggregated into slow-prone keys
+- Skip button in Play, Lab, typing and Build; skips are stored apart from mistakes
+- Sentence building is recorded: first full arrangement versus final, removals, drafts, deletions, revisions; patterns where you start with English order appear more often
+- Typing evaluator: word-relation graph with shortest-path distance accepts valid variations (確認 or チェック), partial credit with a percentage, particle explanations (が versus を and others), long-vowel and katakana normalisation
+- Learning data card in Memory with size, and Download learning log only; all logs merge on import
+- Content 1.7.0: 17 workplace and everyday words, 29 more relations with usage notes
+
 ## v1.9.20261107b
 - Everyday-use tiers (1 very common to 5 rare or specialised) rank new words; a Rare words slider (0 to 40%) mixes rare words in between
 - Word relation graph (synonyms, antonyms, gradable antonyms, transitive/intransitive pairs) shown in the dictionary
