@@ -13,3 +13,7 @@ List each pack file in `data/content.json` (`packs`). Every key below is optiona
 - `lookalike`: groups of look-alike kanji such as "大太犬天"
 
 To add N2, create `data/n2.json` and append it to `packs` in the manifest.
+
+- `gen`: `{subj, tm, cues, frames: table, reads: [templates]}`. A reading template has `t` with {slot} markers, `slots` (lists of values), `qs` (question, English hint, explanation, each tied to a slot) and optional `tr: "work"`. Wrong options come from the other values of the asked slot.
+
+- Optional word columns: `fr` (frequency rank, lower is more common; used for Zipf ordering when present). A pack with `"autolevel": true` assigns a level to words that have none, using the n-gram classifiers.

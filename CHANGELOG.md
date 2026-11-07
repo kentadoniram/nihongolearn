@@ -7,6 +7,24 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.8.20261107
+- New Today screen: one Start button runs a mixed 10-activity session across Play, Lab, typing and Build; shows Zipf-weighted coverage, a daily goal from a Poisson model, a 14-day Monte Carlo forecast and the most worthwhile next words
+- Word order now uses frequency value divided by study cost (greedy knapsack, unknown kanji add cost)
+- Naive Bayes and softmax level classifiers on character n-grams (used for imported words without a level)
+- Response times get a robust z-score (median and MAD): fast wrong answers are treated as slips, slow right answers as weaker memories
+- Softer card, button and type styling
+
+## v1.7.20261106c (2026-11-06)
+- Generators: sentence frames now feed Build, typing and Lab with unlimited unique sentences; Lab gains particle and tense questions
+- 9 reading templates (N5 to N3, one for work) that fill slots, giving thousands of distinct passages with 2 to 4 questions each; Lab filter chips (All, Reading, Grammar, Words)
+- Generated questions are fingerprinted so none repeats
+
+## v1.6.20261106b (2026-11-06)
+- Build: type the Japanese for an English sentence (romaji, hiragana or kanji) with explanations of tense, word order and particles
+- Play: tap the right edge for next and the left edge for previous (arrow keys on a keyboard)
+- Distractors use a Dirichlet-smoothed confusion model; the difficulty model is calibrated and shows a calibration table; questions are fingerprinted so exact repeats are avoided
+- Content 1.4.0: work vocabulary pack (plant engineering), N4 pack 2, typing exercises
+
 ## v1.5.20261106 (2026-11-06)
 - Fix: Lab now picks activities with the forgetting model, Thompson sampling and the difficulty regression, shuffles answer options and avoids repeats; it also generates word-decoding puzzles from the data
 - Content 1.3.0: first large N4 batch (95 words, 95 kanji)

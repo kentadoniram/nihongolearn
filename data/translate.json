@@ -1,0 +1,24 @@
+{
+ "schema": 1,
+ "pack": "translate-1",
+ "level": 5,
+ "title": "Translate",
+ "translate": {"cols": ["en", "t", "r", "l", "f", "k"],
+  "rows": [
+   ["I read a book.", "私 は 本 を 読みます", "わたし は ほん を よみます", 5, "wo", "read"],
+   ["I read a book yesterday.", "私 は 昨日 本 を 読みました", "わたし は きのう ほん を よみました", 5, "wo", "read"],
+   ["I did not read the book.", "私 は 本 を 読みませんでした", "わたし は ほん を よみませんでした", 5, "wo", "read"],
+   ["I am reading a book.", "私 は 本 を 読んで います", "わたし は ほん を よんで います", 4, "teimasu", "read"],
+   ["I want to read a book.", "私 は 本 が 読みたいです", "わたし は ほん が よみたいです", 4, "tai", "read"],
+   ["Please read the book.", "本 を 読んで ください", "ほん を よんで ください", 4, "tekudasai", "read"],
+   ["I go to the station.", "私 は 駅 に 行きます", "わたし は えき に いきます", 5, "ni", "station"],
+   ["I went to the station.", "私 は 駅 に 行きました", "わたし は えき に いきました", 5, "ni", "station"],
+   ["I will not go to the station.", "私 は 駅 に 行きません", "わたし は えき に いきません", 5, "ni", "station"],
+   ["I want to go to the station.", "私 は 駅 に 行きたいです", "わたし は えき に いきたいです", 4, "tai", "station"],
+   ["Please go to the station.", "駅 に 行って ください", "えき に いって ください", 4, "tekudasai", "station"],
+   ["I check the drawing.", "私 は 図面 を 確認 します", "わたし は ずめん を かくにん します", 4, "wo", "drawing"],
+   ["I checked the drawing.", "私 は 図面 を 確認 しました", "わたし は ずめん を かくにん しました", 4, "wo", "drawing"],
+   ["Please check the drawing.", "図面 を 確認 して ください", "ずめん を かくにん して ください", 4, "tekudasai", "drawing"],
+   ["I am checking the drawing.", "私 は 図面 を 確認 して います", "わたし は ずめん を かくにん して います", 4, "teimasu", "drawing"]
+  ]}
+}

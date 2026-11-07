@@ -1,0 +1,767 @@
+{
+ "schema": 1,
+ "pack": "generators-1",
+ "level": 5,
+ "title": "Sentence and reading generators",
+ "gen": {
+  "subj": [
+   {
+    "j": "私",
+    "r": "わたし",
+    "e": "I"
+   },
+   {
+    "j": "父",
+    "r": "ちち",
+    "e": "My father"
+   },
+   {
+    "j": "母",
+    "r": "はは",
+    "e": "My mother"
+   },
+   {
+    "j": "兄",
+    "r": "あに",
+    "e": "My older brother"
+   },
+   {
+    "j": "姉",
+    "r": "あね",
+    "e": "My older sister"
+   },
+   {
+    "j": "友達",
+    "r": "ともだち",
+    "e": "My friend"
+   }
+  ],
+  "tm": [
+   {
+    "j": "毎日",
+    "r": "まいにち",
+    "e": "every day",
+    "t": 0
+   },
+   {
+    "j": "昨日",
+    "r": "きのう",
+    "e": "yesterday",
+    "t": 1
+   },
+   {
+    "j": "明日",
+    "r": "あした",
+    "e": "tomorrow",
+    "t": 2
+   }
+  ],
+  "cues": [
+   {
+    "j": "昨日",
+    "n": "the past",
+    "a": "ました",
+    "d": [
+     "ます",
+     "ません",
+     "ています"
+    ]
+   },
+   {
+    "j": "来週",
+    "n": "the future",
+    "a": "ます",
+    "d": [
+     "ました",
+     "ませんでした",
+     "ていました"
+    ]
+   },
+   {
+    "j": "今",
+    "n": "something happening now",
+    "a": "ています",
+    "d": [
+     "ました",
+     "ませんでした",
+     "ていました"
+    ]
+   }
+  ],
+  "frames": {
+   "cols": [
+    "n",
+    "nr",
+    "p",
+    "vp",
+    "vpr",
+    "va",
+    "var",
+    "te",
+    "e1",
+    "e3",
+    "e2",
+    "y",
+    "f"
+   ],
+   "rows": [
+    [
+     "学校",
+     "がっこう",
+     "に",
+     "行きます",
+     "いきます",
+     "行きました",
+     "いきました",
+     "行って",
+     "go to school",
+     "goes to school",
+     "went to school",
+     "に marks the destination of 行く.",
+     "ni"
+    ],
+    [
+     "図書館",
+     "としょかん",
+     "で",
+     "勉強します",
+     "べんきょうします",
+     "勉強しました",
+     "べんきょうしました",
+     "勉強して",
+     "study at the library",
+     "studies at the library",
+     "studied at the library",
+     "で marks the place where an action happens.",
+     "de"
+    ],
+    [
+     "パン",
+     "パン",
+     "を",
+     "食べます",
+     "たべます",
+     "食べました",
+     "たべました",
+     "食べて",
+     "eat bread",
+     "eats bread",
+     "ate bread",
+     "を marks the thing that is eaten.",
+     "wo"
+    ],
+    [
+     "友達",
+     "ともだち",
+     "に",
+     "会います",
+     "あいます",
+     "会いました",
+     "あいました",
+     "会って",
+     "meet a friend",
+     "meets a friend",
+     "met a friend",
+     "に marks the person you meet.",
+     "ni"
+    ],
+    [
+     "電車",
+     "でんしゃ",
+     "で",
+     "行きます",
+     "いきます",
+     "行きました",
+     "いきました",
+     "行って",
+     "go by train",
+     "goes by train",
+     "went by train",
+     "で marks the means of transport.",
+     "de"
+    ],
+    [
+     "水",
+     "みず",
+     "を",
+     "飲みます",
+     "のみます",
+     "飲みました",
+     "のみました",
+     "飲んで",
+     "drink water",
+     "drinks water",
+     "drank water",
+     "を marks the thing that is drunk.",
+     "wo"
+    ],
+    [
+     "窓",
+     "まど",
+     "を",
+     "開けます",
+     "あけます",
+     "開けました",
+     "あけました",
+     "開けて",
+     "open the window",
+     "opens the window",
+     "opened the window",
+     "を marks the thing someone opens (the transitive verb 開ける).",
+     "wo"
+    ],
+    [
+     "本",
+     "ほん",
+     "を",
+     "読みます",
+     "よみます",
+     "読みました",
+     "よみました",
+     "読んで",
+     "read a book",
+     "reads a book",
+     "read a book",
+     "を marks the thing that is read.",
+     "wo"
+    ],
+    [
+     "手紙",
+     "てがみ",
+     "を",
+     "書きます",
+     "かきます",
+     "書きました",
+     "かきました",
+     "書いて",
+     "write a letter",
+     "writes a letter",
+     "wrote a letter",
+     "を marks the thing that is written.",
+     "wo"
+    ],
+    [
+     "テレビ",
+     "テレビ",
+     "を",
+     "見ます",
+     "みます",
+     "見ました",
+     "みました",
+     "見て",
+     "watch TV",
+     "watches TV",
+     "watched TV",
+     "を marks the thing you watch.",
+     "wo"
+    ],
+    [
+     "音楽",
+     "おんがく",
+     "を",
+     "聞きます",
+     "ききます",
+     "聞きました",
+     "ききました",
+     "聞いて",
+     "listen to music",
+     "listens to music",
+     "listened to music",
+     "を marks what you listen to.",
+     "wo"
+    ],
+    [
+     "駅",
+     "えき",
+     "で",
+     "待ちます",
+     "まちます",
+     "待ちました",
+     "まちました",
+     "待って",
+     "wait at the station",
+     "waits at the station",
+     "waited at the station",
+     "で marks where the waiting happens.",
+     "de"
+    ],
+    [
+     "部屋",
+     "へや",
+     "に",
+     "入ります",
+     "はいります",
+     "入りました",
+     "はいりました",
+     "入って",
+     "enter the room",
+     "enters the room",
+     "entered the room",
+     "に marks the place you enter.",
+     "ni"
+    ],
+    [
+     "会社",
+     "かいしゃ",
+     "に",
+     "行きます",
+     "いきます",
+     "行きました",
+     "いきました",
+     "行って",
+     "go to the office",
+     "goes to the office",
+     "went to the office",
+     "に marks the destination of 行く.",
+     "ni"
+    ]
+   ]
+  },
+  "reads": [
+   {
+    "id": "routine",
+    "l": 5,
+    "t": "田中さんは毎朝{time}に起きます。それから{food}を食べて、{veh}で会社に行きます。",
+    "slots": {
+     "time": [
+      "五時",
+      "六時",
+      "七時",
+      "八時",
+      "六時半",
+      "七時半"
+     ],
+     "food": [
+      "パン",
+      "ご飯",
+      "魚",
+      "卵",
+      "果物",
+      "肉"
+     ],
+     "veh": [
+      "電車",
+      "バス",
+      "自転車",
+      "車",
+      "タクシー",
+      "地下鉄"
+     ]
+    },
+    "qs": [
+     {
+      "s": "time",
+      "q": "田中さんは何時に起きますか。",
+      "en": "What time does Tanaka get up?",
+      "y": "The passage says …{time}に起きます."
+     },
+     {
+      "s": "food",
+      "q": "田中さんは朝、何を食べますか。",
+      "en": "What does Tanaka eat in the morning?",
+      "y": "The passage says …{food}を食べて."
+     },
+     {
+      "s": "veh",
+      "q": "田中さんはどうやって会社に行きますか。",
+      "en": "How does Tanaka get to work?",
+      "y": "で marks the means: …{veh}で会社に行きます."
+     }
+    ]
+   },
+   {
+    "id": "shop",
+    "l": 5,
+    "t": "{who}は日曜日に{place}へ行きました。そこで{item}を買いました。{price}でした。",
+    "slots": {
+     "who": [
+      "母",
+      "兄",
+      "姉",
+      "友達",
+      "父"
+     ],
+     "place": [
+      "店",
+      "デパート",
+      "スーパー",
+      "本屋",
+      "駅",
+      "空港"
+     ],
+     "item": [
+      "パン",
+      "魚",
+      "本",
+      "靴",
+      "傘",
+      "切符"
+     ],
+     "price": [
+      "百円",
+      "三百円",
+      "五百円",
+      "千円",
+      "二千円",
+      "三千円"
+     ]
+    },
+    "qs": [
+     {
+      "s": "place",
+      "q": "{who}はどこへ行きましたか。",
+      "en": "Where did the person go?",
+      "y": "へ marks the destination: …{place}へ行きました."
+     },
+     {
+      "s": "item",
+      "q": "{who}は何を買いましたか。",
+      "en": "What did the person buy?",
+      "y": "を marks the thing bought: …{item}を買いました."
+     },
+     {
+      "s": "price",
+      "q": "いくらでしたか。",
+      "en": "How much was it?",
+      "y": "The last sentence gives the price: {price}でした."
+     }
+    ]
+   },
+   {
+    "id": "weather",
+    "l": 5,
+    "t": "{day}は{weather}でした。それから、{plan}。",
+    "slots": {
+     "day": [
+      "昨日",
+      "おととい",
+      "先週の土曜日"
+     ],
+     "weather": [
+      "雨",
+      "雪",
+      "晴れ",
+      "くもり",
+      "とても暑い日",
+      "とても寒い日"
+     ],
+     "plan": [
+      "家で本を読みました",
+      "公園へ行きました",
+      "友達に会いました",
+      "図書館で勉強しました",
+      "家で寝ました",
+      "買い物に行きました"
+     ]
+    },
+    "qs": [
+     {
+      "s": "weather",
+      "q": "{day}の天気はどうでしたか。",
+      "en": "What was the weather like?",
+      "y": "The first sentence says {day}は{weather}でした."
+     },
+     {
+      "s": "plan",
+      "q": "{day}、何をしましたか。",
+      "en": "What did the person do?",
+      "y": "After それから the passage says {plan}."
+     }
+    ]
+   },
+   {
+    "id": "place",
+    "l": 5,
+    "t": "{place}は駅の{dir}にあります。歩いて{min}です。",
+    "slots": {
+     "place": [
+      "郵便局",
+      "銀行",
+      "図書館",
+      "病院",
+      "公園",
+      "学校"
+     ],
+     "dir": [
+      "前",
+      "後ろ",
+      "東",
+      "西",
+      "南",
+      "北"
+     ],
+     "min": [
+      "二分",
+      "三分",
+      "五分",
+      "十分",
+      "十五分",
+      "二十分"
+     ]
+    },
+    "qs": [
+     {
+      "s": "dir",
+      "q": "{place}は駅のどちらにありますか。",
+      "en": "Where is it in relation to the station?",
+      "y": "The passage says 駅の{dir}にあります."
+     },
+     {
+      "s": "min",
+      "q": "駅から歩いて何分ですか。",
+      "en": "How many minutes on foot?",
+      "y": "The second sentence says 歩いて{min}です."
+     }
+    ]
+   },
+   {
+    "id": "invite",
+    "l": 4,
+    "t": "{name}さんへ。今度の{day}に{event}があります。{time}から始まります。よかったら、いっしょに行きませんか。",
+    "slots": {
+     "name": [
+      "山田",
+      "鈴木",
+      "佐藤",
+      "高橋",
+      "伊藤",
+      "渡辺"
+     ],
+     "day": [
+      "月曜日",
+      "金曜日",
+      "土曜日",
+      "日曜日"
+     ],
+     "event": [
+      "パーティー",
+      "コンサート",
+      "食事会",
+      "お祭り"
+     ],
+     "time": [
+      "一時",
+      "三時",
+      "六時",
+      "七時",
+      "十時"
+     ]
+    },
+    "qs": [
+     {
+      "s": "day",
+      "q": "{event}はいつですか。",
+      "en": "When is it?",
+      "y": "The passage says 今度の{day}に."
+     },
+     {
+      "s": "event",
+      "q": "今度の{day}に何がありますか。",
+      "en": "What is happening?",
+      "y": "に…があります: {event}があります."
+     },
+     {
+      "s": "time",
+      "q": "{event}は何時から始まりますか。",
+      "en": "What time does it start?",
+      "y": "The passage says {time}から始まります."
+     }
+    ]
+   },
+   {
+    "id": "study",
+    "l": 5,
+    "t": "私は{subj}を勉強しています。{freq}、{place}で勉強します。{teacher}に教えてもらいます。",
+    "slots": {
+     "subj": [
+      "日本語",
+      "英語",
+      "数学",
+      "音楽",
+      "料理",
+      "歴史"
+     ],
+     "freq": [
+      "毎日",
+      "毎週月曜日",
+      "週末",
+      "毎晩"
+     ],
+     "place": [
+      "学校",
+      "図書館",
+      "家",
+      "会社"
+     ],
+     "teacher": [
+      "先生",
+      "友達",
+      "父",
+      "兄",
+      "姉"
+     ]
+    },
+    "qs": [
+     {
+      "s": "subj",
+      "q": "私は何を勉強していますか。",
+      "en": "What is the writer studying?",
+      "y": "を marks the thing studied: {subj}を勉強しています."
+     },
+     {
+      "s": "place",
+      "q": "私はどこで勉強しますか。",
+      "en": "Where does the writer study?",
+      "y": "で marks the place: {place}で勉強します."
+     },
+     {
+      "s": "teacher",
+      "q": "私はだれに教えてもらいますか。",
+      "en": "Who teaches the writer?",
+      "y": "に marks the giver in 〜に教えてもらいます: {teacher}に."
+     }
+    ]
+   },
+   {
+    "id": "meeting",
+    "l": 4,
+    "t": "朝礼は毎朝{time}からです。今日は{topic}について話しました。{who}さんが{doc}を{act}ました。",
+    "slots": {
+     "time": [
+      "八時",
+      "八時半",
+      "九時",
+      "九時半"
+     ],
+     "topic": [
+      "納期",
+      "予算",
+      "安全",
+      "進捗",
+      "図面の変更",
+      "試運転"
+     ],
+     "who": [
+      "田中",
+      "鈴木",
+      "佐藤",
+      "山田"
+     ],
+     "doc": [
+      "図面",
+      "資料",
+      "報告書",
+      "見積書"
+     ],
+     "act": [
+      "提出し",
+      "確認し",
+      "修正し",
+      "渡し"
+     ]
+    },
+    "qs": [
+     {
+      "s": "time",
+      "q": "朝礼は何時からですか。",
+      "en": "What time does the morning meeting start?",
+      "y": "The first sentence says 毎朝{time}から."
+     },
+     {
+      "s": "topic",
+      "q": "今日の朝礼は何について話しましたか。",
+      "en": "What was discussed today?",
+      "y": "について marks the topic: {topic}について."
+     },
+     {
+      "s": "doc",
+      "q": "{who}さんは何を{act}ましたか。",
+      "en": "What did the person handle?",
+      "y": "を marks the object: {doc}を."
+     },
+     {
+      "s": "who",
+      "q": "{doc}を{act}たのはだれですか。",
+      "en": "Who handled it?",
+      "y": "The last sentence says {who}さんが…"
+     }
+    ],
+    "tr": "work"
+   },
+   {
+    "id": "trend",
+    "l": 3,
+    "t": "最近、{thing}が増えているそうです。その原因は{cause}だと言われています。",
+    "slots": {
+     "thing": [
+      "外国人の観光客",
+      "一人暮らしの人",
+      "自転車に乗る人",
+      "在宅勤務の人",
+      "ネットで買い物する人"
+     ],
+     "cause": [
+      "円安",
+      "新しいサービス",
+      "生活の変化",
+      "健康への関心",
+      "交通の便利さ"
+     ]
+    },
+    "qs": [
+     {
+      "s": "thing",
+      "q": "何が増えていますか。",
+      "en": "What is increasing?",
+      "y": "が増えている: {thing}が増えている."
+     },
+     {
+      "s": "cause",
+      "q": "その原因は何だと言われていますか。",
+      "en": "What is said to be the cause?",
+      "y": "〜だと言われています marks what is said: {cause}だと."
+     }
+    ]
+   },
+   {
+    "id": "goal",
+    "l": 3,
+    "t": "{name}さんは{goal}ために、{method}。{name}さんの友達も、それを見て始めました。",
+    "slots": {
+     "name": [
+      "山田",
+      "鈴木",
+      "佐藤",
+      "高橋"
+     ],
+     "goal": [
+      "日本語を話す",
+      "試験に合格する",
+      "健康になる",
+      "仕事を覚える"
+     ],
+     "method": [
+      "毎日練習しています",
+      "毎朝走っています",
+      "毎晩勉強しています",
+      "先輩に聞いています"
+     ]
+    },
+    "qs": [
+     {
+      "s": "goal",
+      "q": "{name}さんは何のために努力していますか。",
+      "en": "What is the person working toward?",
+      "y": "〜ために gives the purpose: {goal}ために."
+     },
+     {
+      "s": "method",
+      "q": "{name}さんは何をしていますか。",
+      "en": "What is the person doing?",
+      "y": "The second part says {method}."
+     }
+    ]
+   }
+  ]
+ }
+}
