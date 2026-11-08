@@ -7,6 +7,14 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.11.20261108
+- Vocabulary list with progress per level, status filters, search (also by romaji) and optional lesson tags
+- Roadmap view loaded from data/roadmap.json
+- Explanations: Japanese text is set apart with spacing, kanji from the deck get furigana, and answers show reading and spaced romaji on separate lines
+- Back: visible Back buttons, a message on the first question, and Next from a reviewed question now steps forward instead of skipping
+- The check-up is built from fresh questions each time; fixed grammar questions vary their subject; new identity-sentence generator
+- Sentence generator: grammar lint (particle and verb compatibility, tense matches the time word, subject differs from the noun), three natural word orders accepted and shown
+
 ## v1.10.20261107c
 - Behaviour log: engaged time versus idle time (pauses over 20 s are not counted as thinking), robust z-score outliers (slow, fast, long pause), recorded per question type
 - Context of slow questions is kept (words, options, picked answer, sentence) and aggregated into slow-prone keys

@@ -22,3 +22,6 @@ To add N2, create `data/n2.json` and append it to `packs` in the manifest.
 - `rel`: table with cols `["a","b","t"]`; `t` is `s` synonym, `a` antonym, `g` gradable antonym, `p` transitive/intransitive pair. `grad`: `[adjective, opposite, "nouns that suit both"]`. `bec`: `[cause noun, effect clause]` for ので and だから paraphrases. Frames in `gen` may carry a `dc` (dictionary form) column.
 
 - `rel` rows may carry a fourth column `n`: a usage note shown when a learner uses that word instead of the target (register, nuance).
+
+- `gen.ident`: `{nouns: [[word, reading, English with article]], forms: [{k: pres|neg|past|q, j: tokens, r: readings}]}` for “A は B です” sentences.
+- `roadmap`: `[{t, s: done|doing|planned, a: area, n?: note}]`. Words may carry `ls` (a lesson label) to track progress by lesson in the word list.
