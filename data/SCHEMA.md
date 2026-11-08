@@ -25,3 +25,6 @@ To add N2, create `data/n2.json` and append it to `packs` in the manifest.
 
 - `gen.ident`: `{nouns: [[word, reading, English with article]], forms: [{k: pres|neg|past|q, j: tokens, r: readings}]}` for “A は B です” sentences.
 - `roadmap`: `[{t, s: done|doing|planned, a: area, n?: note}]`. Words may carry `ls` (a lesson label) to track progress by lesson in the word list.
+
+- `expr`: `[{j, b: brief meaning, f: full explanation, ex: [[jp, en]]}]` for grammar expressions; any text containing `j` (two or more characters) becomes tappable. Single-character particles are tappable where a sentence is shown token by token.
+- `grad` rows may end with two English comparatives; `bec` rows with the English cause and effect, used to translate generated answers.

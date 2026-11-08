@@ -7,6 +7,12 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.12.20261108b
+- N4 pack 3: 83 words and 52 kanji (content 1.9.0)
+- Answers show furigana, romaji and English: words, typed and tile sentences, Lab answers, check-up answers
+- Words and grammar expressions in explanations, answers and passages are tappable: a tooltip first, a second tap on the tooltip opens the full window; 30 expressions with explanations and examples
+- Fix: Build feedback no longer fails for sentences without stored readings
+
 ## v1.11.20261108
 - Vocabulary list with progress per level, status filters, search (also by romaji) and optional lesson tags
 - Roadmap view loaded from data/roadmap.json
