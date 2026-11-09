@@ -9,12 +9,12 @@
 body{margin:0;background:var(--bg) linear-gradient(var(--grid) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/24px 24px;color:var(--fg);font:16px/1.55 "Hiragino Sans","Noto Sans JP","Yu Gothic",system-ui,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
 .w{max-width:560px;margin:0 auto;padding:12px 14px 40px}
 header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
-h1{font:600 1.15rem "Hiragino Mincho ProN","Noto Serif JP","Yu Mincho",serif;margin:0;color:var(--ink)}
+h1{font:600 1.15rem var(--jp);margin:0;color:var(--ink)}
 nav{display:flex;gap:4px}
 nav button{border:1px solid var(--bd);background:var(--card);color:var(--fg);padding:6px 12px;border-radius:3px;font:inherit;font-size:.9rem;cursor:pointer}
 nav button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:16px;margin-bottom:12px}
-.big{font:600 2.8rem/1.5 "Hiragino Mincho ProN","Noto Serif JP","Yu Mincho",serif;color:var(--ink);text-align:center;margin:4px 0}
+.big{font:600 2.8rem/1.5 var(--jp);color:var(--ink);text-align:center;margin:4px 0}
 rt{font-size:.9rem;font-weight:400}
 .mean{text-align:center;font-size:1.2rem;margin:4px 0}
 .mu{color:var(--mu);font-size:.9rem;margin:4px 0;text-align:center}
@@ -31,7 +31,7 @@ input#ti{width:100%;font-size:1.3rem;padding:10px;border:1px solid var(--bd);bor
 .fb{border-left:4px solid var(--ok)}.fb.r{border-left-color:var(--bad)}
 .ex{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
 .ex span{background:var(--bg);border:1px solid var(--bd);border-radius:3px;padding:4px 8px;text-align:center}
-.ex big{display:block;font-size:1.2rem;font-family:"Hiragino Mincho ProN","Noto Serif JP",serif}.ex small{color:var(--mu)}
+.ex big{display:block;font-size:1.2rem;font-family:var(--jp)}.ex small{color:var(--mu)}
 .grid{display:flex;flex-wrap:wrap;gap:6px}
 .grid span{background:var(--hi);color:var(--fg);padding:2px 7px;border-radius:3px;font-size:.95rem}
 a{color:var(--ink)}:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
@@ -65,7 +65,7 @@ nav button.on{background:color-mix(in srgb,var(--ink) 14%,var(--card));color:var
 .q-jm{border-top:4px solid var(--ink)}.q-mj,.q-gq{border-top:4px solid #6a4fb3}.q-jr,.q-oo{border-top:4px solid #2a8f8a}.q-tr,.q-bt{border-top:4px solid #c27a1a}
 .blks{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.blk{padding:6px 10px;border-radius:6px;background:var(--bg);border:1px solid var(--bd)}.blk.v{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .pat{cursor:pointer}
-#tip{position:fixed;z-index:6;max-width:250px;background:var(--card);border:1px solid var(--ink);border-radius:8px;padding:8px 10px;box-shadow:0 4px 16px rgba(0,0,0,.25);font-size:.9rem}#tip[hidden]{display:none}.tg{font:600 1.5rem "Hiragino Mincho ProN","Noto Serif JP",serif}
+#tip{position:fixed;z-index:6;max-width:250px;background:var(--card);border:1px solid var(--ink);border-radius:8px;padding:8px 10px;box-shadow:0 4px 16px rgba(0,0,0,.25);font-size:.9rem}#tip[hidden]{display:none}.tg{font:600 1.5rem var(--jp)}
 .st{cursor:pointer}.tm{height:4px;margin:12px 0 0}.tm i{background:var(--ink);animation:shr 3.5s linear forwards}@keyframes shr{from{width:100%}to{width:0}}
 #zl,#zr{position:fixed;top:64px;bottom:calc(64px + env(safe-area-inset-bottom));width:36px;z-index:2;display:none;align-items:center;justify-content:center;color:var(--mu);opacity:.4;font-size:1.6rem;cursor:pointer}
 body.pl #zl,body.pl #zr{display:flex}#zl{left:0}#zr{right:0}body.pl .w{padding-left:38px;padding-right:38px}
@@ -83,6 +83,7 @@ nav button{font-size:.72rem}
 .vr{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--grid)}.pill{font-size:.75rem;padding:1px 8px;border-radius:10px;border:1px solid var(--bd);white-space:nowrap}.pill.s{background:var(--ok);color:var(--bg);border-color:var(--ok)}
 .trio{margin:6px 0}.trio .t1{font-size:1.35rem;line-height:2}.trio .rm{color:var(--mu);font-size:.92rem;margin:0 0 2px}.trio .en{margin:2px 0 6px}
 .lx{cursor:pointer}.pass .jp{background:none;margin:0;padding:0;border-bottom:1px dotted var(--ink)}.t1 .jp{margin:0 .12em}
+:root{--jp:"Klee","UD Digi Kyokasho N-R","UD デジタル 教科書体 N-R","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif}.opt,.tile,.blk{font-family:var(--jp)}
 </style></head><body><div class="w">
 <header><h1>日本語 Lab</h1><nav><button data-v="t" onclick="go('t')">Today</button><button data-v="p" onclick="go('p')">Play</button><button data-v="b" onclick="go('b')">Build</button><button data-v="l" onclick="go('l')">Lab</button><button data-v="g" onclick="go('g')">Progress</button><button data-v="m" onclick="go('m')">Memory</button></nav></header>
 <div id="bn"></div><div id="st"></div><main id="m"></main>
@@ -113,7 +114,7 @@ const FN=['bias','N4 item','kanji count','word length','confusability','meaning 
 if(!S.mdl||S.mdl.w.length!=13)S.mdl={w:[1.2,0,0,0,0,0,0,0,0,0,0,0,0],n:0};
 const sg=z=>1/(1+Math.exp(-z));
 function feat(w,t,it){const k=[...w.w].filter(c=>K.test(c)).length,cf=w.g?0:Math.min(5,Math.max(0,...W().filter(x=>x!==w&&!x.g).map(x=>sim(w,x))))/5;
- return[1,w.l==4?1:0,k/3,(w.g?4:w.w.length)/4,cf,...['jm','mj','jr','tr','gq','oo','bt'].map(x=>x==t?1:0),it?Math.min(it.l,6)/3:0]}
+ return[1,w.l==4?1:0,k/3,(w.g?4:w.w.length)/4,cf,...['jm','mj','jr','tr','gq','oo','bt'].map(x=>x==({ty:'tr',rw:'mj'}[t]||t)?1:0),it?Math.min(it.l,6)/3:0]}
 // Rasch-style prediction: p = sigmoid(w.x - beta_item). w.x holds ability and feature difficulty; beta_item is learned per item.
 const pr=(x,id)=>sg(S.mdl.w.reduce((a,v,i)=>a+v*x[i],0)-(S.beta[id]||0));
 // Calibrated probability: shrinks the raw prediction toward the observed success rate in its probability bin.
@@ -131,6 +132,7 @@ function pick(fn){const now=Date.now(),all=W(),L=all.filter(w=>S.i[w.w]),b4=all.
  const day=new Date().setHours(0,0,0,0),nt=L.filter(w=>S.i[w.w].f>=day).length,R=w=>ret(S.i[w.w],now),fresh=a=>a.filter(w=>!rc.includes(w.w)),
  wp=(a,f)=>{const t=a.map(f);let r=Math.random()*t.reduce((x,y)=>x+y,0),i=0;for(;i<a.length-1;i++){r-=t[i];if(r<=0)break}return a[i]},
  ts=a=>a.reduce((b,w)=>{const it=S.i[w.w],m=rb(1+Math.max(0,it.n-it.l)*R(w),1+it.l);return!b||m<b.m?{w,m}:b},0).w;
+ const g20=S.nl.slice(-20),cap=g20.length>=15&&g20.reduce((a,b)=>a+b,0)/g20.length<.45?20:10;
  const kk=knownK(),uv=un.filter(w=>!w.g),nx=(un.length>uv.length&&Math.random()<.25)?un.find(w=>w.g):(uv.length?wp(Math.random()<(S.rare??.2)&&uv.some(w=>TR[w.w]>=4)?uv.filter(w=>TR[w.w]>=4):uv.some(w=>(TR[w.w]||3)<4)?uv.filter(w=>(TR[w.w]||3)<4):uv,a=>nextW(a,kk)*Math.exp(-3*Math.abs(pc(feat(a,'jm'),a.w)-.75))):un[0]);
  if(fn&&un.length)return{w:nx,intro:1};
  const bi=S.bq.findIndex(b=>b.at<=S.cnt&&L.some(w=>w.w==b.id));
@@ -139,7 +141,8 @@ function pick(fn){const now=Date.now(),all=W(),L=all.filter(w=>S.i[w.w]),b4=all.
  if(F.length>5&&Math.random()<.12)return{w:rnd(F)};
  const due=fresh(L.filter(w=>R(w)<.9));
  if(due.length)return{w:ts(due)};
- if(un.length&&nt<10)return{w:nx,intro:1};
+ if(un.length&&nt<cap)return{w:nx,intro:1};
+ if(un.length&&Math.random()<.7)return{w:nx,intro:1};
  if(F.length)return{w:ts(F)};
  return L.length?{w:rnd(L)}:un.length?{w:nx,intro:1}:null}
 function practice(fn){banner();strip();const m=$('#m');
@@ -151,25 +154,33 @@ function meet(i){const w=W()[i],p=pc(feat(w,w.g?'gq':'jm',null),w.w);S.i[w.w]={s
  if(w.g){cur=build(w);show();return}
  const c=cur={w,study:1},x=exOf(w);$('#m').innerHTML=`<div class="card nw st" onclick="goq()"><p class="mu">New word. Look closely, it will be hidden.</p><div class="big">${ruby(w,1)}</div><p class="mean">${e(w.m)} ${lvb(w)}</p>${x?`<p class="mu">${e(x[0])}</p>`:''}<div class="rb tm"><i></i></div></div>`;c.tm=setTimeout(()=>goq(c),3500)}
 function goq(c){c=c||cur;if(!c||!c.study||cur!==c)return;clearTimeout(c.tm);if(!$('nav .on')||$('nav .on').dataset.v!='p')return;cur=build(c.w,'mj');show()}
-function opts(w,key){const it=S.i[w.w]||{},c=W().filter(x=>!x.g&&(x.l>=4||S.i[x.w]||S.n3||w.l==3)&&x.w!==w.w&&x[key]!==w[key]&&(key!='r'||K.test(x.w)));
- const Z=c.reduce((a,y)=>a+1+Math.pow(sim(w,y),2),0),tot=Object.values(it.x||{}).reduce((a,b)=>a+b,0),wt=x=>(((it.x||{})[x.w]||0)+4*(1+Math.pow(sim(w,x),2))/Z)/(tot+4),out=[];// Dirichlet-smoothed confusion: P(j|i)=(C[i][j]+a*prior_j)/(sum_j C[i][j]+a), prior from similarity
+function opts(w,key,g){const pw=[.6,1.6,2,3][g==null?1:g],it=S.i[w.w]||{},c=W().filter(x=>!x.g&&(x.l>=4||S.i[x.w]||S.n3||w.l==3)&&x.w!==w.w&&x[key]!==w[key]&&(key!='r'||K.test(x.w)));
+ const Z=c.reduce((a,y)=>a+1+Math.pow(sim(w,y),2),0),tot=Object.values(it.x||{}).reduce((a,b)=>a+b,0),wt=x=>(((it.x||{})[x.w]||0)+4*(1+Math.pow(sim(w,x),pw))/Z)/(tot+4)*((it.lo||[]).includes(x.w)?.2:1),out=[];// Dirichlet-smoothed confusion: P(j|i)=(C[i][j]+a*prior_j)/(sum_j C[i][j]+a), prior from similarity
  
  while(out.length<3&&c.length){let r=Math.random()*c.reduce((a,x)=>a+wt(x),0),i=0;for(;i<c.length-1;i++){r-=wt(c[i]);if(r<=0)break}out.push(c.splice(i,1)[0])}
- return shuffle(out.concat(w))}
-function build(w,t){let b,k=0,fp;do{b=build0(w,t);fp=b.t+'|'+w.w+'|'+(b.o?b.o.map(x=>x.w||x.t).sort().join(','):b.pool?b.pool.slice().sort().join(''):'')}while(S.fp.includes(fp)&&++k<6);S.fp.push(fp);if(S.fp.length>400)S.fp.shift();return b}
-function build0(w,t){const it=S.i[w.w],k=K.test(w.w);if(w.g){it.lt='gq';return{w,t:'gq',o:shuffle(w.o.map((x,i)=>({t:x,c:i==w.a}))),qv:w.q.replace(/^私/,rnd(['私','父','母','兄','姉','友達']))}}let ts=['jm','mj'];if(k){ts.push('jr');if(it.s>=3)ts.push('tr')}if(w.r.length>=3&&w.r.length<=8)ts.push('bt');if(oddg(w))ts.push('oo');
- ts=ts.filter(x=>x!=it.lt);ts=ts.length?ts:['jm'];ts=ts.map(x=>[Math.abs(pc(feat(w,x,it),w.w)-.8),x]).sort((a,b)=>a[0]-b[0]).slice(0,2).map(x=>x[1]);t=t||rnd(ts);it.lt=t;
+ it.lo=out.map(x=>x.w);return shuffle(out.concat(w))}
+// Difficulty stage from memory stability: 0 recognise, 1 mixed, 2 produce and context, 3 hardest forms and sharpest distractors.
+const stg=it=>it.s<2?0:it.s<6?1:it.s<15?2:3;
+function cloze(w){if(w.g)return null;const x=exOf(w);if(x&&x[0].includes(w.w))return{jp:x[0].replace(w.w,'＿＿＿'),en:x[1]};
+ const q=SN.find(z=>z.t.includes(w.w));return q?{jp:q.t.map(z=>z==w.w?'＿＿＿':z).join(''),en:q.en}:null}
+function build(w,t){let b,k=0,fp;do{b=build0(w,t);fp=b.t+'|'+w.w+'|'+(b.o?b.o.map(x=>x.w||x.t).sort().join(','):b.pool?b.pool.slice().sort().join(''):'')}while(S.fp.includes(fp)&&++k<14);S.fp.push(fp);if(S.fp.length>400)S.fp.shift();return b}
+function build0(w,t){const it=S.i[w.w],k=K.test(w.w);if(w.g){it.lt='gq';return{w,t:'gq',o:shuffle(w.o.map((x,i)=>({t:x,c:i==w.a}))),qv:w.q.replace(/^私/,rnd(['私','父','母','兄','姉','友達']))}}const g=stg(it),H=it.h||(it.h=[]),cz=cloze(w);let ts=[['jm','mj','rw'],['jm','mj','jr','rw','bt','oo','tr'],['mj','jr','rw','bt','oo','tr','ty','cl'],['oo','tr','ty','cl','jr','rw','bt']][g].filter(x=>!['jr','tr','rw'].includes(x)||k).filter(x=>x!='bt'||(w.r.length>=3&&w.r.length<=8)).filter(x=>x!='oo'||oddg(w)).filter(x=>x!='cl'||cz);
+ if(!k&&g>=1)ts.push('ty');
+ if(!ts.length)ts=['jm'];const tc=it.tc||(it.tc={}),mn=Math.min(...ts.map(x=>tc[x]||0));ts=ts.filter(x=>(tc[x]||0)<=mn);const fr=ts.filter(x=>!H.slice(-2).includes(x));ts=fr.length?fr:ts;
+ ts=ts.map(x=>[Math.abs(pc(feat(w,x,it),w.w)-.8),x]).sort((a,b)=>a[0]-b[0]).slice(0,3).map(x=>x[1]);t=t||rnd(ts);tc[t]=(tc[t]||0)+1;H.push(t);if(H.length>8)H.shift();it.lt=t;
+ if(t=='cl'&&cz){const c=W().filter(x=>!x.g&&x!==w&&posOf(x)==posOf(w)&&(x.l>=4||S.i[x.w]||S.n3)),o=[w],pw=[.6,1.6,2,3][g];while(o.length<4&&c.length){const z=wpick(c,x=>1+Math.pow(sim(w,x),pw));c.splice(c.indexOf(z),1);o.push(z)}
+  return{w,t:'gq',o:shuffle(o.map(z=>({t:z.w,c:z===w}))),qv:cz.jp+'  '+cz.en,y:`${w.w} (${w.r}) means “${w.m}”. ${cz.en}`}}
  if(t=='oo'){const og=oddg(w);if(og)return{w,t,o:og.o,odd:og.odd,ch:og.ch}}
  if(t=='bt'){const sm=W().filter(x=>!x.g&&x.w!=w.w).sort((a,b)=>sim(w,b)-sim(w,a))[0],pool=[...w.r];[...sm.r].filter(c=>!pool.includes(c)).slice(0,2).forEach(c=>pool.push(c));return{w,t,o:0,pool:shuffle(pool),sel:[]}}
- return{w,t,o:t=='tr'?0:opts(w,{jm:'m',mj:'w',jr:'r'}[t])}}
+ if(t=='tr'||t=='ty')return{w,t,o:0};let o=opts(w,{jm:'m',mj:'w',jr:'r',rw:'w'}[t],g);if(o.map(x=>x.w).join('|')==it.ls)o=shuffle(o);it.ls=o.map(x=>x.w).join('|');return{w,t,o}}
 function show(){cur.t0=Date.now();etStart();const{w,t,o}=cur,it=S.i[w.w],pct=Math.round(ret(it,Date.now())*100);
- const q={oo:`<p style="font-size:1.25rem;text-align:center;margin:8px 0">Three of these share a kanji. Which one is the odd one out?</p>`,bt:`<div class="big">${e(w.m)}</div><p class="mu">Build the reading of ${e(w.w)} from kana tiles</p>`,gq:`<p style="font-size:1.25rem;text-align:center;margin:8px 0">${e(cur.qv||w.q)}</p><p class="mu">Choose the best fit</p>`,mj:`<div class="big">${e(w.m)}</div><p class="mu">Which word is this?</p>`,jm:`<div class="big">${ruby(w,it.s<6)}</div><p class="mu">What does it mean?</p>`,jr:`<div class="big">${e(w.w)}</div><p class="mu">How is it read?</p>`,tr:`<div class="big">${e(w.w)}</div><p class="mu">Type the reading in kana</p>`}[t];
+ const q={rw:`<div class="big">${e(w.r)}</div><p class="mu">Which word is read like this?</p>`,ty:`<div class="big">${e(w.m)}</div><p class="mu">Type the Japanese word: romaji, hiragana or kanji</p>`,oo:`<p style="font-size:1.25rem;text-align:center;margin:8px 0">Three of these share a kanji. Which one is the odd one out?</p>`,bt:`<div class="big">${e(w.m)}</div><p class="mu">Build the reading of ${e(w.w)} from kana tiles</p>`,gq:`<p style="font-size:1.25rem;text-align:center;margin:8px 0">${e(cur.qv||w.q)}</p><p class="mu">Choose the best fit</p>`,mj:`<div class="big">${e(w.m)}</div><p class="mu">Which word is this?</p>`,jm:`<div class="big">${ruby(w,it.s<6)}</div><p class="mu">What does it mean?</p>`,jr:`<div class="big">${e(w.w)}</div><p class="mu">How is it read?</p>`,tr:`<div class="big">${e(w.w)}</div><p class="mu">Type the reading: romaji or kana</p>`}[t];
  let h=(cur.fresh?`<div class="card nw"><span class="mu">New word</span> <b style="font-size:1.5rem">${ruby(w,1)}</b> <span>${e(w.m)}</span> ${lvb(w)} <a class="wl" onclick="dict(${W().indexOf(w)})">details</a></div>`:'')+`<div class="card q-${t}">${q}<div class="bar" title="how well you hold this word"><i style="width:${pct}%"></i></div>`;
- h+=t=='bt'?`<div id="bs"></div><div id="bp"></div><button class="pri" onclick="ans(0,cur.sel.map(k=>cur.pool[k]).join(''))">Check</button>`:t=='tr'?`<input id="ti" autocomplete="off" autocapitalize="off" aria-label="reading"><button class="pri" onclick="ans(0,$('#ti').value)">Check</button>`:o.map((x,i)=>`<button class="opt" onclick="ans(${i})">${e(t=='gq'?x.t:{jm:x.m,mj:x.w,jr:x.r,oo:x.w}[t])}</button>`).join('');
+ h+=t=='bt'?`<div id="bs"></div><div id="bp"></div><button class="pri" onclick="ans(0,cur.sel.map(k=>cur.pool[k]).join(''))">Check</button>`:['tr','ty'].includes(t)?`<input id="ti" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="romaji, hiragana or kanji" aria-label="answer"><button class="pri" onclick="ans(0,$('#ti').value)">Check</button>`:o.map((x,i)=>`<button class="opt" onclick="ans(${i})">${e(t=='gq'?x.t:{jm:x.m,mj:x.w,jr:x.r,oo:x.w,rw:x.w}[t])}</button>`).join('');
  $('#m').innerHTML=h+'<button class="skip" onclick="skipQ()">Skip</button></div><div id="fb"></div>';
- if(t=='bt')bshow();if(t=='tr'){const i=$('#ti');i.focus();i.onkeydown=ev=>{if(ev.key=='Enter')ans(0,i.value)}}}
-function ans(i,val){if(cur.done)return;cur.done=1;const{w,t,o}=cur,it=S.i[w.w],ty=t=='tr'||t=='bt',x=ty?null:o[i];
- const ok=ty?hira(String(val).trim())==hira(w.r):t=='gq'?x.c:t=='oo'?x===cur.odd:x.w==w.w,R=ret(it,Date.now()),ls=learn(feat(w,t,it),ok?1:0,w.w);if(!ok&&ls>1.3&&!S.bq.some(b=>b.id==w.w))S.bq.push({id:w.w,at:S.cnt+2});
+ if(t=='bt')bshow();if(['tr','ty'].includes(t)){const i=$('#ti');i.focus();i.onkeydown=ev=>{if(ev.key=='Enter')ans(0,i.value)}}}
+function ans(i,val){if(cur.done)return;cur.done=1;const{w,t,o}=cur,it=S.i[w.w],ty=['tr','bt','ty'].includes(t),x=ty?null:o[i];
+ const ok=ty?rkOk(val,t,w):t=='gq'?x.c:t=='oo'?x===cur.odd:x.w==w.w,R=ret(it,Date.now()),ls=learn(feat(w,t,it),ok?1:0,w.w);if(!ok&&ls>1.3&&!S.bq.some(b=>b.id==w.w))S.bq.push({id:w.w,at:S.cnt+2});
  const E=etEnd(),z=robZ(t,E.act),slip=!ok&&z<-1.5&&E.act<1500,slow=ok&&z>2;if(slip)S.slips=(S.slips||0)+1;logEv({k:'p',id:w.w,ty:t,ok,E,z,keys:[w.w,'ty:'+t].concat(w.f?['f:'+w.f]:[]),ctx:ctxP(w,t,o,i,val)});
  if(ok){it.s*=(slow?.75:1)*(1.3+2.2*(1-R)+.15*(10-it.d));it.d=Math.max(1,it.d-.2)}
  else{it.s=Math.max(.4,it.s*(slip?.5:.25));it.d=Math.min(10,it.d+1);if(!slip)it.l++;if(x&&x.w){it.x[x.w]=(it.x[x.w]||0)+1;if(S.i[x.w]&&!S.bq.some(b=>b.id==x.w))S.bq.push({id:x.w,at:S.cnt+3})}}
@@ -177,7 +188,7 @@ function ans(i,val){if(cur.done)return;cur.done=1;const{w,t,o}=cur,it=S.i[w.w],t
  cmb=ok?cmb+1:0;const gain=ok?10+Math.min(cmb,10)*2:0,d=new Date().toDateString();S.xp+=gain;if(ok){S.q=S.q&&S.q.d==d?S.q:{d,n:0};S.q.n++}
  rd.n++;rd.ok+=ok?1:0;rd.xp+=gain;rd.bc=Math.max(rd.bc,cmb);save();strip();
  document.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true;if(o&&(t=='gq'?o[j].c:t=='oo'?o[j]===cur.odd:o[j].w==w.w))b.classList.add('ok');else if(j==i)b.classList.add('bad')});
- const info=t=='gq'?ej(w.y)+' '+lvb(w):t=='oo'?`${ej(cur.ch)} is in the other three.${trioW(cur.odd)}`:trioW(w);
+ const info=t=='gq'?ej(cur.y||w.y)+' '+lvb(w):t=='oo'?`${ej(cur.ch)} is in the other three.${trioW(cur.odd)}`:trioW(w);
  $('#fb').innerHTML=`<div class="card fb ${ok?'':'r'}"><b>${ok?'✓ '+(cmb>2?'Combo x'+cmb+'! +'+gain+' XP':'Correct, +'+gain+' XP'):'✗ Not quite'}</b><br>${info}${!ok&&t!='gq'&&t!='oo'?'<br>'+(ty?tyWhy(w,val):why(w,x)):''}${!S.diag&&S.mdl.n>=20&&S.mdl.n<24?'<p class="mu" style="text-align:left">Curious where you stand? There is a check-up in the Patterns tab.</p>':''}<div class="row2"><button class="sec" onclick="nav(-1)">‹ Back</button><button class="pri" onclick="nq()">Next</button></div></div>`;if(ok&&S.aa!==false){const c0=cur;setTimeout(()=>{if(cur===c0&&hi>=hist.length&&$('nav .on')&&$('nav .on').dataset.v=='p')nq()},1900)}}
 function nq(){if(hi<hist.length){nav(1);return}snap();hi=hist.length;if(MX.on&&mixNext())return;if(rd.n>=8){const r=rd;rd={n:0,ok:0,xp:0,bc:0};$('#m').innerHTML=`<div class="card"><b>Round complete</b><p>${r.ok} of ${r.n} correct. +${r.xp} XP. Best combo x${r.bc}.</p><p class="mu" style="text-align:left">Stop here or keep going. Your words are rescheduled either way.</p><button class="pri" onclick="practice()">Another round</button></div>`;return}practice()}
 // Lab: activities are static pattern units plus word-decoding puzzles generated from the data. The same models drive selection.
@@ -230,7 +241,7 @@ function bshow(){const c=cur;$('#bs').innerHTML=c.sel.map((k,i)=>`<button class=
 function bp(k){cur.sel.push(k);bshow()}function bu(i){cur.sel.splice(i,1);bshow()}
 function mem(){const d=S.bk?new Date(S.bk).toLocaleDateString():'never',pk=PK.concat(S.cp),ck=(k,t)=>`<p><label><input type="checkbox" ${S[k]?'checked':''} onchange="S.${k}=this.checked;save()"> ${t}</label></p>`;
  $('#m').innerHTML=`<details class="card" open><summary>Backup and transfer</summary><p class="mu" style="text-align:left">Last backup: ${d}. Memory means your progress, mistakes, XP and difficulty model.</p><button class="pri" onclick="exp()">Download my memory</button><label class="pri" style="display:block;text-align:center;cursor:pointer">Load memory from file<input type="file" accept=".json,application/json" hidden onchange="imp(this)"></label><details><summary class="mu">Use text instead</summary><textarea id="mt" placeholder="Paste memory text here"></textarea><button class="sec" onclick="$('#mt').value=JSON.stringify(S)">Show as text</button><button class="sec" onclick="navigator.clipboard&&navigator.clipboard.writeText(JSON.stringify(S))">Copy</button><button class="sec" onclick="impt()">Load from text</button></details></details>
-<details class="card"><summary>Display</summary>${ck('hl','Hide JLPT level labels')}<p class="mu" style="text-align:left;margin:8px 0 2px">Kanji tooltip shows</p>${[['r','Readings'],['m','Meaning'],['p','Part of speech of the word'],['l','JLPT level'],['w','Example words'],['s','Look-alike kanji']].map(([k,t])=>`<p style="margin:4px 0"><label><input type="checkbox" ${S.tf[k]?'checked':''} onchange="S.tf.${k}=this.checked;save()"> ${t}</label></p>`).join('')}<button class="sec" onclick="S.tf={r:1,m:0,p:0,l:0,w:0,s:0};save();mem()">Reading only</button><button class="sec" onclick="S.tf={r:1,m:1,p:0,l:1,w:0,s:0};save();mem()">Reading + meaning</button><button class="sec" onclick="S.tf={r:1,m:1,p:1,l:1,w:0,s:0};save();mem()">+ part of speech</button><button class="sec" onclick="S.tf={r:1,m:1,p:1,l:1,w:1,s:1};save();mem()">Everything</button></details>
+<details class="card"><summary>Display</summary>${ck('hl','Hide JLPT level labels')}<p class="mu" style="text-align:left;margin:8px 0 2px">Japanese font</p><select onchange="S.fn=this.value;save();setFont()">${[['kyo','Textbook (school style)'],['maru','Rounded'],['sans','Plain sans'],['mincho','Mincho (serif)']].map(([k,t])=>`<option value="${k}" ${(S.fn||'kyo')==k?'selected':''}>${t}</option>`).join('')}</select><p class="mu" style="text-align:left;margin:8px 0 2px">Kanji tooltip shows</p>${[['r','Readings'],['m','Meaning'],['p','Part of speech of the word'],['l','JLPT level'],['w','Example words'],['s','Look-alike kanji']].map(([k,t])=>`<p style="margin:4px 0"><label><input type="checkbox" ${S.tf[k]?'checked':''} onchange="S.tf.${k}=this.checked;save()"> ${t}</label></p>`).join('')}<button class="sec" onclick="S.tf={r:1,m:0,p:0,l:0,w:0,s:0};save();mem()">Reading only</button><button class="sec" onclick="S.tf={r:1,m:1,p:0,l:1,w:0,s:0};save();mem()">Reading + meaning</button><button class="sec" onclick="S.tf={r:1,m:1,p:1,l:1,w:0,s:0};save();mem()">+ part of speech</button><button class="sec" onclick="S.tf={r:1,m:1,p:1,l:1,w:1,s:1};save();mem()">Everything</button></details>
 <details class="card"><summary>Learning</summary>${ck('aa','Move on automatically after a correct answer')}${ck('wk','Include work vocabulary (plant engineering)')}<p style="margin:8px 0 2px">Rare words mixed in: <b id="rv">${Math.round((S.rare??.2)*100)}%</b></p><input type="range" min="0" max="40" step="10" value="${Math.round((S.rare??.2)*100)}" oninput="S.rare=this.value/100;$('#rv').textContent=this.value+'%';save()" style="width:100%">${ck('n3','Open N3 content now')}<p class="mu" style="text-align:left">Otherwise N3 opens once most N5 and N4 words are met.</p></details>
 <details class="card"><summary>Content</summary><p class="mu" style="text-align:left">${V.length} words, ${Object.keys(KJ).length} kanji, ${SN.length} sentences, ${GI.length} grammar items and ${rc()} generated reading passages. Lessons load from the data folder, and you can add a content pack here.</p>${pk.map(p=>`<div class="mu">${e(p.pack||p.title||'pack')}${p.level?' (N'+p.level+')':''}</div>`).join('')}<label class="sec" style="cursor:pointer">Import content pack<input type="file" accept=".json" hidden onchange="imp(this)"></label></details>
 <details class="card"><summary>Learning data</summary>${dataCard()}</details>
@@ -252,6 +263,7 @@ const RM={};'あa いi うu えe おo かka きki くku けke こko さsa しshi
 function romaji(r){r=hira(r);let o='';for(let i=0;i<r.length;i++){const c=r[i],n=r[i+1];
  if(c=='っ'){const nx=RM[n]||'';o+=nx.startsWith('ch')?'t':nx[0]||'';continue}
  if(c=='ー'){o+=o.slice(-1);continue}
+ if(c=='ん'){o+=/[あいうえおやゆよ]/.test(n||'')?"n'":'n';continue}
  let b=RM[c]||c;if(n&&'ゃゅょ'.includes(n)){b=(b=='shi'?'sh':b=='chi'?'ch':b=='ji'?'j':b.slice(0,-1)+'y')+{ゃ:'a',ゅ:'u',ょ:'o'}[n];i++}o+=b}return o}
 const kc=c=>K.test(c)&&KJ[c]?`<span class="kj" tabindex="0" data-k="${c}">${c}</span>`:e(c);
 const lk=w=>`<a class="wl lx" data-lx="w:${e(w.w)}">${[...w.w].map(c=>K.test(c)&&KJ[c]?`<span class="kj" tabindex="0" data-k="${c}" data-w="${W().indexOf(w)}">${c}</span>`:e(c)).join('')}</a>`;
@@ -317,12 +329,17 @@ const RK=new Map(),VW='aiueo',cs=(a,b)=>{let i=0;while(i<a.length&&i<b.length&&a
 Object.entries({'':'あいうえお',k:'かきくけこ',s:'さしすせそ',t:'たちつてと',n:'なにぬねの',h:'はひふへほ',m:'まみむめも',r:'らりるれろ',g:'がぎぐげご',z:'ざじずぜぞ',d:'だぢづでど',b:'ばびぶべぼ',p:'ぱぴぷぺぽ'}).forEach(([c,r])=>[...r].forEach((k,j)=>RK.set(c+VW[j],k)));
 Object.entries({ya:'や',yu:'ゆ',yo:'よ',wa:'わ',wo:'を',shi:'し',chi:'ち',tsu:'つ',fu:'ふ',ji:'じ',sha:'しゃ',shu:'しゅ',sho:'しょ',cha:'ちゃ',chu:'ちゅ',cho:'ちょ',ja:'じゃ',ju:'じゅ',jo:'じょ'}).forEach(([a,b])=>RK.set(a,b));
 Object.entries({k:'き',g:'ぎ',n:'に',h:'ひ',m:'み',r:'り',b:'び',p:'ぴ'}).forEach(([c,k])=>[['ya','ゃ'],['yu','ゅ'],['yo','ょ']].forEach(([y,x])=>RK.set(c+y,k+x)));
+const FONTS={kyo:'"Klee","UD Digi Kyokasho N-R","UD デジタル 教科書体 N-R","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif',maru:'"Hiragino Maru Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif',sans:'"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif',mincho:'"Hiragino Mincho ProN","Noto Serif JP","Yu Mincho",serif'};
+function setFont(){if(document.documentElement&&document.documentElement.style)document.documentElement.style.setProperty('--jp',FONTS[S.fn||'kyo'])}
 function toKana(s){return s.toLowerCase().split(/\s+/).map(toK1).join('')}
-function toK1(s){s=s.replace(/n'/g,'ん').replace(/'/g,'');let o='';for(let i=0;i<s.length;){
- if(s[i]=='-'){o+='ー';i++;continue}
- if(s[i]=='n'&&(s[i+1]=='n'||!s[i+1]||!/[aiueoy]/.test(s[i+1]))){o+='ん';i+=s[i+1]=='n'?2:1;continue}
- if(i+1<s.length&&s[i]==s[i+1]&&/[kstphmrgzdbjfc]/.test(s[i])){o+='っ';i++;continue}
- let k=3,hit=0;for(;k>0;k--){const t=RK.get(s.slice(i,i+k));if(t){o+=t;i+=k;hit=1;break}}if(!hit){o+=s[i];i++}}return o}
+Object.entries({sya:'しゃ',syu:'しゅ',syo:'しょ',tya:'ちゃ',tyu:'ちゅ',tyo:'ちょ',zya:'じゃ',zyu:'じゅ',zyo:'じょ',jya:'じゃ',jyu:'じゅ',jyo:'じょ',dya:'ぢゃ',dyu:'ぢゅ',dyo:'ぢょ',she:'しぇ',che:'ちぇ',je:'じぇ'}).forEach(([a,b])=>RK.set(a,b));
+// Romaji to kana: Hepburn, Kunrei and IME styles, macrons, n/nn/n', doubled consonants (tch too).
+function toK1(s){s=s.replace(/ā/g,'aa').replace(/ī/g,'ii').replace(/ū/g,'uu').replace(/ē/g,'ee').replace(/ō/g,'ou').replace(/n'/g,'ん').replace(/'/g,'');let o='';const v=x=>!!x&&/[aiueo]/.test(x);
+ for(let i=0;i<s.length;){const c=s[i],d=s[i+1];
+  if(c=='-'){o+='ー';i++;continue}
+  if(c=='n'&&!v(d)&&d!='y'){if(d=='n'&&!(v(s[i+2])||s[i+2]=='y'))i+=2;else i++;o+='ん';continue}
+  if((c==d&&/[kstphmrgzdbjfc]/.test(c))||(c=='t'&&d=='c'&&s[i+2]=='h')){o+='っ';i++;continue}
+  let k=3,hit=0;for(;k>0;k--){const t=RK.get(s.slice(i,i+k));if(t){o+=t;i+=k;hit=1;break}}if(!hit){o+=c;i++}}return o}
 const EN=[[/ませんでした$/,'past negative (polite)'],[/でした$/,'was / were (polite)'],[/ました$/,'past (polite)'],[/ません$/,'negative (polite)'],[/[てで]います$/,'ongoing or resulting state (-ている)'],[/ですか$/,'question (polite)'],[/たいです$/,'want to (-たい)'],[/[てで]ください$/,'please do (-てください)'],[/ます$/,'present or future (polite)'],[/です$/,'is / am / are (polite)']];
 const ending=x=>(EN.find(y=>y[0].test(x))||[])[1];
 const PR={は:'topic',が:'subject',を:'object',に:'target, destination or time',で:'place of action or means',へ:'direction',と:'together with',も:'also'};
@@ -429,7 +446,7 @@ function mixNext(){MX.n++;if(MX.n<MX.len){mixGo();return true}MX.on=0;go('t',1);
 function adv(m){if(MX.on&&mixNext())return;m=='l'?lab():m=='t'?typ():bld()}
 function today(){const cv=cov(),fc=forecast(),g=goal(),dn=(S.days||{})[dk()]||0,nw=topW(3).concat(rareOne()),
  ring=`<svg viewBox="0 0 42 42" width="92" height="92" role="img" aria-label="coverage ${Math.round(cv*100)} percent"><circle cx="21" cy="21" r="16" fill="none" stroke="var(--grid)" stroke-width="5"/><circle cx="21" cy="21" r="16" fill="none" stroke="var(--ok)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(cv*100.5).toFixed(1)} 100.5" transform="rotate(-90 21 21)"/><text x="21" y="24" text-anchor="middle" font-size="9" fill="currentColor">${Math.round(cv*100)}%</text></svg>`;
- $('#m').innerHTML=`<div class="card hero">${ring}<div style="flex:1"><h2>Today</h2><p class="mu" style="text-align:left;margin:0">Share of the most useful words you already know</p></div></div><button class="pri big" onclick="mixStart()">Start a session</button><p style="text-align:center;margin:0 0 12px"><a class="wl" onclick="vocab()">Word list</a> &nbsp; <a class="wl" onclick="roadmap()">Roadmap</a></p><div class="card"><div class="stat"><span>Today</span><b>${dn} of ${g} answers</b></div><div class="bar" style="margin:6px 0"><i style="width:${Math.min(100,dn/g*100)}%"></i></div><div class="stat"><span>In 14 days</span><b>about ${fc.med} words secure</b></div><p class="mu" style="text-align:left;margin:4px 0 0">Likely range ${fc.lo} to ${fc.hi}, simulated from your pace and results.</p></div>${nw.length?`<div class="card"><b>Worth learning next</b><p class="mu" style="text-align:left;margin:2px 0 8px">Common words made of kanji you already know come first.</p>${nw.map(w=>`<div class="stat"><a class="wl" onclick="dict(${W().indexOf(w)})">${e(w.w)}</a>${TR[w.w]>=4?' <span class="lv">rare</span>':''}<span class="mu">${e(w.r)} ${e(w.m)}</span></div>`).join('')}</div>`:''}`}
+ $('#m').innerHTML=`<div class="card hero">${ring}<div style="flex:1"><h2>Today</h2><p class="mu" style="text-align:left;margin:0">Share of the most useful words you already know</p></div></div><button class="pri big" onclick="mixStart()">Start a session</button><p style="text-align:center;margin:0 0 12px"><a class="wl" onclick="vocab()">Word list</a> &nbsp; <a class="wl" onclick="roadmap()">Roadmap (${RMP.filter(x=>x.s!='done').length} to build)</a></p><div class="card"><div class="stat"><span>Today</span><b>${dn} of ${g} answers</b></div><div class="bar" style="margin:6px 0"><i style="width:${Math.min(100,dn/g*100)}%"></i></div><div class="stat"><span>In 14 days</span><b>about ${fc.med} words secure</b></div><p class="mu" style="text-align:left;margin:4px 0 0">Likely range ${fc.lo} to ${fc.hi}, simulated from your pace and results.</p></div>${nw.length?`<div class="card"><b>Worth learning next</b><p class="mu" style="text-align:left;margin:2px 0 8px">Common words made of kanji you already know come first.</p>${nw.map(w=>`<div class="stat"><a class="wl" onclick="dict(${W().indexOf(w)})">${e(w.w)}</a>${TR[w.w]>=4?' <span class="lv">rare</span>':''}<span class="mu">${e(w.r)} ${e(w.m)}</span></div>`).join('')}</div>`:''}`}
 // ---- Word relations: synonym, antonym, verb-pair graph and same-meaning questions ----
 const rareOne=()=>{const r=W().filter(w=>!w.g&&!S.i[w.w]&&openW(w)&&TR[w.w]>=4);return r.length?[rnd(r)]:[]};
 const gr=w=>{const T=TR[w.w]||3,L={s:'Close in meaning',r:'Related',a:'Opposite',g:'Opposite',p:'Verb pair'},o={};(G[w.w]||[]).forEach(z=>{(o[L[z.t]]=o[L[z.t]]||[]).push(z.w)});
@@ -469,7 +486,7 @@ const ctxL=(c,j)=>`${c.t}|${(c.p||c.big||'').slice(0,60)}|${c.q}|${c.o.join('/')
 function skipQ(){if(!cur||cur.done||cur.study)return;cur.done=1;const{w,t,o}=cur,it=S.i[w.w];logEv({k:'p',id:w.w,ty:t,sk:1,E:etEnd(),keys:[w.w,'ty:'+t],ctx:ctxP(w,t,o,null,'')});
  if(it){it.sk=(it.sk||0)+1;if(!S.bq.some(b=>b.id==w.w))S.bq.push({id:w.w,at:S.cnt+6})}S.skips=(S.skips||0)+1;
  document.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true;if(o&&(t=='gq'?o[j].c:t=='oo'?o[j]===cur.odd:o[j].w==w.w))b.classList.add('ok')});
- $('#fb').innerHTML=`<div class="card fb"><b>Skipped</b> <span class="mu">(recorded separately from mistakes)</span><br>${t=='gq'?e(w.y):t=='oo'?e(cur.ch)+' is in the other three. '+lk(cur.odd):trioW(w)}<div class="row2"><button class="sec" onclick="nav(-1)">‹ Back</button><button class="pri" onclick="nq()">Next</button></div></div>`;save()}
+ $('#fb').innerHTML=`<div class="card fb"><b>Skipped</b> <span class="mu">(recorded separately from mistakes)</span><br>${t=='gq'?e(cur.y||w.y):t=='oo'?e(cur.ch)+' is in the other three. '+lk(cur.odd):trioW(w)}<div class="row2"><button class="sec" onclick="nav(-1)">‹ Back</button><button class="pri" onclick="nq()">Next</button></div></div>`;save()}
 function lskip(){const c=lcur;if(!c||c.done)return;c.done=1;const id=c.x.id,it=S.i[id]||(S.i[id]={s:.5,d:5,t:Date.now(),f:Date.now(),n:0,l:0,x:{}});
  logEv({k:'l',id,ty:c.x.gen||'lab',sk:1,E:etEnd(),keys:[id],ctx:ctxL(c,-1)});it.sk=(it.sk||0)+1;S.skips=(S.skips||0)+1;S.lrec=S.lrec||[];S.lrec.push(id);
  document.querySelectorAll('#lq .opt').forEach((b,k)=>{b.disabled=true;if(k==c.a)b.classList.add('ok')});$('#fb').innerHTML=`<div class="card fb"><b>Skipped</b><p>${ej(c.y)}</p>${c.aw?trioW(c.aw):c.full?trioS(c.full,c.fen):''}<button class="pri" onclick="adv('l')">Next</button></div>`;save()}
@@ -491,11 +508,15 @@ Object.entries({che:'ちぇ',she:'しぇ',je:'じぇ',fa:'ふぁ',fi:'ふぃ',fe
 const VM={};[['あかさたなはまやらわがざだばぱゃぁ','あ'],['いきしちにひみりぎじぢびぴぃ','い'],['うくすつぬふむゆるぐずづぶぷゅぅ','う'],['えけせてねへめれげぜでべぺぇ','え'],['おこそとのほもよろをごぞどぼぽょぉ','お']].forEach(([a,v])=>[...a].forEach(c=>VM[c]=v));
 const lvn=x=>{let o='';for(const c of x)o+=c=='ー'?(VM[o.slice(-1)]||''):c;return o};
 const nkana=x=>lvn(hira(x)).replace(/[。、！？.,!?\s]/g,'').replace(/を/g,'お').replace(/は/g,'わ').replace(/へ/g,'え');
+const lc=x=>x.replace(/づ/g,'ず').replace(/ぢ/g,'じ').replace(/([おこそとのほもよろをごぞどぼぽょ])う/g,'$1お').replace(/([えけせてねへめれげぜでべぺ])い/g,'$1え');
+// Accept romaji, hiragana, katakana (and the kanji itself for "type the word") for any single-word answer.
+const rkOk=(v,t,w)=>{v=String(v).trim();if(!v)return false;if(t=='ty'&&v==w.w)return true;return lc(nkana(v.replace(/[A-Za-zāīūēō' -]+/g,toKana)))==lc(nkana(w.r))||(/^[A-Za-zāīūēō' -]+$/.test(v)&&lr(v)==lr(romaji(w.r)))};
+const lr=x=>String(x).toLowerCase().replace(/ā/g,'aa').replace(/ī/g,'ii').replace(/ū/g,'uu').replace(/ē/g,'ee').replace(/ō/g,'ou').replace(/[^a-z]/g,'');
 function near(t,mx){const D={[t]:0},N={},q=[t],cs={s:1,r:2};while(q.length){q.sort((a,b)=>D[a]-D[b]);const u=q.shift();(G[u]||[]).forEach(z=>{const c=cs[z.t];if(!c)return;const d=D[u]+c;if(d<=mx&&(D[z.w]==null||d<D[z.w])){D[z.w]=d;N[z.w]=z.n||N[u];q.push(z.w)}})}return Object.keys(D).filter(w=>w!=t&&WM[w]).map(w=>({w:WM[w],d:D[w],n:N[w]}))}
 const oppOf=t=>(G[t]||[]).filter(z=>z.t=='a'||z.t=='g').map(z=>WM[z.w]).filter(Boolean);
 const PW={'が>を':'が marks the subject, or what exists or is liked (図面があります, 図面が好きです). を marks what the action is done to, so a verb like 確認する, 食べる or 読む takes を.','を>が':'を marks the thing an action is done to. With ある, いる, 好き, わかる and the potential form, the thing takes が (本があります).','は>が':'は marks the topic, what you are talking about. が marks a new or emphasised subject, such as the answer to “who?”.','が>は':'が marks a new or emphasised subject. は marks the topic you are talking about.','に>で':'に marks a destination, a person receiving, a time or where something exists. で marks where an action happens or the means used.','で>に':'で marks where an action happens or the means used. に marks a destination, a person or a time.','を>に':'を marks what the action is done to. に marks the target person, place or time (友達に会います).','に>を':'に marks a target such as a person, place or time. を marks the thing the action is done to.','へ>に':'へ and に both mark a destination, but に also works for people and times.'};
 function evalT(q,v){const mp={};q.t.forEach((t,i)=>{const r=q.r[i];mp[t]=r;const k=cs(t,r);if(k&&k<t.length)mp[t.slice(0,t.length-k)]=r.slice(0,r.length-k)});W().forEach(w=>{if(K.test(w.w)&&!mp[w.w])mp[w.w]=w.r});
- const ur=Object.keys(mp).sort((a,b)=>b.length-a.length).reduce((x,k)=>x.split(k).join(mp[k]),v.replace(/[A-Za-z' -]+/g,toKana)),un=nkana(ur),cn=nkana(q.r.join('')),last=q.t.length-1,alt=[],msg=[];let u2=un;
+ const ur=Object.keys(mp).sort((a,b)=>b.length-a.length).reduce((x,k)=>x.split(k).join(mp[k]),v.replace(/[A-Za-zāīūēō' -]+/g,toKana)),un=nkana(ur),cn=nkana(q.r.join('')),last=q.t.length-1,alt=[],msg=[];let u2=un;
  q.t.forEach((t,i)=>{if(PR[t]||i==last)return;const rc=nkana(q.r[i]);if(u2.includes(rc))return;const wi=WM[t];if(!wi)return;
   for(const c of near(t,2).sort((a,b)=>a.d-b.d)){const rr=nkana(c.w.r);if(rr&&u2.includes(rr)){u2=u2.replace(rr,rc);alt.push({from:t,to:c.w.w,d:c.d,n:c.n,m:c.w.m});break}}
   const op=oppOf(t).find(c=>un.includes(nkana(c.r)));if(op)msg.push(`${op.w} (${op.m}) means the opposite of ${t} (${wi.m}), so the meaning is reversed.`)});
@@ -558,7 +579,7 @@ function vocabList(){const F=S.vf,A=W().filter(w=>!w.g),q=(F.q||'').toLowerCase(
 function roadmap(){const R=RMP,c=k=>R.filter(x=>x.s==k),d=c('done').length,nm={done:'Done',doing:'In progress',planned:'Not started'},pc=Math.round(d/Math.max(1,R.length)*100);
  $('#m').innerHTML=`<div class="card"><b>Roadmap</b><p class="mu" style="text-align:left">${d} of ${R.length} items done (${pc}%). App version ${e(VER.app)}.</p><div class="bar"><i style="width:${pc}%"></i></div></div>`+['doing','planned','done'].map(k=>`<div class="card"><b>${nm[k]} (${c(k).length})</b>${c(k).map(x=>`<div class="stat"><span>${e(x.t)}<br><span class="mu">${e(x.a)}${x.n?': '+e(x.n):''}</span></span></div>`).join('')}</div>`).join('')+`<button class="sec" onclick="go('g')">Back to Progress</button>`}
 try{navigator.storage.persist()}catch(x){}
-function banner(){const b=$('#bn');if(!b)return;const old=!S.bk||Date.now()-S.bk>6048e5,sn=S.bs&&Date.now()-S.bs<864e5;
+function banner(){setFont();const b=$('#bn');if(!b)return;const old=!S.bk||Date.now()-S.bk>6048e5,sn=S.bs&&Date.now()-S.bs<864e5;
  b.innerHTML=Object.keys(S.i).length>3&&old&&!sn?`<div class="bn"><span>${S.bk?'Backup is over a week old':'No backup yet'}</span><button class="mini" onclick="exp()">Save</button><button class="mini" aria-label="Dismiss" onclick="S.bs=Date.now();save();banner()">×</button></div>`:''}
 let dg=null;
 function diag(){DX=diagBuild();dg={i:0,r:[]};go('p',1);dq()}

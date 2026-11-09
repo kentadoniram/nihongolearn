@@ -1,0 +1,1 @@
+{"name":"nihongo-lab","private":true,"version":"1.14.0","scripts":{"test":"node --test","roadmap":"node tools/make-roadmap-md.js"}}

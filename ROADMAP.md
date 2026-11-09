@@ -1,0 +1,52 @@
+# Build plan
+
+App version 1.14.20261109b. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
+
+## In progress (4)
+
+- [ ] Complete N4 vocabulary and kanji (Content: about 366 of roughly 700 new words so far (packs 1 to 5))
+- [ ] N3 vocabulary, kanji and grammar (Content: starter set only)
+- [ ] Hand-written reading passages (Content: currently generated from templates)
+- [ ] Synonym evaluator for conjugated verbs (Learning engine: nouns and adjectives only for now)
+
+## Not started (16)
+
+- [ ] N2 and N1 packs (Content)
+- [ ] Audio and pitch accent (Content: needs recorded or synthesised audio)
+- [ ] Real corpus frequency ranks (Content: current ranks are my estimate)
+- [ ] Grammar library with one page per pattern (Content)
+- [ ] Listening practice (Practice)
+- [ ] Kanji stroke-order practice (Practice)
+- [ ] Fit the forgetting model to your own history (Learning engine)
+- [ ] Optional cloud backup (Core)
+- [ ] Port the statistics models to the budget app (Other apps)
+- [ ] Accessibility review (Design)
+- [ ] Interface (browser) tests for the practice flows (Quality)
+- [ ] Daily new-word limit setting (Learning engine)
+- [ ] Example sentences for every N5 and N4 word (needed for more fill-in-the-blank questions) (Content)
+- [ ] At least 50 hand-written reading passages with questions (Content)
+- [ ] N3 grammar points, one page each, with practice (Content)
+- [ ] Pronunciation practice: long vowels, small っ, pitch accent (Practice)
+
+## Done (20)
+
+- [x] Offline web app with export and import of your memory (Core)
+- [x] Forgetting model, difficulty regression, Thompson sampling (Learning engine)
+- [x] Dirichlet confusion model and calibration (Learning engine)
+- [x] Diagnostic check-up with explanations (Learning)
+- [x] Pattern Lab, Build tiles and typed translation (Practice)
+- [x] Word-relation graph and same-meaning questions (Practice)
+- [x] Typing in romaji, hiragana or kanji with percentage score (Practice)
+- [x] Engaged-time vs idle-time log, slow-question context, skips (Analytics)
+- [x] Work vocabulary for plant engineering (Content)
+- [x] Reading passage generators (9 templates) (Content)
+- [x] Today screen and mixed sessions (Design)
+- [x] Kanji tooltips with display settings (Design)
+- [x] Tappable words and grammar expressions: tooltip, then full window (Design)
+- [x] Answers shown with furigana, romaji and English (Design)
+- [x] Vocabulary list with progress (Content)
+- [x] Roadmap view (Tracking)
+- [x] Back button and review of earlier questions (Practice)
+- [x] Unit test suite (node:test) with named test files, run before every release (Quality)
+- [x] Japanese font setting and romaji answers for every typed word (Design)
+- [x] Kanji entries for every kanji used in the deck (tooltips and word decoding) (Content: 94 entries added after the first unit tests found the gap)

@@ -4,7 +4,7 @@
  "level": 5,
  "title": "Roadmap",
  "roadmap": [
-  {"t": "Complete N4 vocabulary and kanji", "s": "doing", "a": "Content", "n": "about 200 of roughly 700 new words so far"},
+  {"t": "Complete N4 vocabulary and kanji", "s": "doing", "a": "Content", "n": "about 366 of roughly 700 new words so far (packs 1 to 5)"},
   {"t": "N3 vocabulary, kanji and grammar", "s": "doing", "a": "Content", "n": "starter set only"},
   {"t": "Hand-written reading passages", "s": "doing", "a": "Content", "n": "currently generated from templates"},
   {"t": "Synonym evaluator for conjugated verbs", "s": "doing", "a": "Learning engine", "n": "nouns and adjectives only for now"},
@@ -34,6 +34,15 @@
   {"t": "Answers shown with furigana, romaji and English", "s": "done", "a": "Design"},
   {"t": "Vocabulary list with progress", "s": "done", "a": "Content"},
   {"t": "Roadmap view", "s": "done", "a": "Tracking"},
-  {"t": "Back button and review of earlier questions", "s": "done", "a": "Practice"}
+  {"t": "Back button and review of earlier questions", "s": "done", "a": "Practice"},
+  {"t": "Unit test suite (node:test) with named test files, run before every release", "s": "done", "a": "Quality"},
+  {"t": "Japanese font setting and romaji answers for every typed word", "s": "done", "a": "Design"},
+  {"t": "Interface (browser) tests for the practice flows", "s": "planned", "a": "Quality"},
+  {"t": "Daily new-word limit setting", "s": "planned", "a": "Learning engine"},
+  {"t": "Example sentences for every N5 and N4 word (needed for more fill-in-the-blank questions)", "s": "planned", "a": "Content"},
+  {"t": "At least 50 hand-written reading passages with questions", "s": "planned", "a": "Content"},
+  {"t": "N3 grammar points, one page each, with practice", "s": "planned", "a": "Content"},
+  {"t": "Pronunciation practice: long vowels, small っ, pitch accent", "s": "planned", "a": "Practice"},
+  {"t": "Kanji entries for every kanji used in the deck (tooltips and word decoding)", "s": "done", "a": "Content", "n": "94 entries added after the first unit tests found the gap"}
  ]
 }

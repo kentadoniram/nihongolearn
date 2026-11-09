@@ -7,6 +7,22 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.14.20261109b
+- Unit tests: tests/unit/*.unit.test.js with shared helpers in tests/helpers (run with `npm test` or `node --test`)
+- ROADMAP.md is generated from data/roadmap.json and checked by a test; Today shows how many builds are still pending
+- Content 1.11.0 also fills 94 missing kanji entries, found by the new content test, so every kanji in the deck now has a tooltip entry
+- N4 pack 5 (content 1.11.0): 74 words and 48 kanji, integrated into practice, the vocabulary list, tooltips and the Lab
+
+## v1.13.20261109
+- Fix: romaji answers now work for every typed word question (tomodachi, ukeru, gakkou, gakkō); the converter handles nn, n', macrons, doubled consonants and the long vowels ou/oo, ei/ee
+- New typed question: type the Japanese word from its English meaning, in romaji, hiragana or kanji
+- Questions get harder as a word is learned: four stages with more production questions, cloze sentences and sharper look-alike distractors; the same word never comes back in the same form, with the same wrong options, or in the same order
+- New words keep coming when nothing is due, instead of drilling items that are not due; more new words per day when you are doing well
+- New question: pick the word from its reading (kanji words); every word cycles through all its question forms before any form repeats
+- Romaji output writes ん before a vowel as n' (gen'in, hon'yaku), and typed answers accept it with or without the apostrophe
+- Japanese font setting (textbook, rounded, plain sans, mincho); the default is no longer the sharp mincho style
+- N4 pack 4 (content 1.10.0): 受ける and 13 more verbs and nouns with kanji
+
 ## v1.12.20261108b
 - N4 pack 3: 83 words and 52 kanji (content 1.9.0)
 - Answers show furigana, romaji and English: words, typed and tile sentences, Lab answers, check-up answers
