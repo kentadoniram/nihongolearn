@@ -7,6 +7,11 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.15.20261110
+- Synonym check for conjugated verbs: a close-meaning verb in the same form is accepted (習います > 学びます), an opposite verb is explained; covers ます, ません, ました, て, た, ない, なかった for ichidan, godan, 行く and 来る
+- 10 hand-written reading passages with 20 questions (data/passages1.json), shown in the Lab
+- N4 pack 6 (content 1.12.0): new words and kanji; 18 verb relations (data/semantics2.json)
+
 ## v1.14.20261109b
 - Unit tests: tests/unit/*.unit.test.js with shared helpers in tests/helpers (run with `npm test` or `node --test`)
 - ROADMAP.md is generated from data/roadmap.json and checked by a test; Today shows how many builds are still pending

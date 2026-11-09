@@ -1,15 +1,14 @@
 # Build plan
 
-App version 1.14.20261109b. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
+App version 1.15.20261110. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
 
-## In progress (4)
+## In progress (3)
 
-- [ ] Complete N4 vocabulary and kanji (Content: about 366 of roughly 700 new words so far (packs 1 to 5))
+- [ ] Complete N4 vocabulary and kanji (Content: about 416 of roughly 700 new words so far (packs 1 to 6))
 - [ ] N3 vocabulary, kanji and grammar (Content: starter set only)
-- [ ] Hand-written reading passages (Content: currently generated from templates)
-- [ ] Synonym evaluator for conjugated verbs (Learning engine: nouns and adjectives only for now)
+- [ ] Hand-written reading passages (Content: 13 hand-written passages with 23 questions so far; the 9 generators fill the rest)
 
-## Not started (16)
+## Not started (18)
 
 - [ ] N2 and N1 packs (Content)
 - [ ] Audio and pitch accent (Content: needs recorded or synthesised audio)
@@ -27,9 +26,12 @@ App version 1.14.20261109b. Edit data/roadmap.json, then run `node tools/make-ro
 - [ ] At least 50 hand-written reading passages with questions (Content)
 - [ ] N3 grammar points, one page each, with practice (Content)
 - [ ] Pronunciation practice: long vowels, small っ, pitch accent (Practice)
+- [ ] Synonym evaluator for する-verbs, adjectives in other forms and compound verbs (Learning engine)
+- [ ] Verb synonym and antonym pairs for more verbs (only 4 close-meaning pairs so far) (Content)
 
-## Done (20)
+## Done (21)
 
+- [x] Synonym evaluator for conjugated verbs (Learning engine: verbs in the ます, ません, ました, て, た, ない and なかった forms)
 - [x] Offline web app with export and import of your memory (Core)
 - [x] Forgetting model, difficulty regression, Thompson sampling (Learning engine)
 - [x] Dirichlet confusion model and calibration (Learning engine)
