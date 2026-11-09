@@ -1,0 +1,40 @@
+{
+ "schema": 1,
+ "pack": "n4d-core",
+ "level": 4,
+ "title": "N4 pack 4",
+ "words": {"cols": ["w", "r", "m", "p", "e"],
+  "rows": [
+   ["受ける", "うける", "to receive, to take (an exam)", null, ["試験を受けます。", "I take an exam."]],
+   ["受付", "うけつけ", "reception desk"],
+   ["受け取る", "うけとる", "to receive (something handed over)"],
+   ["届ける", "とどける", "to deliver"],
+   ["払う", "はらう", "to pay"],
+   ["洗う", "あらう", "to wash"],
+   ["育てる", "そだてる", "to raise"],
+   ["建てる", "たてる", "to build"],
+   ["祝う", "いわう", "to celebrate"],
+   ["怒る", "おこる", "to get angry"],
+   ["踊る", "おどる", "to dance"],
+   ["触る", "さわる", "to touch"],
+   ["足りる", "たりる", "to be enough"],
+   ["間に合う", "まにあう", "to be in time"]
+  ]},
+ "kanji": {"cols": ["k", "m", "on", "kun"],
+  "rows": [
+   ["受", "receive", "ジュ", "うける"],
+   ["届", "deliver", "-", "とどける"],
+   ["払", "pay", "フツ", "はらう"],
+   ["洗", "wash", "セン", "あらう"],
+   ["育", "raise", "イク", "そだてる"],
+   ["建", "build", "ケン", "たてる"],
+   ["祝", "celebrate", "シュク", "いわう"],
+   ["怒", "anger", "ド", "おこる"],
+   ["踊", "dance", "ヨウ", "おどる"],
+   ["触", "touch", "ショク", "さわる"],
+   ["足", "foot, enough", "ソク", "あし・たりる"],
+   ["付", "attach", "フ", "つける"],
+   ["取", "take", "シュ", "とる"],
+   ["合", "fit, match", "ゴウ", "あう"]
+  ]}
+}
