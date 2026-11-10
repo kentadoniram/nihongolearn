@@ -4,7 +4,7 @@
  "level": 5,
  "title": "Roadmap",
  "roadmap": [
-  {"t": "Complete N4 vocabulary and kanji", "s": "doing", "a": "Content", "n": "about 416 of roughly 700 new words so far (packs 1 to 6)"},
+  {"t": "Complete N4 vocabulary and kanji", "s": "doing", "a": "Content", "n": "about 449 of roughly 700 new words so far (packs 1 to 7)"},
   {"t": "N3 vocabulary, kanji and grammar", "s": "doing", "a": "Content", "n": "starter set only"},
   {"t": "Hand-written reading passages", "s": "doing", "a": "Content", "n": "13 hand-written passages with 23 questions so far; the 9 generators fill the rest"},
   {"t": "Synonym evaluator for conjugated verbs", "s": "done", "a": "Learning engine", "n": "verbs in the ます, ません, ました, て, た, ない and なかった forms"},
@@ -14,7 +14,7 @@
   {"t": "Grammar library with one page per pattern", "s": "planned", "a": "Content"},
   {"t": "Listening practice", "s": "planned", "a": "Practice"},
   {"t": "Kanji stroke-order practice", "s": "planned", "a": "Practice"},
-  {"t": "Fit the forgetting model to your own history", "s": "planned", "a": "Learning engine"},
+  {"t": "Fit the forgetting model to your own history", "s": "done", "a": "Learning engine", "n": "fits a time scale and curve shape from your reviews once there are 60 or more"},
   {"t": "Optional cloud backup", "s": "planned", "a": "Core"},
   {"t": "Port the statistics models to the budget app", "s": "planned", "a": "Other apps"},
   {"t": "Accessibility review", "s": "planned", "a": "Design"},
@@ -45,6 +45,9 @@
   {"t": "Pronunciation practice: long vowels, small っ, pitch accent", "s": "planned", "a": "Practice"},
   {"t": "Kanji entries for every kanji used in the deck (tooltips and word decoding)", "s": "done", "a": "Content", "n": "94 entries added after the first unit tests found the gap"},
   {"t": "Synonym evaluator for する-verbs, adjectives in other forms and compound verbs", "s": "planned", "a": "Learning engine"},
-  {"t": "Verb synonym and antonym pairs for more verbs (only 4 close-meaning pairs so far)", "s": "planned", "a": "Content"}
+  {"t": "Verb synonym and antonym pairs for more verbs (only 4 close-meaning pairs so far)", "s": "planned", "a": "Content"},
+  {"t": "Casual speech and office phrases in the Lab (〜ちゃう, 〜てる, 〜とく, 〜なきゃ and 29 phrases)", "s": "done", "a": "Content"},
+  {"t": "Tests for every statistical model (samplers, regression, Monte Carlo forecast, forgetting fit)", "s": "done", "a": "Quality"},
+  {"t": "Casual speech reference screen, typed casual practice and more phrases", "s": "planned", "a": "Content"}
  ]
 }

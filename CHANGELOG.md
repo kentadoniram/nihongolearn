@@ -7,6 +7,12 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.16.20261110b
+- Forgetting model is fitted to your own reviews (time scale and curve shape, maximum likelihood with a prior); shown under Memory > Learning
+- Casual speech and office phrases: 〜てしまう > 〜ちゃう, 〜ている > 〜てる, 〜ておく > 〜とく, 〜なければ > 〜なきゃ, 〜ては > 〜ちゃ, generated for your own verbs, plus 29 casual office phrases, in the Lab
+- Unit tests for every statistical model
+- N4 pack 7 (content 1.13.0)
+
 ## v1.15.20261110
 - Synonym check for conjugated verbs: a close-meaning verb in the same form is accepted (習います > 学びます), an opposite verb is explained; covers ます, ません, ました, て, た, ない, なかった for ichidan, godan, 行く and 来る
 - 10 hand-written reading passages with 20 questions (data/passages1.json), shown in the Lab

@@ -101,7 +101,19 @@ let svn=0;const save=()=>{try{if(++svn%30==0&&JSON.stringify(S).length>3e6){S.lg
 const W=()=>(S.wk===false?V.filter(w=>!w.t):V).concat(S.custom,GI),rnd=a=>a[Math.random()*a.length|0],shuffle=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
 const hira=s=>s.replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-96));
 // Forgetting curve (FSRS-style power law): R=0.9 when t=S days.
-const ret=(it,n)=>Math.pow(1+19/81*((n-it.t)/864e5)/it.s,-.5);
+let FK=1,FC=-.5;
+const ret=(it,n)=>Math.pow(1+19/81*FK*((n-it.t)/864e5)/it.s,FC);
+// Personal forgetting model: fit a time scale k and curve shape c to your own reviews by maximum likelihood, with a prior pulling towards the standard curve.
+function fmNLL(rv,k,c){return rv.reduce((a,[dt,s,y])=>{const p=Math.min(.999,Math.max(.001,Math.pow(1+19/81*k*dt/s,c)));return a-Math.log(y?p:1-p)},0)}
+function fitFm(rv){if(rv.length<60)return{ok:0,n:rv.length};let best=null;const b0=fmNLL(rv,1,-.5);
+ for(let j=-6;j<=6;j++){const k=Math.exp(j*.15);for(const c of[-.35,-.5,-.7]){const v=fmNLL(rv,k,c)+3*Math.pow(Math.log(k),2)+30*Math.pow(c+.5,2);if(!best||v<best.v)best={k,c,v}}}
+ const n1=fmNLL(rv,best.k,best.c);return{ok:b0-n1>=2?1:0,k:best.k,c:best.c,n:rv.length,nll0:b0/rv.length,nll1:n1/rv.length}}
+function applyFm(){const f=S.fm;FK=f&&f.ok?Math.min(2.5,Math.max(.4,f.k)):1;FC=f&&f.ok?f.c:-.5}
+function refitFm(){S.fm=fitFm(S.rv||[]);applyFm();save()}
+function rvPush(dt,s,y){if(dt<.25)return;const r=S.rv=S.rv||[];r.push([+dt.toFixed(3),+s.toFixed(3),y]);if(r.length>800)r.shift();if(r.length>=60&&r.length%25==0)refitFm()}
+function fmStatus(){const f=S.fm,n=(S.rv||[]).length;if(!f||!f.ok)return n<60?`Fitting needs 60 reviews that are at least 6 hours apart (${n} so far). Until then the standard curve is used.`:'Your reviews match the standard curve closely, so it is unchanged.';
+ return`Fitted to ${f.n} of your reviews: memories fade ${f.k>1?Math.round((f.k-1)*100)+'% faster':Math.round((1-f.k)*100)+'% slower'} than the standard curve (shape ${f.c}). Log loss ${f.nll0.toFixed(3)} to ${f.nll1.toFixed(3)}.`}
+applyFm();
 let cur=null,cmb=0,rd={n:0,ok:0,xp:0,bc:0};
 // Look-alike kanji groups, used to build confusable choices.
 const look=(a,b)=>a!=b&&SIM.some(g=>g.includes(a)&&g.includes(b));
@@ -180,7 +192,7 @@ function show(){cur.t0=Date.now();etStart();const{w,t,o}=cur,it=S.i[w.w],pct=Mat
  $('#m').innerHTML=h+'<button class="skip" onclick="skipQ()">Skip</button></div><div id="fb"></div>';
  if(t=='bt')bshow();if(['tr','ty'].includes(t)){const i=$('#ti');i.focus();i.onkeydown=ev=>{if(ev.key=='Enter')ans(0,i.value)}}}
 function ans(i,val){if(cur.done)return;cur.done=1;const{w,t,o}=cur,it=S.i[w.w],ty=['tr','bt','ty'].includes(t),x=ty?null:o[i];
- const ok=ty?rkOk(val,t,w):t=='gq'?x.c:t=='oo'?x===cur.odd:x.w==w.w,R=ret(it,Date.now()),ls=learn(feat(w,t,it),ok?1:0,w.w);if(!ok&&ls>1.3&&!S.bq.some(b=>b.id==w.w))S.bq.push({id:w.w,at:S.cnt+2});
+ const ok=ty?rkOk(val,t,w):t=='gq'?x.c:t=='oo'?x===cur.odd:x.w==w.w,R=ret(it,Date.now()),ls=learn(feat(w,t,it),ok?1:0,w.w);if(it.n>=1)rvPush((Date.now()-it.t)/864e5,it.s,ok?1:0);if(!ok&&ls>1.3&&!S.bq.some(b=>b.id==w.w))S.bq.push({id:w.w,at:S.cnt+2});
  const E=etEnd(),z=robZ(t,E.act),slip=!ok&&z<-1.5&&E.act<1500,slow=ok&&z>2;if(slip)S.slips=(S.slips||0)+1;logEv({k:'p',id:w.w,ty:t,ok,E,z,keys:[w.w,'ty:'+t].concat(w.f?['f:'+w.f]:[]),ctx:ctxP(w,t,o,i,val)});
  if(ok){it.s*=(slow?.75:1)*(1.3+2.2*(1-R)+.15*(10-it.d));it.d=Math.max(1,it.d-.2)}
  else{it.s=Math.max(.4,it.s*(slip?.5:.25));it.d=Math.min(10,it.d+1);if(!slip)it.l++;if(x&&x.w){it.x[x.w]=(it.x[x.w]||0)+1;if(S.i[x.w]&&!S.bq.some(b=>b.id==x.w))S.bq.push({id:x.w,at:S.cnt+3})}}
@@ -194,9 +206,22 @@ function nq(){if(hi<hist.length){nav(1);return}snap();hi=hist.length;if(MX.on&&m
 // Lab: activities are static pattern units plus word-decoding puzzles generated from the data. The same models drive selection.
 const wpick=(a,f)=>{const t=a.map(f);let r=Math.random()*t.reduce((x,y)=>x+y,0),i=0;for(;i<a.length-1;i++){r-=t[i];if(r<=0)break}return a[i]};
 const labObj=x=>x.w||{w:x.id,g:1,l:x.l};
+// Casual speech: rules applied to your own verbs, plus common casual and office phrases.
+let CAS={rules:[],phrases:[]};
+const tev=d=>conj(d,'te').s,cj=s=>s.replace(/て$/,'ちゃ').replace(/で$/,'じゃ'),swp=s=>s.replace(/て$/,'じゃ').replace(/で$/,'ちゃ');
+const CAS_FN={
+ shimau:d=>{const t=tev(d);return{f:t+'しまった',c:cj(t)+'った',w:[t+'ちゃった',swp(t)+'った',cj(t)+'た']}},
+ teiru:d=>{const t=tev(d);return{f:t+'いる',c:t+'る',w:[t+'れる',t.replace(/[てで]$/,'')+'る',t+'ちる']}},
+ teoku:d=>{const t=tev(d);return{f:t+'おく',c:t.replace(/て$/,'と').replace(/で$/,'ど')+'く',w:[t.replace(/て$/,'ど').replace(/で$/,'と')+'く',t+'く',t+'とく']}},
+ nakya:d=>{const n=conj(d,'nai').s;return{f:n.replace(/い$/,'ければならない'),c:n.replace(/い$/,'きゃ'),w:[n.replace(/ない$/,'')+'きゃ',n+'きゃ',n.replace(/い$/,'けや')]}},
+ tewa:d=>{const t=tev(d);return{f:t+'はだめ',c:t.replace(/て$/,'ちゃ').replace(/で$/,'じゃ')+'だめ',w:[t+'ちゃだめ',swp(t)+'だめ',cj(t)+'ない']}}};
+function ruleQ(x){const r=x.r,vs=V.filter(d=>!d.t&&posOf(d)=='verb'&&vclass(d)&&vclass(d)!='suru'),met=vs.filter(d=>S.i[d.w]),d=rnd(met.length>3?met:vs),m=CAS_FN[r.id](d),o=shuffle([m.c,...m.w].filter((v,i,a)=>a.indexOf(v)==i));
+ return{t:'Casual speech: '+r.title,big:m.f,q:'How do people say this casually?',o,a:o.indexOf(m.c),y:`${m.f} becomes ${m.c}. ${r.note}`,l:4,ex:[]}}
+function phraseQ(x){const p=x.p,o=shuffle([p.m,...shuffle(CAS.phrases.filter(z=>z.m!=p.m)).slice(0,3).map(z=>z.m)]);
+ return{t:'Casual speech and office phrases',big:p.c,q:'What does it mean?',o,a:o.indexOf(p.m),y:`${p.c} means “${p.m}”. More polite: ${p.p}. ${p.n||''}`,l:4,ex:[]}}
 function labItems(){const op=l=>l>=4||S.n3||S.cnt>120;
  const U=LAB.map((u,k)=>({id:'u'+(u.id||k),u,l:u.l||5})).filter(x=>op(x.l)),
- C=W().filter(w=>!w.g&&op(w.l)&&[...w.w].filter(c=>K.test(c)).length>=2&&[...w.w].every(c=>!K.test(c)||KJ[c])).map(w=>({id:'c'+w.w,w,l:w.l}));const G=[];if(FRM().length)G.push({id:'fp',gen:'particle',l:5},{id:'ft',gen:'tense',l:5});if(REL.length)G.push({id:'sy',gen:'syn',l:4},{id:'an',gen:'ant',l:4},{id:'pa',gen:'para',l:4});(GEN.reads||[]).forEach(r=>{if(op(r.l)&&!(r.tr&&S.wk===false))G.push({id:'fr'+r.id,gen:'read',r,l:r.l})});return U.concat(C,G)}
+ C=W().filter(w=>!w.g&&op(w.l)&&[...w.w].filter(c=>K.test(c)).length>=2&&[...w.w].every(c=>!K.test(c)||KJ[c])).map(w=>({id:'c'+w.w,w,l:w.l}));const G=[];if(FRM().length)G.push({id:'fp',gen:'particle',l:5},{id:'ft',gen:'tense',l:5});if(REL.length)G.push({id:'sy',gen:'syn',l:4},{id:'an',gen:'ant',l:4},{id:'pa',gen:'para',l:4});(GEN.reads||[]).forEach(r=>{if(op(r.l)&&!(r.tr&&S.wk===false))G.push({id:'fr'+r.id,gen:'read',r,l:r.l})});return U.concat(C,G,CAS.rules.map(r=>({id:'kr-'+r.id,k:'r',r,l:4})),CAS.phrases.map(p=>({id:'kp-'+p.c,k:'p',p,l:4})))}
 function labPick(){const now=Date.now(),A0=labItems(),gk=S.lf||wpick(['r','g','m','w'].filter(k=>A0.some(x=>kindOf(x)==k)),k=>({r:.3,g:.25,m:.25,w:.2}[k])),A1=A0.filter(x=>kindOf(x)==gk),A=A1.length?A1:A0,rc=S.lrec||(S.lrec=[]),F=A.filter(x=>!rc.includes(x.id)),L=F.filter(x=>S.i[x.id]),un=F.filter(x=>!S.i[x.id]),R=x=>ret(S.i[x.id],now),
  th=a=>a.reduce((b,x)=>{const it=S.i[x.id],m=rb(1+Math.max(0,it.n-it.l)*R(x),1+it.l);return!b||m<b.m?{x,m}:b},0).x,due=L.filter(x=>R(x)<.9);
  if(due.length&&Math.random()<.6)return th(due);
@@ -204,12 +229,13 @@ function labPick(){const now=Date.now(),A0=labItems(),gk=S.lf||wpick(['r','g','m
  return L.length?th(L):F.length?rnd(F):rnd(A)}
 let lcur=null;
 function lab(){const x=labPick();if(!x){$('#m').innerHTML='<div class="card">No lab activities yet.</div>';return}
- let c;if(x.u){const u=x.u,ix=shuffle(u.o.map((_,i)=>i));c={x,t:u.t,p:u.p,ex:u.ex||[],q:u.q,o:ix.map(i=>u.o[i]),a:ix.indexOf(u.a),y:u.y,l:u.l}}
+ let c;if(x.k){c=x.k=='r'?ruleQ(x):phraseQ(x);c.x=x;c.clue=''}else if(x.u){const u=x.u,ix=shuffle(u.o.map((_,i)=>i));c={x,t:u.t,p:u.p,ex:u.ex||[],q:u.q,o:ix.map(i=>u.o[i]),a:ix.indexOf(u.a),y:u.y,l:u.l}}
  else if(x.gen){let k=0;do{c=genLab(x)}while(S.fp.includes(c.key)&&++k<8);S.fp.push(c.key);if(S.fp.length>400)S.fp.shift()}
  else{const w=x.w,ps=[...w.w].filter(k=>K.test(k)),o=opts(w,'m');c={x,t:'Decode the word',big:w.w,clue:ps.map(k=>k+' '+KJ[k].m).join(' + '),q:'What does it mean?',o:o.map(z=>z.m),a:o.indexOf(w),y:`${ps.map(k=>k+' ('+KJ[k].m+')').join(' + ')} gives ${w.w} (${w.r}) = ${w.m}. Compounds usually blend their parts, so use the pieces you know to guess the rest.`,l:w.l,ex:[]}}
  lcur=c;c.done=0;etStart();
  $('#m').innerHTML=`<div class="card q-oo"><div class="mu" style="display:flex;justify-content:space-between;margin:0 0 6px"><span>${labChips()}${c.l&&!S.hl?' <span class="lv">N'+c.l+'</span>':''}</span><a class="wl" onclick="diag()">Check-up</a></div><b>${e(c.t)}</b>${c.big?`<div class="big">${e(c.big)}</div><p class="mu">${e(c.clue)}</p>`:''}${c.p?`<p class="pass">${ej(c.p,1)}</p>`:''}<div class="ex">${c.ex.map(z=>`<span><big>${e(z[0])}</big><small>${e(z[1])}</small></span>`).join('')}</div><p>${e(c.q)}</p>${c.en?`<p class="mu" style="margin:0 0 6px">${e(c.en)}</p>`:''}<div id="lq">${c.o.map((o,j)=>`<button class="opt" onclick="lq(${j})">${e(o)}</button>`).join('')}</div><button class="skip" onclick="lskip()">Skip</button></div><div id="fb"></div>`}
 function lq(j){const c=lcur;if(!c||c.done)return;c.done=1;const ok=j==c.a,id=c.x.id,now=Date.now(),it=S.i[id]||(S.i[id]={s:.5,d:5,t:now,f:now,n:0,l:0,x:{}}),R=ret(it,now);
+ if(it.n>=1)rvPush((now-it.t)/864e5,it.s,ok?1:0);
  learn(feat(labObj(c.x),'gq',null),ok?1:0,id);logEv({k:'l',id,ty:c.x.gen||(c.x.u?'u':'c'),ok,E:etEnd(),keys:[id,'ty:'+(c.x.gen||'lab')].concat(c.key?['k:'+c.key.split('|').slice(0,2).join('|')]:[]),ctx:ctxL(c,j)});
  if(ok){it.s*=1.3+2.2*(1-R)+.15*(10-it.d);it.d=Math.max(1,it.d-.2);S.xp+=10}else{it.s=Math.max(.4,it.s*.25);it.d=Math.min(10,it.d+1);it.l++}
  it.t=now;it.n++;tick();S.lrec.push(id);if(S.lrec.length>10)S.lrec.shift();if(c.x.u)S.lab[c.x.u.id||0]=ok?1:0;save();
@@ -242,18 +268,18 @@ function bp(k){cur.sel.push(k);bshow()}function bu(i){cur.sel.splice(i,1);bshow(
 function mem(){const d=S.bk?new Date(S.bk).toLocaleDateString():'never',pk=PK.concat(S.cp),ck=(k,t)=>`<p><label><input type="checkbox" ${S[k]?'checked':''} onchange="S.${k}=this.checked;save()"> ${t}</label></p>`;
  $('#m').innerHTML=`<details class="card" open><summary>Backup and transfer</summary><p class="mu" style="text-align:left">Last backup: ${d}. Memory means your progress, mistakes, XP and difficulty model.</p><button class="pri" onclick="exp()">Download my memory</button><label class="pri" style="display:block;text-align:center;cursor:pointer">Load memory from file<input type="file" accept=".json,application/json" hidden onchange="imp(this)"></label><details><summary class="mu">Use text instead</summary><textarea id="mt" placeholder="Paste memory text here"></textarea><button class="sec" onclick="$('#mt').value=JSON.stringify(S)">Show as text</button><button class="sec" onclick="navigator.clipboard&&navigator.clipboard.writeText(JSON.stringify(S))">Copy</button><button class="sec" onclick="impt()">Load from text</button></details></details>
 <details class="card"><summary>Display</summary>${ck('hl','Hide JLPT level labels')}<p class="mu" style="text-align:left;margin:8px 0 2px">Japanese font</p><select onchange="S.fn=this.value;save();setFont()">${[['kyo','Textbook (school style)'],['maru','Rounded'],['sans','Plain sans'],['mincho','Mincho (serif)']].map(([k,t])=>`<option value="${k}" ${(S.fn||'kyo')==k?'selected':''}>${t}</option>`).join('')}</select><p class="mu" style="text-align:left;margin:8px 0 2px">Kanji tooltip shows</p>${[['r','Readings'],['m','Meaning'],['p','Part of speech of the word'],['l','JLPT level'],['w','Example words'],['s','Look-alike kanji']].map(([k,t])=>`<p style="margin:4px 0"><label><input type="checkbox" ${S.tf[k]?'checked':''} onchange="S.tf.${k}=this.checked;save()"> ${t}</label></p>`).join('')}<button class="sec" onclick="S.tf={r:1,m:0,p:0,l:0,w:0,s:0};save();mem()">Reading only</button><button class="sec" onclick="S.tf={r:1,m:1,p:0,l:1,w:0,s:0};save();mem()">Reading + meaning</button><button class="sec" onclick="S.tf={r:1,m:1,p:1,l:1,w:0,s:0};save();mem()">+ part of speech</button><button class="sec" onclick="S.tf={r:1,m:1,p:1,l:1,w:1,s:1};save();mem()">Everything</button></details>
-<details class="card"><summary>Learning</summary>${ck('aa','Move on automatically after a correct answer')}${ck('wk','Include work vocabulary (plant engineering)')}<p style="margin:8px 0 2px">Rare words mixed in: <b id="rv">${Math.round((S.rare??.2)*100)}%</b></p><input type="range" min="0" max="40" step="10" value="${Math.round((S.rare??.2)*100)}" oninput="S.rare=this.value/100;$('#rv').textContent=this.value+'%';save()" style="width:100%">${ck('n3','Open N3 content now')}<p class="mu" style="text-align:left">Otherwise N3 opens once most N5 and N4 words are met.</p></details>
+<details class="card"><summary>Learning</summary>${ck('aa','Move on automatically after a correct answer')}<p class="mu" style="text-align:left">Forgetting model: ${fmStatus()}</p><button class="sec" onclick="refitFm();mem()">Refit now</button>${ck('wk','Include work vocabulary (plant engineering)')}<p style="margin:8px 0 2px">Rare words mixed in: <b id="rv">${Math.round((S.rare??.2)*100)}%</b></p><input type="range" min="0" max="40" step="10" value="${Math.round((S.rare??.2)*100)}" oninput="S.rare=this.value/100;$('#rv').textContent=this.value+'%';save()" style="width:100%">${ck('n3','Open N3 content now')}<p class="mu" style="text-align:left">Otherwise N3 opens once most N5 and N4 words are met.</p></details>
 <details class="card"><summary>Content</summary><p class="mu" style="text-align:left">${V.length} words, ${Object.keys(KJ).length} kanji, ${SN.length} sentences, ${GI.length} grammar items and ${rc()} generated reading passages. Lessons load from the data folder, and you can add a content pack here.</p>${pk.map(p=>`<div class="mu">${e(p.pack||p.title||'pack')}${p.level?' (N'+p.level+')':''}</div>`).join('')}<label class="sec" style="cursor:pointer">Import content pack<input type="file" accept=".json" hidden onchange="imp(this)"></label></details>
 <details class="card"><summary>Learning data</summary>${dataCard()}</details>
 <details class="card"><summary>Advanced</summary><button class="sec" onclick="rst()">Erase everything on this device</button></details>
 <details class="card"><summary>About</summary><p>Nihongo Lab v${e(VER.app)}</p><p class="mu" style="text-align:left">Lesson data ${e(VER.content)}. Version format is MAJOR.MINOR.BUILD.</p></details>`}
 // Content comes from data/*.json packs (see data/SCHEMA.md) plus any packs imported by the user.
 const rows=t=>Array.isArray(t)?t:(t.rows||[]).map(r=>Object.fromEntries(t.cols.map((c,i)=>[c,r[i]])));
-function applyPacks(ps){V=[];DIAG=[];KJ={};SN=[];LAB=[];SIM=[];FM=[];TY=[];GEN={};REL=[];GRAD=[];BEC=[];TR={};FI={};RMP=[];EXPR=[];const seen=new Set();
+function applyPacks(ps){CAS={rules:[],phrases:[]};V=[];DIAG=[];KJ={};SN=[];LAB=[];SIM=[];FM=[];TY=[];GEN={};REL=[];GRAD=[];BEC=[];TR={};FI={};RMP=[];EXPR=[];const seen=new Set();
  ps.forEach(p=>{const L=+p.level||5;rows(p.words||[]).forEach(w=>{if(w.w&&w.r&&w.m&&!seen.has(w.w)){seen.add(w.w);V.push({w:w.w,r:w.r,m:w.m,l:+w.l||L,e:w.e||undefined,p:w.p||undefined,t:p.track,ls:w.ls||undefined,fr:w.fr||undefined,auto:(!w.l&&p.autolevel)?1:undefined})}});
   rows(p.kanji||[]).forEach(k=>{KJ[k.k]={m:k.m,on:k.on,kun:k.kun,l:+k.l||L}});(p.questions||[]).forEach(q=>DIAG.push(q));
   (p.sentences||[]).forEach(x=>SN.push({en:x.en,t:x.t,tail:+x.tail||1,y:x.y,l:+x.l||L,f:x.f}));
-  (p.patterns||[]).concat(p.reading||[]).forEach(u=>LAB.push({...u,ex:u.ex||[],l:u.l||L}));(p.passages||[]).forEach(ps=>(ps.qs||[]).forEach((q,i)=>LAB.push({t:'Reading',l:+ps.l||L,p:ps.p,ex:[],q:q.q,o:q.o,a:q.a,y:q.y,id:ps.id+'-'+i})));(p.lookalike||[]).forEach(g=>SIM.push(g));rows(p.translate||[]).forEach(x=>TY.push({en:x.en,t:x.t.split(' '),r:x.r.split(' '),l:+x.l||L,f:x.f,k:x.k}));if(p.gen){const g=p.gen;if(g.subj)GEN.subj=g.subj;if(g.tm)GEN.tm=g.tm;if(g.cues)GEN.cues=g.cues;if(g.frames)GEN.frames=rows(g.frames);if(g.ident)GEN.ident=g.ident;GEN.reads=(GEN.reads||[]).concat(g.reads||[])}if(p.roadmap)RMP=RMP.concat(p.roadmap);if(p.expr)EXPR=EXPR.concat(p.expr);if(p.rel)REL=REL.concat(rows(p.rel).map(r=>[r.a,r.b,r.t,r.n]));if(p.grad)GRAD=GRAD.concat(p.grad);if(p.bec)BEC=BEC.concat(p.bec);if(p.freq)Object.entries(p.freq).forEach(([t,l])=>l.split(',').forEach((w,i)=>{TR[w]=+t;FI[w]=i}));(p.forms||[]).forEach(f=>FM.push({...f,l:+f.l||L}))});
+  (p.patterns||[]).concat(p.reading||[]).forEach(u=>LAB.push({...u,ex:u.ex||[],l:u.l||L}));if(p.casual){CAS.rules.push(...(p.casual.rules||[]));rows(p.casual.phrases||[]).forEach(x=>CAS.phrases.push(x))}(p.passages||[]).forEach(ps=>(ps.qs||[]).forEach((q,i)=>LAB.push({t:'Reading',l:+ps.l||L,p:ps.p,ex:[],q:q.q,o:q.o,a:q.a,y:q.y,id:ps.id+'-'+i})));(p.lookalike||[]).forEach(g=>SIM.push(g));rows(p.translate||[]).forEach(x=>TY.push({en:x.en,t:x.t.split(' '),r:x.r.split(' '),l:+x.l||L,f:x.f,k:x.k}));if(p.gen){const g=p.gen;if(g.subj)GEN.subj=g.subj;if(g.tm)GEN.tm=g.tm;if(g.cues)GEN.cues=g.cues;if(g.frames)GEN.frames=rows(g.frames);if(g.ident)GEN.ident=g.ident;GEN.reads=(GEN.reads||[]).concat(g.reads||[])}if(p.roadmap)RMP=RMP.concat(p.roadmap);if(p.expr)EXPR=EXPR.concat(p.expr);if(p.rel)REL=REL.concat(rows(p.rel).map(r=>[r.a,r.b,r.t,r.n]));if(p.grad)GRAD=GRAD.concat(p.grad);if(p.bec)BEC=BEC.concat(p.bec);if(p.freq)Object.entries(p.freq).forEach(([t,l])=>l.split(',').forEach((w,i)=>{TR[w]=+t;FI[w]=i}));(p.forms||[]).forEach(f=>FM.push({...f,l:+f.l||L}))});
  GI=DIAG.filter(q=>q.c=='g'&&q.id).map(q=>({w:q.id,g:1,l:q.l,q:q.q,o:q.o,a:q.a,y:q.y}));DX=DIAG.filter(q=>!q.x);post()}
 async function loadContent(){fetch('version.json').then(r=>r.json()).then(j=>{VER.app=j.app;VER.content=j.content}).catch(()=>{});
  const get=async u=>{const r=await fetch(u);if(!r.ok)throw new Error('Could not load '+u+' (error '+r.status+')');return r.json()};

@@ -1,10 +1,10 @@
 # Build plan
 
-App version 1.15.20261110. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
+App version 1.16.20261110b. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
 
 ## In progress (3)
 
-- [ ] Complete N4 vocabulary and kanji (Content: about 416 of roughly 700 new words so far (packs 1 to 6))
+- [ ] Complete N4 vocabulary and kanji (Content: about 449 of roughly 700 new words so far (packs 1 to 7))
 - [ ] N3 vocabulary, kanji and grammar (Content: starter set only)
 - [ ] Hand-written reading passages (Content: 13 hand-written passages with 23 questions so far; the 9 generators fill the rest)
 
@@ -16,7 +16,6 @@ App version 1.15.20261110. Edit data/roadmap.json, then run `node tools/make-roa
 - [ ] Grammar library with one page per pattern (Content)
 - [ ] Listening practice (Practice)
 - [ ] Kanji stroke-order practice (Practice)
-- [ ] Fit the forgetting model to your own history (Learning engine)
 - [ ] Optional cloud backup (Core)
 - [ ] Port the statistics models to the budget app (Other apps)
 - [ ] Accessibility review (Design)
@@ -28,10 +27,12 @@ App version 1.15.20261110. Edit data/roadmap.json, then run `node tools/make-roa
 - [ ] Pronunciation practice: long vowels, small っ, pitch accent (Practice)
 - [ ] Synonym evaluator for する-verbs, adjectives in other forms and compound verbs (Learning engine)
 - [ ] Verb synonym and antonym pairs for more verbs (only 4 close-meaning pairs so far) (Content)
+- [ ] Casual speech reference screen, typed casual practice and more phrases (Content)
 
-## Done (21)
+## Done (24)
 
 - [x] Synonym evaluator for conjugated verbs (Learning engine: verbs in the ます, ません, ました, て, た, ない and なかった forms)
+- [x] Fit the forgetting model to your own history (Learning engine: fits a time scale and curve shape from your reviews once there are 60 or more)
 - [x] Offline web app with export and import of your memory (Core)
 - [x] Forgetting model, difficulty regression, Thompson sampling (Learning engine)
 - [x] Dirichlet confusion model and calibration (Learning engine)
@@ -52,3 +53,5 @@ App version 1.15.20261110. Edit data/roadmap.json, then run `node tools/make-roa
 - [x] Unit test suite (node:test) with named test files, run before every release (Quality)
 - [x] Japanese font setting and romaji answers for every typed word (Design)
 - [x] Kanji entries for every kanji used in the deck (tooltips and word decoding) (Content: 94 entries added after the first unit tests found the gap)
+- [x] Casual speech and office phrases in the Lab (〜ちゃう, 〜てる, 〜とく, 〜なきゃ and 29 phrases) (Content)
+- [x] Tests for every statistical model (samplers, regression, Monte Carlo forecast, forgetting fit) (Quality)
