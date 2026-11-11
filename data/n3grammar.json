@@ -1,0 +1,34 @@
+{
+ "schema": 1,
+ "pack": "n3-grammar",
+ "level": 3,
+ "title": "N3 grammar 1",
+ "questions": [
+  {"x": 1, "c": "g", "l": 3, "id": "g301", "q": "毎日、日本語を話す___しています。", "o": ["ように", "ために", "ので", "ほど"], "a": 0, "y": "～ようにする means making an effort so that something becomes a habit: 話すようにしています. ～ために gives a purpose or reason with a deliberate action."},
+  {"x": 1, "c": "g", "l": 3, "id": "g302", "q": "来月から運動する___にしました。", "o": ["こと", "もの", "ところ", "はず"], "a": 0, "y": "～ことにする expresses your own decision: 運動することにしました. ～ことになる says it was decided by circumstances or others."},
+  {"x": 1, "c": "g", "l": 3, "id": "g303", "q": "来年、大阪で働く___になりました。", "o": ["こと", "もの", "ところ", "わけ"], "a": 0, "y": "～ことになる means “it has been decided (not only by me)”: 働くことになりました. Compare ～ことにする for your own decision."},
+  {"x": 1, "c": "g", "l": 3, "id": "g304", "q": "日本に来た___で、まだ友達がいません。", "o": ["ばかり", "だけ", "しか", "ほど"], "a": 0, "y": "Verb た-form + ばかり means “just did”: 来たばかり. だけ means only, and しか needs a negative."},
+  {"x": 1, "c": "g", "l": 3, "id": "g305", "q": "彼は一時間前に出たから、もう駅に着いた___です。", "o": ["はず", "ため", "こと", "ところ"], "a": 0, "y": "～はずだ expresses expectation based on reasons: “he should have arrived by now”."},
+  {"x": 1, "c": "g", "l": 3, "id": "g306", "q": "日本の文化___調べています。", "o": ["について", "によって", "として", "のために"], "a": 0, "y": "～について means “about”: 日本の文化について. によって means depending on, として means as."},
+  {"x": 1, "c": "g", "l": 3, "id": "g307", "q": "国___、習慣が違います。", "o": ["によって", "について", "として", "のために"], "a": 0, "y": "～によって means “depending on” or “by”: 国によって習慣が違います means customs differ by country."},
+  {"x": 1, "c": "g", "l": 3, "id": "g308", "q": "私は留学生___日本に来ました。", "o": ["として", "について", "によって", "のために"], "a": 0, "y": "～として means “as” (in the role of): 留学生として. について is “about”."},
+  {"x": 1, "c": "g", "l": 3, "id": "g309", "q": "音楽を聞き___勉強します。", "o": ["ながら", "ばかり", "たら", "ので"], "a": 0, "y": "Verb stem + ながら means doing two actions at once by the same person; the main action is the last verb."},
+  {"x": 1, "c": "g", "l": 3, "id": "g310", "q": "先生は学生に本を読ま___。", "o": ["せました", "れました", "させました", "らせました"], "a": 0, "y": "Causative: godan verbs take the a-row + せる (読む becomes 読ませる), ichidan verbs take stem + させる (食べさせる)."},
+  {"x": 1, "c": "g", "l": 3, "id": "g311", "q": "子供の時、先生に叱___ました。", "o": ["られ", "せ", "れ", "させ"], "a": 0, "y": "Passive: godan verbs take a-row + れる, but 叱る ends in る so the form is 叱られる. The person who did it takes に."},
+  {"x": 1, "c": "g", "l": 3, "id": "g312", "q": "雨が降っ___、試合をします。", "o": ["ても", "たら", "ので", "ながら"], "a": 0, "y": "～ても means “even if”: 雨が降っても、試合をします (we will play even if it rains)."}
+ ],
+ "forms": [
+  {"id": "n3-kotonisuru", "l": 3, "name": "Decide to do", "blocks": ["Topic は", "Verb (plain)", "ことにしました"], "note": "ことにする expresses your own decision. ことになる says it was decided by circumstances or by others.", "trap": "English: I decided to run. Japanese: plain verb + ことにしました, with the verb first.", "ex": [["来月から日本語を習うことにしました。", "I decided to learn Japanese from next month."], ["毎朝走ることにしました。", "I decided to run every morning."]]},
+  {"id": "n3-tameni", "l": 3, "name": "In order to", "blocks": ["Purpose (plain verb)", "ために", "Action"], "note": "ために gives a purpose and needs the same subject for both parts: 合格するために勉強します.", "trap": "English puts “to” before the verb. Japanese puts ために after the plain verb.", "ex": [["合格するために、毎日勉強します。", "I study every day in order to pass."], ["健康のために、運動します。", "I exercise for my health."]]},
+  {"id": "n3-nagara", "l": 3, "name": "Two actions at once", "blocks": ["Verb stem", "ながら", "Main verb"], "note": "ながら joins two actions done by the same person at the same time. The main action is the last verb.", "trap": "English: while listening, I study. Japanese: 聞きながら勉強します, with the side action first.", "ex": [["音楽を聞きながら勉強します。", "I study while listening to music."], ["歩きながら話しました。", "We talked while walking."]]},
+  {"id": "n3-passive", "l": 3, "name": "Be done to (passive)", "blocks": ["Person に", "Verb (passive)", "ました"], "note": "Passive: godan a-row + れる, ichidan stem + られる. The person who did the action takes に.", "trap": "English “by the teacher” comes after the verb. Japanese puts the doer with に before the verb.", "ex": [["先生に叱られました。", "I was scolded by the teacher."], ["窓が開けられました。", "The window was opened."]]}
+ ],
+ "sentences": [
+  {"en": "I decided to run every morning.", "t": ["毎朝", "走る", "ことに", "しました"], "tail": 3, "l": 3, "f": "n3-kotonisuru", "r": "まいあさ はしる ことに しました"},
+  {"en": "I decided to study Japanese.", "t": ["私", "は", "日本語", "を", "勉強する", "ことに", "しました"], "tail": 3, "l": 3, "f": "n3-kotonisuru", "r": "わたし は にほんご を べんきょうする ことに しました"},
+  {"en": "I study every day to pass the exam.", "t": ["毎日", "試験", "に", "合格する", "ために", "勉強します"], "tail": 3, "l": 3, "f": "n3-tameni", "r": "まいにち しけん に ごうかくする ために べんきょうします"},
+  {"en": "I study while listening to music.", "t": ["音楽", "を", "聞きながら", "勉強します"], "tail": 2, "l": 3, "f": "n3-nagara", "r": "おんがく を ききながら べんきょうします"},
+  {"en": "I was scolded by the teacher.", "t": ["私", "は", "先生", "に", "叱られました"], "tail": 1, "l": 3, "f": "n3-passive", "r": "わたし は せんせい に しかられました"},
+  {"en": "The window was opened.", "t": ["窓", "が", "開けられました"], "tail": 1, "l": 3, "f": "n3-passive", "r": "まど が あけられました"}
+ ]
+}
