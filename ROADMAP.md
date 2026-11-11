@@ -1,14 +1,14 @@
 # Build plan
 
-App version 1.16.20261110b. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
+App version 1.17.20261111. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
 
 ## In progress (3)
 
-- [ ] Complete N4 vocabulary and kanji (Content: about 449 of roughly 700 new words so far (packs 1 to 7))
+- [ ] Complete N4 vocabulary and kanji (Content: about 468 of roughly 700 new words so far (packs 1 to 8))
 - [ ] N3 vocabulary, kanji and grammar (Content: starter set only)
 - [ ] Hand-written reading passages (Content: 13 hand-written passages with 23 questions so far; the 9 generators fill the rest)
 
-## Not started (18)
+## Not started (20)
 
 - [ ] N2 and N1 packs (Content)
 - [ ] Audio and pitch accent (Content: needs recorded or synthesised audio)
@@ -28,8 +28,10 @@ App version 1.16.20261110b. Edit data/roadmap.json, then run `node tools/make-ro
 - [ ] Synonym evaluator for する-verbs, adjectives in other forms and compound verbs (Learning engine)
 - [ ] Verb synonym and antonym pairs for more verbs (only 4 close-meaning pairs so far) (Content)
 - [ ] Casual speech reference screen, typed casual practice and more phrases (Content)
+- [ ] Sample sentences for the remaining N5 words (Content)
+- [ ] Conjugation table: potential, passive, causative and conditional forms (Content)
 
-## Done (24)
+## Done (28)
 
 - [x] Synonym evaluator for conjugated verbs (Learning engine: verbs in the ます, ません, ました, て, た, ない and なかった forms)
 - [x] Fit the forgetting model to your own history (Learning engine: fits a time scale and curve shape from your reviews once there are 60 or more)
@@ -55,3 +57,7 @@ App version 1.16.20261110b. Edit data/roadmap.json, then run `node tools/make-ro
 - [x] Kanji entries for every kanji used in the deck (tooltips and word decoding) (Content: 94 entries added after the first unit tests found the gap)
 - [x] Casual speech and office phrases in the Lab (〜ちゃう, 〜てる, 〜とく, 〜なきゃ and 29 phrases) (Content)
 - [x] Tests for every statistical model (samplers, regression, Monte Carlo forecast, forgetting fit) (Quality)
+- [x] Time-based regression: memory strength, question stage and ability ease back after time away (Learning engine: welcome-back card shows the estimated recall drop)
+- [x] N5 database: vocabulary, kanji, verbs, sample sentences and a verb conjugation table (Content: N5 pack 2; sample sentences exist for about a third of N5 words so far)
+- [x] Reading help points for tapping words and kanji in passages (Practice)
+- [x] Release zip always contains every data JSON file with the original folders (Quality: tools/build-release.py)

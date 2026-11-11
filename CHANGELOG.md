@@ -7,6 +7,13 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.17.20261111
+- Time-based regression: after 3 or more days away, question stage follows your effective memory strength, your ability estimate eases back, and a welcome-back card shows the estimated recall drop
+- N5 pack 2: more vocabulary, verbs, kanji and sample sentences; verb conjugation table (11 forms with examples) in the dictionary
+- Reading help points in passages: 1 point for a tap, 3 in total for a double tap or opening the full entry; tracked under Memory > Learning
+- N4 pack 8 (n4h.json)
+- tools/build-release.py builds the full zip with every data JSON file in its original folder, one copy of each
+
 ## v1.16.20261110b
 - Forgetting model is fitted to your own reviews (time scale and curve shape, maximum likelihood with a prior); shown under Memory > Learning
 - Casual speech and office phrases: 〜てしまう > 〜ちゃう, 〜ている > 〜てる, 〜ておく > 〜とく, 〜なければ > 〜なきゃ, 〜ては > 〜ちゃ, generated for your own verbs, plus 29 casual office phrases, in the Lab

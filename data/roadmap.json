@@ -4,7 +4,7 @@
  "level": 5,
  "title": "Roadmap",
  "roadmap": [
-  {"t": "Complete N4 vocabulary and kanji", "s": "doing", "a": "Content", "n": "about 449 of roughly 700 new words so far (packs 1 to 7)"},
+  {"t": "Complete N4 vocabulary and kanji", "s": "doing", "a": "Content", "n": "about 468 of roughly 700 new words so far (packs 1 to 8)"},
   {"t": "N3 vocabulary, kanji and grammar", "s": "doing", "a": "Content", "n": "starter set only"},
   {"t": "Hand-written reading passages", "s": "doing", "a": "Content", "n": "13 hand-written passages with 23 questions so far; the 9 generators fill the rest"},
   {"t": "Synonym evaluator for conjugated verbs", "s": "done", "a": "Learning engine", "n": "verbs in the ます, ません, ました, て, た, ない and なかった forms"},
@@ -48,6 +48,12 @@
   {"t": "Verb synonym and antonym pairs for more verbs (only 4 close-meaning pairs so far)", "s": "planned", "a": "Content"},
   {"t": "Casual speech and office phrases in the Lab (〜ちゃう, 〜てる, 〜とく, 〜なきゃ and 29 phrases)", "s": "done", "a": "Content"},
   {"t": "Tests for every statistical model (samplers, regression, Monte Carlo forecast, forgetting fit)", "s": "done", "a": "Quality"},
-  {"t": "Casual speech reference screen, typed casual practice and more phrases", "s": "planned", "a": "Content"}
+  {"t": "Casual speech reference screen, typed casual practice and more phrases", "s": "planned", "a": "Content"},
+  {"t": "Time-based regression: memory strength, question stage and ability ease back after time away", "s": "done", "a": "Learning engine", "n": "welcome-back card shows the estimated recall drop"},
+  {"t": "N5 database: vocabulary, kanji, verbs, sample sentences and a verb conjugation table", "s": "done", "a": "Content", "n": "N5 pack 2; sample sentences exist for about a third of N5 words so far"},
+  {"t": "Reading help points for tapping words and kanji in passages", "s": "done", "a": "Practice"},
+  {"t": "Release zip always contains every data JSON file with the original folders", "s": "done", "a": "Quality", "n": "tools/build-release.py"},
+  {"t": "Sample sentences for the remaining N5 words", "s": "planned", "a": "Content"},
+  {"t": "Conjugation table: potential, passive, causative and conditional forms", "s": "planned", "a": "Content"}
  ]
 }
