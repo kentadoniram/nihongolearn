@@ -7,6 +7,11 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.17.20261111b
+- N4 pack 9 (n4i.json) and N3 pack 2 (n3b.json): new words; kanji2.json adds 114 missing kanji entries, including some used by N5 pack 2, so every kanji in the deck now has an entry
+- N3 grammar 1 (n3grammar.json): 12 practice questions (ようにする, ことにする, ことになる, ばかり, はず, について, によって, として, ながら, causative, passive, ても), 4 sentence patterns and 6 typed sentences with readings
+- Content 1.15.0
+
 ## v1.17.20261111
 - Time-based regression: after 3 or more days away, question stage follows your effective memory strength, your ability estimate eases back, and a welcome-back card shows the estimated recall drop
 - N5 pack 2: more vocabulary, verbs, kanji and sample sentences; verb conjugation table (11 forms with examples) in the dictionary

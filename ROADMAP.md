@@ -1,11 +1,11 @@
 # Build plan
 
-App version 1.17.20261111. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
+App version 1.17.20261111b. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
 
 ## In progress (3)
 
-- [ ] Complete N4 vocabulary and kanji (Content: about 468 of roughly 700 new words so far (packs 1 to 8))
-- [ ] N3 vocabulary, kanji and grammar (Content: starter set only)
+- [ ] Complete N4 vocabulary and kanji (Content: about 529 of roughly 700 new words so far (packs 1 to 9); kanji entries exist for every word)
+- [ ] N3 vocabulary, kanji and grammar (Content: 126 words, 18 grammar questions and 5 sentence patterns so far, of roughly 3,700 words and about 100 grammar points)
 - [ ] Hand-written reading passages (Content: 13 hand-written passages with 23 questions so far; the 9 generators fill the rest)
 
 ## Not started (20)
