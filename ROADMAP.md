@@ -1,6 +1,6 @@
 # Build plan
 
-App version 1.17.20261111b. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
+App version 1.17.20261112. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
 
 ## In progress (3)
 
@@ -8,7 +8,7 @@ App version 1.17.20261111b. Edit data/roadmap.json, then run `node tools/make-ro
 - [ ] N3 vocabulary, kanji and grammar (Content: 126 words, 18 grammar questions and 5 sentence patterns so far, of roughly 3,700 words and about 100 grammar points)
 - [ ] Hand-written reading passages (Content: 13 hand-written passages with 23 questions so far; the 9 generators fill the rest)
 
-## Not started (20)
+## Not started (21)
 
 - [ ] N2 and N1 packs (Content)
 - [ ] Audio and pitch accent (Content: needs recorded or synthesised audio)
@@ -30,8 +30,9 @@ App version 1.17.20261111b. Edit data/roadmap.json, then run `node tools/make-ro
 - [ ] Casual speech reference screen, typed casual practice and more phrases (Content)
 - [ ] Sample sentences for the remaining N5 words (Content)
 - [ ] Conjugation table: potential, passive, causative and conditional forms (Content)
+- [ ] Reformat the dense one-line functions and split the longer files further (Quality)
 
-## Done (28)
+## Done (29)
 
 - [x] Synonym evaluator for conjugated verbs (Learning engine: verbs in the ます, ません, ました, て, た, ない and なかった forms)
 - [x] Fit the forgetting model to your own history (Learning engine: fits a time scale and curve shape from your reviews once there are 60 or more)
@@ -60,4 +61,5 @@ App version 1.17.20261111b. Edit data/roadmap.json, then run `node tools/make-ro
 - [x] Time-based regression: memory strength, question stage and ability ease back after time away (Learning engine: welcome-back card shows the estimated recall drop)
 - [x] N5 database: vocabulary, kanji, verbs, sample sentences and a verb conjugation table (Content: N5 pack 2; sample sentences exist for about a third of N5 words so far)
 - [x] Reading help points for tapping words and kanji in passages (Practice)
-- [x] Release zip always contains every data JSON file with the original folders (Quality: tools/build-release.py)
+- [x] Release zip contains only the modified files, in their original folders (Quality: tools/build-release.py compares with the previous release; --full builds everything)
+- [x] Code split into css/app.css and 27 js files with an architecture guide and structure tests (Quality: docs/ARCHITECTURE.md)

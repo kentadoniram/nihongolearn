@@ -1,0 +1,24 @@
+/* js/23-checkup-vocab-roadmap.js
+ * Purpose: Randomised check-up builder, vocabulary list and roadmap.
+ * Defines (5): diagBuild, vf, vocab, vocabList, roadmap
+ * Classic script: shares one global scope with the other files, so load order (see index.html) matters.
+ */
+// ---- Randomised diagnostic: every check-up is built from fresh questions ----
+function diagBuild(){const o=[],P=W().filter(w=>!w.g&&!w.t&&w.l>=4&&(TR[w.w]||3)<=2),kj=P.filter(w=>K.test(w.w)&&!/^[ァ-ヶー]+$/.test(w.w)),pk=(a,n)=>shuffle(a).slice(0,n);
+ pk(P,5).forEach(w=>{const z=opts(w,'m'),x=exOf(w);o.push({c:'v',l:w.l,w:w.w,q:w.w+' means…',o:z.map(v=>v.m),a:z.indexOf(w),y:`${w.w} (${w.r}) means “${w.m}”.${x?' Example: '+x[0]+' ('+x[1]+')':''}`})});
+ pk(kj,3).forEach(w=>{const z=opts(w,'r');o.push({c:'r',l:w.l,w:w.w,q:`How do you read ${w.w}?`,o:z.map(v=>v.r),a:z.indexOf(w),y:`${w.w} is read ${w.r} and means “${w.m}”.`})});
+ pk(SIM.filter(g=>g.length>=3),2).forEach(g=>{const ks=[...g].filter(c=>KJ[c]);if(ks.length<2)return;const c1=rnd(ks),oth=shuffle(Object.keys(KJ).filter(c=>!g.includes(c))),opt=shuffle([c1,...shuffle(ks.filter(c=>c!=c1)).slice(0,3),...oth]).filter((c,i,a)=>a.indexOf(c)==i).slice(0,4);if(!opt.includes(c1))opt[0]=c1;
+  const ix=shuffle(opt);o.push({c:'k',l:KJ[c1].l>4?5:KJ[c1].l,q:`Which kanji means “${KJ[c1].m}”?`,o:ix,a:ix.indexOf(c1),y:ks.map(c=>c+' '+KJ[c].m).join(', ')+'. These look alike, so check the strokes.'})});
+ for(let i=0;i<3;i++){const c=genLab({gen:'particle'});o.push({c:'g',l:5,q:c.p,o:c.o,a:c.a,y:c.y})}
+ const c=genLab({gen:'tense'});o.push({c:'g',l:5,q:c.p,o:c.o,a:c.a,y:c.y});return o.sort((a,b)=>b.l-a.l).slice(0,14)}
+// ---- Vocabulary list with progress, and roadmap ----
+function vf(k,v){S.vf=S.vf||{lv:'',st:'',q:'',n:40,ls:''};S.vf[k]=v;S.vf.n=40;vocab()}
+function vocab(){const F=S.vf=S.vf||{lv:'',st:'',q:'',n:40,ls:''},A=W().filter(w=>!w.g),lvO=w=>w.t?'W':String(w.l),stO=w=>{const it=S.i[w.w];return!it?'new':it.s>=7?'solid':'learning'};
+ const bar=k=>{const L=A.filter(w=>lvO(w)==k),m=L.filter(w=>S.i[w.w]).length,sd=L.filter(w=>stO(w)=='solid').length;return L.length?`<div class="stat"><span>${k=='W'?'Work':'N'+k}</span><span class="mu">${m} met, ${sd} solid, ${L.length} in total</span></div><div class="bar" style="margin:2px 0 8px"><i style="width:${m/L.length*100}%"></i></div>`:''},
+ ch=(k,list)=>`<div class="chips">${list.map(([v,t])=>`<a class="${(F[k]||'')==v?'on':''}" onclick="vf('${k}','${v}')">${t}</a>`).join('')}</div>`,lss=[...new Set(A.map(w=>w.ls).filter(Boolean))];
+ $('#m').innerHTML=`<div class="card"><b>Vocabulary</b>${['5','4','3','W'].map(bar).join('')}${ch('lv',[['','All'],['5','N5'],['4','N4'],['3','N3'],['W','Work']])}${ch('st',[['','Any status'],['new','New'],['learning','Learning'],['solid','Solid']])}${lss.length?ch('ls',[['','All lessons'],...lss.map(x=>[x,x])]):''}<input id="vq" placeholder="Search word, reading, romaji or meaning" value="${e(F.q||'')}" oninput="S.vf.q=this.value;S.vf.n=40;vocabList()" style="width:100%;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--fg);font-size:1rem"></div><div class="card" id="vl"></div><button class="sec" onclick="go('g')">Back to Progress</button>`;vocabList()}
+function vocabList(){const F=S.vf,A=W().filter(w=>!w.g),q=(F.q||'').toLowerCase(),now=Date.now(),lvO=w=>w.t?'W':String(w.l),stO=w=>{const it=S.i[w.w];return!it?'new':it.s>=7?'solid':'learning'};
+ const R=A.filter(w=>(!F.lv||lvO(w)==F.lv)&&(!F.st||stO(w)==F.st)&&(!F.ls||w.ls==F.ls)&&(!q||(w.w+' '+w.r+' '+romaji(w.r)+' '+w.m).toLowerCase().includes(q))).sort((a,b)=>(ZR[a.w]||999)-(ZR[b.w]||999));
+ $('#vl').innerHTML=`<p class="mu" style="text-align:left;margin:0 0 4px">${R.length} words, ordered by everyday use</p>`+R.slice(0,F.n).map(w=>{const it=S.i[w.w],st=stO(w);return`<div class="vr" onclick="dict(${W().indexOf(w)})" style="cursor:pointer"><span>${ruby(w,1)} ${lvb(w)}<br><span class="mu">${e(w.m)}</span></span><span class="pill ${st=='solid'?'s':''}">${st=='new'?'new':Math.round(ret(it,now)*100)+'% '+st}</span></div>`}).join('')+(R.length>F.n?`<button class="sec" onclick="S.vf.n+=40;vocabList()">Show more</button>`:'')}
+function roadmap(){const R=RMP,c=k=>R.filter(x=>x.s==k),d=c('done').length,nm={done:'Done',doing:'In progress',planned:'Not started'},pc=Math.round(d/Math.max(1,R.length)*100);
+ $('#m').innerHTML=`<div class="card"><b>Roadmap</b><p class="mu" style="text-align:left">${d} of ${R.length} items done (${pc}%). App version ${e(VER.app)}.</p><div class="bar"><i style="width:${pc}%"></i></div></div>`+['doing','planned','done'].map(k=>`<div class="card"><b>${nm[k]} (${c(k).length})</b>${c(k).map(x=>`<div class="stat"><span>${e(x.t)}<br><span class="mu">${e(x.a)}${x.n?': '+e(x.n):''}</span></span></div>`).join('')}</div>`).join('')+`<button class="sec" onclick="go('g')">Back to Progress</button>`}

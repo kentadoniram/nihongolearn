@@ -7,6 +7,11 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.17.20261112
+- Refactor, no change in behaviour: index.html is now only markup; styles are in css/app.css; the code is split into 27 numbered scripts in js/ (each with a purpose header); docs/ARCHITECTURE.md explains the layout
+- Service worker reads the stylesheet and scripts from index.html
+- Tests load the scripts in order; new structure tests; release tool builds patch zips with only modified files (tools/build-release.py, --full for everything)
+
 ## v1.17.20261111b
 - N4 pack 9 (n4i.json) and N3 pack 2 (n3b.json): new words; kanji2.json adds 114 missing kanji entries, including some used by N5 pack 2, so every kanji in the deck now has an entry
 - N3 grammar 1 (n3grammar.json): 12 practice questions (ようにする, ことにする, ことになる, ばかり, はず, について, によって, として, ながら, causative, passive, ても), 4 sentence patterns and 6 typed sentences with readings
