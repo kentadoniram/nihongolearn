@@ -1,7 +1,10 @@
 {
   "name": "nihongo-lab",
   "private": true,
-  "version": "1.14.0",
+  "version": "1.17.0",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "test": "node --test",
     "format": "node tools/format-js.js",

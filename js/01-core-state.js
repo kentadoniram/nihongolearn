@@ -1,6 +1,6 @@
 /* js/01-core-state.js
  * Purpose: Global state, saved data and small helpers.
- * Defines (7): V, $, KEY, S, svn, W, hira
+ * Defines (8): V, $, KEY, S, svn, saveFailed, W, hira
  * Classic script: shares one global scope with the other files, so load order (see index.html) matters.
  */
 let V = [],
@@ -37,7 +37,13 @@ const KEY = 'nihongoLab1',
   K = /[\u4e00-\u9fff]/;
 let S;
 try {
-  S = JSON.parse(localStorage.getItem(KEY))
+  const raw = localStorage.getItem(KEY);
+  try {
+    S = JSON.parse(raw)
+  } catch (x) {
+    // unreadable saved data: keep a copy before the first save replaces it
+    if (raw) localStorage.setItem(KEY + '.corrupt', raw)
+  }
 } catch (x) {}
 S = S || {};
 S.i = S.i || {};
@@ -58,7 +64,8 @@ if (!S.tf) S.tf = { r: 1, m: 1, p: 0, l: 1, w: 0, s: 0 };
 S.nl = S.nl || [];
 S.nt = S.nt || 0;
 S.nn = S.nn || 0;
-let svn = 0;
+let svn = 0,
+  saveFailed = false;
 const save = () => {
   try {
     if (++svn % 30 == 0 && JSON.stringify(S).length > 3e6) {
@@ -66,8 +73,11 @@ const save = () => {
       S.hd = (S.hd || []).slice(-60);
       S.cx = (S.cx || []).slice(-80)
     }
-    localStorage.setItem(KEY, JSON.stringify(S))
-  } catch (x) {}
+    localStorage.setItem(KEY, JSON.stringify(S));
+    saveFailed = false
+  } catch (x) {
+    saveFailed = true
+  }
 };
 const W = () => (S.wk === false ? V.filter(w => !w.t) : V).concat(S.custom, GI),
   rnd = a => a[Math.random() * a.length | 0],

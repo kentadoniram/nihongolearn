@@ -19,7 +19,7 @@ def h(p): return hb(open(p, 'rb').read())
 files, notes = {}, []
 for f in SITE:
     if os.path.exists(os.path.join(ROOT, f)): files[f] = os.path.join(ROOT, f)
-for d in ('css', 'js', 'data', 'docs', 'tests', 'tools'):
+for d in ('css', 'js', 'data', 'icons', 'docs', 'tests', 'tools'):
     for dp, _, fs in os.walk(os.path.join(ROOT, d)):
         if 'node_modules' in dp: continue
         for f in fs:

@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Nihongo Lab</title><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#1f3a5f">
+<title>Nihongo Lab</title><meta name="description" content="Offline Japanese practice for JLPT N5 to N3"><link rel="manifest" href="manifest.json"><link rel="icon" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/icon-192.png"><meta name="theme-color" content="#1f3a5f">
 <link rel="stylesheet" href="css/app.css"></head><body><div class="w">
-<header><h1>日本語 Lab</h1><nav><button data-v="t" onclick="go('t')">Today</button><button data-v="p" onclick="go('p')">Play</button><button data-v="b" onclick="go('b')">Build</button><button data-v="l" onclick="go('l')">Lab</button><button data-v="g" onclick="go('g')">Progress</button><button data-v="m" onclick="go('m')">Memory</button></nav></header>
-<div id="bn"></div><div id="st"></div><main id="m"></main>
+<header><h1>日本語 Lab</h1><nav aria-label="Sections"><button data-v="t" onclick="go('t')">Today</button><button data-v="p" onclick="go('p')">Play</button><button data-v="b" onclick="go('b')">Build</button><button data-v="l" onclick="go('l')">Lab</button><button data-v="g" onclick="go('g')">Progress</button><button data-v="m" onclick="go('m')">Memory</button></nav></header>
+<div id="bn"></div><div id="st" aria-live="polite"></div><main id="m"></main>
 </div>
 <div id="zl" onclick="nav(-1)" aria-label="Previous question">‹</div><div id="zr" onclick="nav(1)" aria-label="Next question">›</div>
 <div id="dv" hidden></div>

@@ -17,6 +17,7 @@ python3 -m http.server 8000
 | `index.html` | markup and the list of scripts |
 | `css/` | `app.css`, the only stylesheet |
 | `js/` | the app, split into numbered scripts (see `docs/ARCHITECTURE.md`) |
+| `icons/` | app icons for installing the PWA |
 | `data/` | lessons as JSON packs (see `data/SCHEMA.md`) |
 | `tests/` | unit tests (see `tests/README.md`) |
 | `tools/` | formatter, release builder, roadmap generator |

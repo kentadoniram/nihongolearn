@@ -9,5 +9,5 @@ try {
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js')
   .catch (() => {});
 loadContent().then(() => go('t')).catch (x => {
-  $('#m').innerHTML = '<div class="card"><b>Lesson files could not be loaded</b><p>' + e(x.message) + '</p><p class="mu" style="text-align:left">Keep content.json and the n5, n4, n3 .json files in a folder called data next to index.html (or all in the same folder as index.html), and open the app from its web address, not by double-clicking the file.</p></div>'
+  $('#m').innerHTML = '<div class="card"><b>Lesson files could not be loaded</b><p>' + e(x.message) + '</p><p class="mu" style="text-align:left">Keep the data folder (content.json and the lesson .json files) next to index.html, and open the app from its web address, not by double-clicking the file.</p></div>'
 });

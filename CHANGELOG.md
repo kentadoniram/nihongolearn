@@ -7,6 +7,14 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.17.20261114
+- Fix: if saved progress cannot be read, a copy is kept under `nihongoLab1.corrupt` instead of being overwritten by the next save
+- Fix: when the browser refuses to save (storage full or blocked), a warning with a Save (backup) button now appears instead of failing silently
+- App icons (192, 512 and maskable 512) and a fuller manifest so the app can be installed; icons are precached and included in releases
+- Housekeeping: restored `.editorconfig` and `.gitignore` (the code-style test was failing without them); removed the stale root copies of `content.json` (v1.3.0, 3 packs) and `SCHEMA.md` and a stray `mnt/` folder; `package.json` version aligned and `engines.node` added
+- Accessibility: labelled navigation, live status region; clearer start-up error message
+- Tests: saved-data tests, plus version, manifest and stale-file checks (241 tests)
+
 ## v1.17.20261113
 - Formatting, no change in behaviour: all scripts and the stylesheet are formatted (one statement per line, one declarator per line, wrapped long lines); the syntax tree of every script was checked identical to before
 - tools/format-js.js (no dependencies) with npm run format and format:check; code-style tests; .editorconfig, .gitignore, README.md and npm scripts

@@ -10,6 +10,10 @@ function banner() {
   if (!b) return;
   const old = !S.bk || Date.now() - S.bk > 6048e5,
     sn = S.bs && Date.now() - S.bs < 864e5;
+  if (saveFailed) {
+    b.innerHTML = '<div class="bn" role="alert"><span>Progress could not be saved on this device (storage is full or blocked). Save a backup now.</span><button class="mini" onclick="exp()">Save</button></div>';
+    return
+  }
   b.innerHTML = Object.keys(S.i).length > 3 && old && !sn ? `<div class="bn"><span>${S.bk?'Backup is over a week old':'No backup yet'}</span><button class="mini" onclick="exp()">Save</button><button class="mini" aria-label="Dismiss" onclick="S.bs=Date.now();save();banner()">×</button></div>` :
     ''
 }

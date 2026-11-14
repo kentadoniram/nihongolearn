@@ -1,7 +1,7 @@
 // Network first, cache fallback: lesson files refresh when online and everything works offline.
 const C='nihongo-lab';
 self.addEventListener('install',e=>e.waitUntil((async()=>{const c=await caches.open(C);
- for(const u of ['./','index.html','manifest.json','version.json'])await c.add(u).catch(()=>{});
+ for(const u of ['./','index.html','manifest.json','version.json','icons/icon-192.png','icons/icon-512.png'])await c.add(u).catch(()=>{});
  // the stylesheet and scripts are read from index.html, so adding a file there is enough
  try{const h=await(await fetch('index.html',{cache:'no-store'})).text();for(const m of h.matchAll(/(?:src|href)="((?:js|css)\/[^"]+)"/g))await c.add(m[1]).catch(()=>{})}catch(x){}
  for(const b of ['data/','']){try{const m=await(await fetch(b+'content.json',{cache:'no-store'})).json();for(const f of ['content.json',...m.packs])await c.add(b+f).catch(()=>{});break}catch(x){}}
