@@ -34,6 +34,8 @@ The scripts are classic scripts, so they share one global scope. They must load 
 | `24-time-regression-and-reading-points.js` | Time-based regression after time away and reading help points | absence, wbCard, LKE, kLook, kiStatus |
 | `25-verb-table.js` | Verb conjugation table for the dictionary | CLASS_LBL, VFORMS, vtab |
 | `26-checkup-screen-and-banner.js` | Backup banner and the check-up screen | banner, dg, diag, dq, da, dn |
+| `27-answer-review.js` | Answer review for sentence writing: your answer next to the correct one with highlighted differences | diffTok, revMark, revBox, revTyped, revTiles, revNote |
+| `28-kanji-mastery.js` | Kanji reading mastery (Beta model), romaji-only kanji in passages, help events | KMP, kmRec, kmScore, kmLevel, kmMastered, kmAdd, kmHelp, kmDone, kmWeak, kmWeakWord, kmStatus, kmCard, pj, PKR, PKK, PKH |
 | `99-boot.js` | Start-up: service worker registration and loading the content | (runs at start-up) |
 
 ## How the pieces fit

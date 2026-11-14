@@ -47,10 +47,12 @@ function kLook(el, deep) {
   const key = el.dataset.k ? 'k:' + el.dataset.k : el.dataset.lx,
     st = PLK[key] || (PLK[key] = { c: 0, d: 0 }),
     ki = S.ki = S.ki || { c: 0, d: 0, p: 0, k: {} },
-    ks = [...(el.textContent || '')].filter(c => K.test(c));
+    ks = [...(el.dataset.kj || el.textContent || '')].filter(c => K.test(c));
   let p = 0;
+  if (st.c && !deep) kmHelp(ks, 0, 1);
   if (!st.c) {
     st.c = 1;
+    kmHelp(ks, 0);
     p += 1;
     ki.c++;
     ks.forEach(c => {
@@ -59,6 +61,7 @@ function kLook(el, deep) {
   }
   if (deep && !st.d) {
     st.d = 1;
+    kmHelp(ks, 1);
     p += 2;
     ki.d++;
     ks.forEach(c => {

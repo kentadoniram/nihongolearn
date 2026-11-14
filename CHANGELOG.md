@@ -7,6 +7,14 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.18.20261114
+- Content: N5 pack 3 completes the N5 vocabulary (670 N5 words, up from 266) with 20 new kanji entries and about 50 sample sentences; about 130 words that were filed as N4 are moved to N5 (new `relevel` pack field)
+- Content: Japanese counters pack (26 counters, special readings for 1 to 10, 25 questions)
+- Fix: romaji output and typing now handle foreign-sound kana (フォーク fooku, パーティー paathii, ティ thi, ファ fa)
+- Sentence writing: after every typed or tile answer you see your answer next to the correct one, with the differences marked and each mistake explained (`js/27-answer-review.js`)
+- Kanji mastery (`js/28-kanji-mastery.js`): each kanji gets a score from your help requests (tap, See more) and independent reading; kanji you have not mastered appear as romaji in reading passages, tap to see the kanji, See more for the meaning and readings; weak kanji return in practice and show on Today and Memory
+- Memory import merges kanji mastery; tests: 265
+
 ## v1.17.20261114
 - Fix: if saved progress cannot be read, a copy is kept under `nihongoLab1.corrupt` instead of being overwritten by the next save
 - Fix: when the browser refuses to save (storage full or blocked), a warning with a Save (backup) button now appears instead of failing silently

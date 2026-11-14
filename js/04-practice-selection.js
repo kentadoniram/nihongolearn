@@ -79,6 +79,8 @@ function pick(fn) {
     const id = S.bq.splice(bi, 1)[0].id;
     return { w: L.find(w => w.w == id) }
   }
+  const kw = Math.random() < .15 ? kmWeakWord(L) : null;
+  if (kw) return { w: kw };
   const F = fresh(L);
   if (F.length > 5 && Math.random() < .12) return { w: rnd(F) };
   const due = fresh(L.filter(w => R(w) < .9));

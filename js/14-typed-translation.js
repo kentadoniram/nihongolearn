@@ -34,7 +34,8 @@ function toKana(s) {
 
 Object.entries({ sya: 'しゃ', syu: 'しゅ', syo: 'しょ', tya: 'ちゃ', tyu: 'ちゅ', tyo: 'ちょ', zya: 'じゃ', zyu: 'じゅ',
     zyo: 'じょ', jya: 'じゃ', jyu: 'じゅ', jyo: 'じょ', dya: 'ぢゃ', dyu: 'ぢゅ', dyo: 'ぢょ', she: 'しぇ', che: 'ちぇ',
-    je: 'じぇ' }).forEach(([a, b]) => RK.set(a, b));
+    je: 'じぇ', fa: 'ふぁ', fi: 'ふぃ', fe: 'ふぇ', fo: 'ふぉ', thi: 'てぃ', dhi: 'でぃ', wi: 'うぃ', we: 'うぇ' })
+  .forEach(([a, b]) => RK.set(a, b));
 
 // Romaji to kana: Hepburn, Kunrei and IME styles, macrons, n/nn/n', doubled consonants (tch too).
 function toK1(s) {
@@ -200,7 +201,7 @@ function tc() {
     pc = x => Math.round(x * 100),
     al = r.alt.map(a => `${a.from} → ${a.to} (${a.m})${a.n?': '+a.n:''}`)
     .join('; ');
-  $('#fb').innerHTML = `<div class="card fb ${ok?'':'r'}"><b>${ok?'✓ Correct'+(r.alt.length?' (accepted variation)':'')+', +20 XP':'✗ '+r.pct+'% close'}</b>${ok?'':`<p class="mu" style="text-align:left;margin:4px 0">Words ${pc(r.p.w)}%, particles ${pc(r.p.p)}%, form ${pc(r.p.f)}%, order ${pc(r.p.o)}%</p><ul style="margin:6px 0;padding-left:18px">${(r.msg.length?r.msg:['Some words or endings differ from the target sentence.']).slice(0,4).map(x=>`<li>${ej(x)}</li>`).join('')}</ul><p class="mu" style="text-align:left;margin:4px 0">Japanese verbs do not change for I, you, he or they, so there is no subject-verb agreement to get wrong. The form depends on tense and politeness.</p>`}${al?`<p class="mu" style="text-align:left;margin:4px 0">Word choice: ${ej(al)}</p>`:''}${ok&&q.ex?`<p class="mu" style="text-align:left;margin:4px 0">Other natural orders: ${ej(q.ex.join('   '))}</p>`:''}${trioT(q)}${sib.length?`<p class="mu" style="text-align:left;margin:4px 0">Same idea, other structures: ${sib.map(x=>e(x.en+' '+x.t.join(''))).join(' / ')}</p>`:''}<button class="pri" onclick="adv('t')">Next</button></div>`;
+  $('#fb').innerHTML = `<div class="card fb ${ok?'':'r'}"><b>${ok?'✓ Correct'+(r.alt.length?' (accepted variation)':'')+', +20 XP':'✗ '+r.pct+'% close'}</b>${revTyped(q,v,r)}${ok?'':`<p class="mu" style="text-align:left;margin:4px 0">Words ${pc(r.p.w)}%, particles ${pc(r.p.p)}%, form ${pc(r.p.f)}%, order ${pc(r.p.o)}%</p><p class="mu" style="text-align:left;margin:4px 0">Japanese verbs do not change for I, you, he or they, so there is no subject-verb agreement to get wrong. The form depends on tense and politeness.</p>`}${al?`<p class="mu" style="text-align:left;margin:4px 0">Word choice: ${ej(al)}</p>`:''}${ok&&q.ex?`<p class="mu" style="text-align:left;margin:4px 0">Other natural orders: ${ej(q.ex.join('   '))}</p>`:''}${trioT(q)}${sib.length?`<p class="mu" style="text-align:left;margin:4px 0">Same idea, other structures: ${sib.map(x=>e(x.en+' '+x.t.join(''))).join(' / ')}</p>`:''}<button class="pri" onclick="adv('t')">Next</button></div>`;
   if (ok && S.aa !== false) {
     const q0 = q;
     setTimeout(() => {

@@ -26,6 +26,15 @@ function romaji(r) {
       continue
     }
     let b = RM[c] || c;
+    if (n && 'ぁぃぅぇぉ'.includes(n)) {
+      // foreign-sound kana: ふぉ fo, てぃ thi, でぃ dhi, しぇ she, うぃ wi
+      const v = 'aiueo'['ぁぃぅぇぉ'.indexOf(n)];
+      b = c == 'ふ' ? 'f' + v : c == 'て' ? 'th' + v : c == 'で' ? 'dh' + v : c == 'う' ? 'w' + v : b.slice(0,
+        -1) + v;
+      i++;
+      o += b;
+      continue
+    }
     if (n && 'ゃゅょ'.includes(n)) {
       b = (b == 'shi' ? 'sh' : b == 'chi' ? 'ch' : b == 'ji' ? 'j' : b.slice(0, -1) + 'y') + { ゃ: 'a',
         ゅ: 'u', ょ: 'o' }[n];

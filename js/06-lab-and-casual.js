@@ -103,6 +103,7 @@ function labPick() {
 let lcur = null;
 function lab() {
   PLK = {};
+  PKH = new Set();
   const x = labPick();
   if (!x) {
     $('#m').innerHTML = '<div class="card">No lab activities yet.</div>';
@@ -137,7 +138,7 @@ function lab() {
   lcur = c;
   c.done = 0;
   etStart();
-  $('#m').innerHTML = `<div class="card q-oo"><div class="mu" style="display:flex;justify-content:space-between;margin:0 0 6px"><span>${labChips()}${c.l&&!S.hl?' <span class="lv">N'+c.l+'</span>':''}</span><a class="wl" onclick="diag()">Check-up</a></div><b>${e(c.t)}</b>${c.big?`<div class="big">${e(c.big)}</div><p class="mu">${e(c.clue)}</p>`:''}${c.p?`<p class="pass">${ej(c.p,1)}</p>`:''}<div class="ex">${c.ex.map(z=>`<span><big>${e(z[0])}</big><small>${e(z[1])}</small></span>`).join('')}</div><p>${e(c.q)}</p>${c.en?`<p class="mu" style="margin:0 0 6px">${e(c.en)}</p>`:''}<div id="lq">${c.o.map((o,j)=>`<button class="opt" onclick="lq(${j})">${e(o)}</button>`).join('')}</div><button class="skip" onclick="lskip()">Skip</button></div><div id="fb"></div>`
+  $('#m').innerHTML = `<div class="card q-oo"><div class="mu" style="display:flex;justify-content:space-between;margin:0 0 6px"><span>${labChips()}${c.l&&!S.hl?' <span class="lv">N'+c.l+'</span>':''}</span><a class="wl" onclick="diag()">Check-up</a></div><b>${e(c.t)}</b>${c.big?`<div class="big">${e(c.big)}</div><p class="mu">${e(c.clue)}</p>`:''}${c.p?`<p class="pass">${pj(c.p)}</p>`:''}<div class="ex">${c.ex.map(z=>`<span><big>${e(z[0])}</big><small>${e(z[1])}</small></span>`).join('')}</div><p>${e(c.q)}</p>${c.en?`<p class="mu" style="margin:0 0 6px">${e(c.en)}</p>`:''}<div id="lq">${c.o.map((o,j)=>`<button class="opt" onclick="lq(${j})">${e(o)}</button>`).join('')}</div><button class="skip" onclick="lskip()">Skip</button></div><div id="fb"></div>`
 }
 
 function lq(j) {
@@ -176,7 +177,8 @@ function lq(j) {
     if (k == c.a) b.classList.add('ok');
     else if (k == j) b.classList.add('bad')
   });
-  $('#fb').innerHTML = `<div class="card fb ${ok?'':'r'}"><b>${ok?'✓ Correct':'✗ Not quite'}</b><p>${ej(c.y)}</p>${c.p&&PLK.n?`<p class="mu" style="text-align:left">Lookups in this passage earned ${PLK.n} point${PLK.n>1?'s':''}.</p>`:''}${c.aw?trioW(c.aw):c.full?trioS(c.full,c.fen):''}<button class="pri" onclick="adv('l')">Next</button></div>`;
+  const kmh = c.p ? kmDone(c, ok) : '';
+  $('#fb').innerHTML = `<div class="card fb ${ok?'':'r'}"><b>${ok?'✓ Correct':'✗ Not quite'}</b><p>${ej(c.y)}</p>${c.p&&PLK.n?`<p class="mu" style="text-align:left">Lookups in this passage earned ${PLK.n} point${PLK.n>1?'s':''}.</p>`:''}${kmh}${c.aw?trioW(c.aw):c.full?trioS(c.full,c.fen):''}<button class="pri" onclick="adv('l')">Next</button></div>`;
   if (ok && S.aa !== false) setTimeout(() => {
     if (lcur === c && $('nav .on') && $('nav .on').dataset.v == 'l') adv('l')
   }, 2600)

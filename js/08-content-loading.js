@@ -76,7 +76,12 @@ function applyPacks(ps) {
     ps.forEach(p => rows(p.examples || []).forEach(x => {
       const w = vm.get(x.w);
       if (w && !w.e) w.e = [x.j, x.en]
-    }))
+    }));
+    // relevel: {"5": "word,word"} moves words that already exist in an earlier pack to another JLPT level
+    ps.forEach(p => Object.entries(p.relevel || {}).forEach(([t, l]) => l.split(',')
+        .forEach(w => {
+      if (vm.has(w)) vm.get(w).l = +t
+    })))
   }
   GI = DIAG.filter(q => q.c == 'g' && q.id).map(q => ({ w: q.id, g: 1, l: q.l, q: q.q, o: q.o, a: q.a,
         y: q.y }));

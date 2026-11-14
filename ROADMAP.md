@@ -1,14 +1,14 @@
 # Build plan
 
-App version 1.17.20261114. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
+App version 1.18.20261114. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
 
 ## In progress (3)
 
-- [ ] Complete N4 vocabulary and kanji (Content: about 529 of roughly 700 new words so far (packs 1 to 9); kanji entries exist for every word)
+- [ ] Complete N4 vocabulary and kanji (Content: about 483 words filed as N4 so far (about 125 words moved to N5 where they belong); roughly 700 expected)
 - [ ] N3 vocabulary, kanji and grammar (Content: 126 words, 18 grammar questions and 5 sentence patterns so far, of roughly 3,700 words and about 100 grammar points)
 - [ ] Hand-written reading passages (Content: 13 hand-written passages with 23 questions so far; the 9 generators fill the rest)
 
-## Not started (22)
+## Not started (25)
 
 - [ ] N2 and N1 packs (Content)
 - [ ] Audio and pitch accent (Content: needs recorded or synthesised audio)
@@ -28,12 +28,15 @@ App version 1.17.20261114. Edit data/roadmap.json, then run `node tools/make-roa
 - [ ] Synonym evaluator for する-verbs, adjectives in other forms and compound verbs (Learning engine)
 - [ ] Verb synonym and antonym pairs for more verbs (only 4 close-meaning pairs so far) (Content)
 - [ ] Casual speech reference screen, typed casual practice and more phrases (Content)
-- [ ] Sample sentences for the remaining N5 words (Content)
+- [ ] Sample sentences for the remaining N5 words (Content: about 100 N5 words now have a sample sentence; roughly 570 remain)
 - [ ] Conjugation table: potential, passive, causative and conditional forms (Content)
 - [ ] Break the long HTML template strings in the scripts into smaller pieces (Quality)
 - [ ] Split the longest scripts (07 and 14) into smaller files (Quality)
+- [ ] Counter practice in typed and Build modes (Practice)
+- [ ] Choose reading passages by weak kanji (Learning engine: weak kanji already return in word practice and on the Today screen)
+- [ ] Interface tests for the romaji-first passage flow (Quality)
 
-## Done (30)
+## Done (34)
 
 - [x] Synonym evaluator for conjugated verbs (Learning engine: verbs in the ます, ません, ました, て, た, ない and なかった forms)
 - [x] Fit the forgetting model to your own history (Learning engine: fits a time scale and curve shape from your reviews once there are 60 or more)
@@ -60,8 +63,12 @@ App version 1.17.20261114. Edit data/roadmap.json, then run `node tools/make-roa
 - [x] Casual speech and office phrases in the Lab (〜ちゃう, 〜てる, 〜とく, 〜なきゃ and 29 phrases) (Content)
 - [x] Tests for every statistical model (samplers, regression, Monte Carlo forecast, forgetting fit) (Quality)
 - [x] Time-based regression: memory strength, question stage and ability ease back after time away (Learning engine: welcome-back card shows the estimated recall drop)
-- [x] N5 database: vocabulary, kanji, verbs, sample sentences and a verb conjugation table (Content: N5 pack 2; sample sentences exist for about a third of N5 words so far)
+- [x] N5 database: vocabulary, kanji, verbs, sample sentences and a verb conjugation table (Content: N5 pack 2 and 3: 670 words, kanji for every word, verbs with conjugation tables)
 - [x] Reading help points for tapping words and kanji in passages (Practice)
 - [x] Release zip contains only the modified files, in their original folders (Quality: tools/build-release.py compares with the previous release; --full builds everything)
+- [x] Complete N5 vocabulary (Content: N5 pack 3 adds 154 words (greetings, adjectives, adverbs, katakana words, verbs) and re-levels about 130 N5 words that were filed as N4)
+- [x] Japanese counters (Content: 26 counters, special readings for 1 to 10 (本, 匹, 階, 分, 日 and more), 25 practice questions)
+- [x] Answer review for sentence writing (Practice: typed and tile answers: your answer beside the correct one, differences marked, each mistake explained)
+- [x] Kanji reading mastery from help requests (Learning engine: Beta score per kanji: taps and See more lower it, independent correct reading raises it, evidence fades over 60 days; unmastered kanji show as romaji in passages)
 - [x] Code split into css/app.css and 27 js files with an architecture guide and structure tests (Quality: docs/ARCHITECTURE.md)
 - [x] Dependency-free formatter (tools/format-js.js), editor config, README and npm scripts; all scripts and the stylesheet formatted (Quality: 3,900 lines instead of 700; syntax tree checked unchanged)

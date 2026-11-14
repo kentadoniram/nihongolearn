@@ -822,3 +822,46 @@ nav button {
   text-align: left;
   vertical-align: top
 }
+
+.rev {
+  margin: 8px 0
+}
+
+.rv {
+  margin: 6px 0
+}
+
+.rv small {
+  color: var(--mu);
+  display: block
+}
+
+.rv > div {
+  font-size: 1.1rem;
+  line-height: 1.7
+}
+
+.wrongline {
+  border-left: 3px solid var(--bad);
+  padding-left: 8px
+}
+
+mark.d {
+  background: none;
+  color: var(--bad);
+  text-decoration: underline wavy var(--bad);
+  font-weight: 700
+}
+
+mark.i {
+  background: none;
+  color: var(--ok);
+  text-decoration: underline var(--ok);
+  font-weight: 700
+}
+
+.rn {
+  margin: 6px 0;
+  padding-left: 18px;
+  font-size: .95rem
+}

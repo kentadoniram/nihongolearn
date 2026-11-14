@@ -196,5 +196,5 @@ function evalT(q, v) {
   const p = { w: cont.length ? ws / cont.length : 1, p: prs.length ? ps / prs.length : 1, f: a == b ?
     1 : 0, o: u2 == cn ? 1 : tailOk ? .7 : .2 };
   return { ok, pct: ok ? 100 : Math.round(100 * (.4 * p.w + .25 * p.p + .2 * p.f + .15 * p.o)), p, msg,
-    alt, u2, un }
+    alt, u2, un, ur }
 }

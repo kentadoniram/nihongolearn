@@ -101,7 +101,7 @@ function sc() {
     S.pf[q.f] = (S.pf[q.f] || 0) + 1;
     save()
   }
-  $('#fb').innerHTML = `<div class="card fb ${ok?'':'r'}"><b>${ok?'✓ Natural Japanese, +15 XP':'✗ Not quite'}</b><p>${ok?(same?'':'Japanese lets you move these blocks around. The usual order is: '+ej(q.t.join(' '))):ej(m)}</p>${ok&&q.ex?`<p class="mu" style="text-align:left">Other natural orders: ${ej(q.ex.join('   '))}</p>`:''}${trioT(q)}${!ok&&f?`<div class="blks">${blk(f)}</div>`:''}<p class="mu" style="text-align:left">${ej(q.y||(f&&f.note)||'')}</p><button class="pri" onclick="adv('b')">Next sentence</button></div>`;
+  $('#fb').innerHTML = `<div class="card fb ${ok?'':'r'}"><b>${ok?'✓ Natural Japanese, +15 XP':'✗ Not quite'}</b>${revTiles(q,t,ok)}<p>${ok?(same?'':'Japanese lets you move these blocks around. The usual order is: '+ej(q.t.join(' '))):ej(m)}</p>${ok&&q.ex?`<p class="mu" style="text-align:left">Other natural orders: ${ej(q.ex.join('   '))}</p>`:''}${trioT(q)}${!ok&&f?`<div class="blks">${blk(f)}</div>`:''}<p class="mu" style="text-align:left">${ej(q.y||(f&&f.note)||'')}</p><button class="pri" onclick="adv('b')">Next sentence</button></div>`;
   if (ok && S.aa !== false) {
     const b0 = bq;
     setTimeout(() => {

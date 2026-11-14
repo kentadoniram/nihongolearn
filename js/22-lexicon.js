@@ -127,6 +127,17 @@ function showLx(el) {
   const [ty, v] = el.dataset.lx.split(/:(.+)/),
     t = $('#tip');
   let h = '';
+  if (el.classList.contains('kr')) {
+    // romaji-only word: first help shows the kanji and the reading, See more gives the meaning and the readings of each kanji
+    const w = ty == 'w' ? WM[v] : null,
+      rd = w ? w.r : RDX[v],
+      kj = w ? w.w : v;
+    if (!rd) return;
+    h = `<b class="tg" style="font-size:1.2rem">${e(kj)}</b><div>${e(rd)} <span class="mu">(${romaji(rd)})</span></div><div class="mu"><u>See more</u>: meaning and readings</div>`;
+    placeTip(el, h);
+    t.dataset.open = w ? 'w:' + v : 'k:' + [...kj].find(c => K.test(c));
+    return
+  }
   if (ty == 'w') {
     const w = WM[v];
     if (!w) return;

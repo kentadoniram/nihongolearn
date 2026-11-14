@@ -28,3 +28,5 @@ To add N2, create `data/n2.json` and append it to `packs` in the manifest.
 
 - `expr`: `[{j, b: brief meaning, f: full explanation, ex: [[jp, en]]}]` for grammar expressions; any text containing `j` (two or more characters) becomes tappable. Single-character particles are tappable where a sentence is shown token by token.
 - `grad` rows may end with two English comparatives; `bec` rows with the English cause and effect, used to translate generated answers.
+- `relevel`: `{"5": "word,word,..."}` moves words that already exist in an earlier pack to another JLPT level (used when a word was first filed one level too high).
+- Words may carry `ls` (a lesson label, for example "Counters"); questions with `c: "g"` and an `id` join the practice deck as grammar items.
