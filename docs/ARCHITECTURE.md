@@ -47,6 +47,8 @@ The scripts are classic scripts, so they share one global scope. They must load 
 
 - One concern per file, numbered by load order, each starting with the standard header (the structure test checks it). Keep files under 30 KB.
 - No inline scripts or styles in `index.html`.
+- Formatting is automatic: run `npm run format` (`tools/format-js.js`, no packages needed). `npm run format:check` and the code-style test fail when a script or the stylesheet is not formatted. The formatter only changes white space and line breaks. Long HTML template strings are left as they are.
+- Editors pick up the same rules from `.editorconfig` (2 spaces, LF, final newline).
 - A top-level name is defined in exactly one file.
 - New file: add its `<script>` tag to `index.html` (the service worker reads it from there) and describe it in this table.
 - New lesson content goes in `data/`, never in the code.

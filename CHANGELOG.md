@@ -7,6 +7,11 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.17.20261113
+- Formatting, no change in behaviour: all scripts and the stylesheet are formatted (one statement per line, one declarator per line, wrapped long lines); the syntax tree of every script was checked identical to before
+- tools/format-js.js (no dependencies) with npm run format and format:check; code-style tests; .editorconfig, .gitignore, README.md and npm scripts
+- Release tool now includes README.md, .editorconfig and .gitignore
+
 ## v1.17.20261112
 - Refactor, no change in behaviour: index.html is now only markup; styles are in css/app.css; the code is split into 27 numbered scripts in js/ (each with a purpose header); docs/ARCHITECTURE.md explains the layout
 - Service worker reads the stylesheet and scripts from index.html

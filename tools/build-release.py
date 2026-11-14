@@ -11,7 +11,8 @@ a = sys.argv[1:]
 arg = lambda k: os.path.abspath(a[a.index(k) + 1]) if k in a else None
 ROOT = arg('--root') or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = arg('--out') or os.path.dirname(ROOT)
-SITE = ['index.html', 'sw.js', 'manifest.json', 'version.json', 'CHANGELOG.md', 'ROADMAP.md', 'package.json']
+SITE = ['index.html', 'sw.js', 'manifest.json', 'version.json', 'CHANGELOG.md', 'ROADMAP.md', 'README.md', 'package.json',
+        '.editorconfig', '.gitignore']
 STATE = 'tools/release-state.json'
 hb = lambda b: hashlib.sha256(b).hexdigest()
 def h(p): return hb(open(p, 'rb').read())

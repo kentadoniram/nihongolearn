@@ -1,1 +1,13 @@
-{"name":"nihongo-lab","private":true,"version":"1.14.0","scripts":{"test":"node --test","roadmap":"node tools/make-roadmap-md.js"}}
+{
+  "name": "nihongo-lab",
+  "private": true,
+  "version": "1.14.0",
+  "scripts": {
+    "test": "node --test",
+    "format": "node tools/format-js.js",
+    "format:check": "node tools/format-js.js --check",
+    "check": "npm run format:check && npm test",
+    "roadmap": "node tools/make-roadmap-md.js",
+    "release": "python3 tools/build-release.py"
+  }
+}

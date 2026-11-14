@@ -56,6 +56,8 @@
   {"t": "Sample sentences for the remaining N5 words", "s": "planned", "a": "Content"},
   {"t": "Conjugation table: potential, passive, causative and conditional forms", "s": "planned", "a": "Content"},
   {"t": "Code split into css/app.css and 27 js files with an architecture guide and structure tests", "s": "done", "a": "Quality", "n": "docs/ARCHITECTURE.md"},
-  {"t": "Reformat the dense one-line functions and split the longer files further", "s": "planned", "a": "Quality"}
+  {"t": "Dependency-free formatter (tools/format-js.js), editor config, README and npm scripts; all scripts and the stylesheet formatted", "s": "done", "a": "Quality", "n": "3,900 lines instead of 700; syntax tree checked unchanged"},
+  {"t": "Break the long HTML template strings in the scripts into smaller pieces", "s": "planned", "a": "Quality"},
+  {"t": "Split the longest scripts (07 and 14) into smaller files", "s": "planned", "a": "Quality"}
  ]
 }

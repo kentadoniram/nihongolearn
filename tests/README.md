@@ -10,3 +10,7 @@ Naming rules
 
 The app is loaded from `index.html` in a sandbox with a fake page, so no browser is needed.
 These files are not needed on the website; leave the `tests` folder out of the Netlify upload if you prefer.
+
+Style and structure
+- `code-style.unit.test.js` checks that the formatter leaves every script and the stylesheet unchanged and that it handles tricky code (regular expressions, templates, automatic semicolon insertion).
+- `code-structure.unit.test.js` checks the file layout, headers and the architecture guide.
