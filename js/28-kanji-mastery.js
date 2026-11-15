@@ -1,6 +1,6 @@
 /* js/28-kanji-mastery.js
  * Purpose: Kanji reading mastery from help requests and independent reading in passages.
- * Defines (16): KMP, kmRec, kmScore, kmLevel, kmMastered, kmAdd, kmHelp, kmDone, kmWeak, ...
+ * Defines (17): KMP, kmRec, kmScore, kmLevel, kmMastered, kmAdd, kmHelp, kmDone, kmWeak, cfStatus, ...
  * Classic script: shares one global scope with the other files, so load order (see index.html) matters.
  */
 
@@ -94,6 +94,12 @@ function kmWeakWord(L) {
   if (!wk.size) return null;
   const c = L.filter(w => [...w.w].some(x => wk.has(x)) && !S.rec.includes(w.w));
   return c.length ? rnd(c) : null
+}
+
+// Where the word ranking comes from.
+function cfStatus() {
+  const n = Object.keys(CR).length;
+  return n ? `corpus ranks (${CRM.name}) for ${n} of ${V.length} words; the rest use estimates.` : 'estimated tiers. Add data/corpus-freq.json (made with tools/import-corpus-freq.py) for real corpus ranks.'
 }
 
 function kmStatus() {

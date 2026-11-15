@@ -7,6 +7,13 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.20.20261115
+- Example sentences: every N5 and N4 word (1,349) now has a Japanese sentence with an English translation (`data/examples1.json`); kanji readings are shown as furigana above your level, and the names, counters and words the sentences needed were added (`data/n4l.json`)
+- Verb relations: 29 close-meaning verb pairs (was 4), 29 antonym pairs, 31 transitive and intransitive pairs and honorific and humble pairs, each with a note shown in the dictionary under "How they differ" (`data/semantics3.json`)
+- Verb conjugation: 23 forms in five groups (basic, polite, て-form, ability and voice, conditional and will): potential, passive, causative, causative-passive, ば, たら, volitional, imperative, ないで, たり, must; a line on how each verb class is built; now also for する compounds (勉強する) and the honorific verbs (いらっしゃいます)
+- Corpus frequency: the app uses real corpus ranks when `data/corpus-freq.json` is present; `tools/import-corpus-freq.py` makes it from the BCCWJ word list or any rank or count list. No corpus list is bundled, so the ranking is still estimated until you import one (see README)
+- Tests: 338
+
 ## v1.19.20261115
 - Progress tab: vocabulary in collapsible groups by JLPT level (N5 to N1 and Work), difficulty (easy, medium, hard) and newly acquired words (today, last 7 days, last 30 days); groups fill when opened
 - Furigana by level: kanji within your JLPT level are shown as they are even if not studied yet, kanji above it get furigana in sentences, passages, tiles and questions. Set your level in Memory, Display (automatic by default). Romaji under whole sentences is now off by default (setting: Show romaji under sentences)

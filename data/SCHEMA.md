@@ -30,3 +30,6 @@ To add N2, create `data/n2.json` and append it to `packs` in the manifest.
 - `grad` rows may end with two English comparatives; `bec` rows with the English cause and effect, used to translate generated answers.
 - `relevel`: `{"5": "word,word,..."}` moves words that already exist in an earlier pack to another JLPT level (used when a word was first filed one level too high).
 - Words may carry `ls` (a lesson label, for example "Counters"); questions with `c: "g"` and an `id` join the practice deck as grammar items.
+- `cfreq`: `{"word": rank}` and `corpus`: `{"name": "...", "size": n, "matched": n, "total": n}`. Corpus ranks (1 = most common). The app also reads an optional `data/corpus-freq.json` that is not listed in content.json; make it with `tools/import-corpus-freq.py`.
+- `rel` rows: `a`, `b`, `t` (`s` close in meaning, `a` opposite, `r` related, `p` transitive and intransitive pair, `g` comparison) and `n`, a short note on how the two differ, shown in the dictionary.
+

@@ -13,12 +13,15 @@ const gr = w => {
   const T = TR[w.w] || 3,
     L = { s: 'Close in meaning', r: 'Related', a: 'Opposite', g: 'Opposite', p: 'Verb pair' },
     o = {};
+  const nt = (G[w.w] || []).filter(z => z.n && WM[z.w]),
+    notes = nt.length ? `<p style="margin:10px 0 2px">How they differ</p>${nt.map(z=>`<p class="mu" style="text-align:left;margin:3px 0"><b>${e(w.w)} / ${e(z.w)}</b>: ${e(z.n)}</p>`).join('')}` :
+    '';
   (G[w.w] || []).forEach(z => {
     (o[L[z.t]] = o[L[z.t]] || []).push(z.w)
   });
-  return `<p class="mu" style="text-align:left;margin:6px 0">Everyday use ${'●'.repeat(6-T)}${'○'.repeat(T-1)}</p>` + Object
+  return `<p class="mu" style="text-align:left;margin:6px 0">Everyday use ${'●'.repeat(6-T)}${'○'.repeat(T-1)} ${CR[w.w]?'(corpus rank '+CR[w.w]+', '+e(CRM.name)+')':CRM?'(estimate: not in the corpus list)':''}</p>` + Object
     .entries(o).map(([k, v]) => `<p style="margin:6px 0">${k}</p>${v.map(x=>`<a class="wl" onclick="dict(${W().indexOf(WM[x])})">${e(x)}</a>`).join(' ')}`)
-    .join('')
+    .join('') + notes
 };
 function relLab(kind) {
   const E = REL.filter(r => (kind == 'syn' ? r[2] == 's' : r[2] == 'a' || r[2] == 'g') && WM[r[0]] &&

@@ -1,6 +1,6 @@
 /* js/16-statistics.js
  * Purpose: Statistics layer: Zipf, knapsack, classifiers, robust z-score, Poisson and Monte Carlo forecast.
- * Defines (22): ZR, zv, knownK, cost, nextW, cov, topW, ft, nbP, smP, trainLv, predLv, post, med, ...
+ * Defines (25): CR, CRM, cband, ZR, zv, knownK, cost, nextW, cov, topW, ft, nbP, smP, trainLv, predLv, post, med, ...
  * Classic script: shares one global scope with the other files, so load order (see index.html) matters.
  */
 
@@ -9,11 +9,16 @@
 // Zipf: value of a word is 1/rank (f ~ 1/rank). Rank comes from the optional fr column, otherwise from a deck-based usefulness proxy.
 
 // Knapsack: greedy value/cost, where cost grows with unknown kanji. Coverage = sum of values met / sum of all values.
-let ZR = {},
+let CR = {},
+  CRM = null,
+  ZR = {},
   NB = null,
   SM = null,
   LV2 = { nb: 'n/a', sm: 'n/a', note: 'needs more words' };
-const zv = w => 1 / (ZR[w.w] || 999),
+
+// Everyday-use tier (1 very common to 5 rare) from a corpus rank.
+const cband = r => r <= 1500 ? 1 : r <= 4000 ? 2 : r <= 9000 ? 3 : r <= 20000 ? 4 : 5,
+  zv = w => 1 / (ZR[w.w] || 999),
   openW = w => lvOpen(w.l);
 function knownK() {
   const k = new Set();
@@ -163,8 +168,15 @@ function post() {
   }));
   const u = w => w.fr ? 1e6 / w.fr : 1 + [...w.w].reduce((a, c) => a + (K.test(c) ? KC[c] - 1 : 0), 0) + (w
     .l == 5 ? 2 : 0) + (w.l == 4 ? 1 : 0);
-  const key = w => w.fr ? w.fr : (TR[w.w] || 3) * 1e4 + (FI[w.w] != null ? FI[w.w] : 5000 - Math.min(u(w),
-      4000));
+  // Ranking key, smaller = more common. Corpus rank first (see cband), then a manual rank (fr), then the estimated tier.
+  // Words the corpus file does not list keep their estimate, placed where their tier sits on the corpus scale.
+  const est = { 1: 800, 2: 2500, 3: 6000, 4: 12000, 5: 25000 },
+    key = w => CR[w.w] ? CR[w.w] : Object.keys(CR).length ? est[TR[w.w] || 3] + (FI[w.w] || 0) / 10 :
+    w.fr ? w.fr : (TR[w.w] || 3) * 1e4 + (FI[w.w] != null ? FI[w.w] : 5000 - Math.min(u(w), 4000));
+  Object.entries(CR).forEach(([w, r]) => {
+    TR[w] = cband(r);
+    FI[w] = r
+  });
   ZR = {};
   V.slice().sort((a, b) => key(a) - key(b)).forEach((w, i) => ZR[w.w] = i + 1);
   trainLv();

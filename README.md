@@ -37,3 +37,12 @@ python3 -m http.server 8000
 ## Versions
 
 `MAJOR.MINOR.YYYYMMDD` (a letter is added for a second release on the same day). The version lives in `version.json`; every release adds an entry to `CHANGELOG.md`.
+
+
+## Real corpus frequency ranks
+
+The word ranking is an estimate until you import a corpus list. The free BCCWJ word list from NINJAL (https://clrd.ninjal.ac.jp/bccwj/en/freq-list.html, short unit words, for research and education) or any CSV with a word column and a rank or count column works:
+
+    python3 tools/import-corpus-freq.py BCCWJ_frequencylist_suw_ver1_0.tsv --name "BCCWJ short-unit words (NINJAL)"
+
+This writes `data/corpus-freq.json` (only the words in the deck). The app then ranks words by corpus rank, shows "corpus rank N" in the dictionary and keeps estimates only for the words the list does not contain (Memory shows how many matched). Check the licence of the list you use before you share the file.

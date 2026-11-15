@@ -23,6 +23,8 @@ function applyPacks(ps) {
   BEC = [];
   TR = {};
   FI = {};
+  CR = {};
+  CRM = null;
   RMP = [];
   EXPR = [];
   const seen = new Set();
@@ -65,6 +67,11 @@ function applyPacks(ps) {
     if (p.rel) REL = REL.concat(rows(p.rel).map(r => [r.a, r.b, r.t, r.n]));
     if (p.grad) GRAD = GRAD.concat(p.grad);
     if (p.bec) BEC = BEC.concat(p.bec);
+    if (p.cfreq) {
+      // corpus frequency: {word: rank in the corpus}; corpus = {name, size, matched}
+      Object.entries(p.cfreq).forEach(([w, r]) => CR[w] = +r);
+      CRM = p.corpus || { name: 'corpus' }
+    }
     if (p.freq) Object.entries(p.freq).forEach(([t, l]) => l.split(',').forEach((w, i) => {
       TR[w] = +t;
       FI[w] = i
@@ -108,5 +115,10 @@ async function loadContent() {
     m = await get('content.json')
   }
   PK = await Promise.all(m.packs.map(f => get(b + f)));
+  // Optional corpus ranks, made with tools/import-corpus-freq.py; the app runs without this file.
+  try {
+    const r = await fetch(b + 'corpus-freq.json');
+    if (r.ok) PK.push(await r.json())
+  } catch (x) {}
   applyPacks(PK.concat(S.cp))
 }

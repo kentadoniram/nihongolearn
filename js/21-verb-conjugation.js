@@ -13,7 +13,7 @@ const ROW = { う: 'わいうえお', く: 'かきくけこ', ぐ: 'がぎぐげ
   る: 'らりるれろ' };
 const IE = 'いきしちにひみりぎじびぴえけせてねへめれげぜべぺ';
 function vclass(d) {
-  if (d.w == 'する') return 'suru';
+  if (d.w.endsWith('する') && d.r.endsWith('する')) return 'suru';
   if (d.r == 'くる') return 'kuru';
   const L = d.r.slice(-1);
   if (!ROW[L]) return null;
@@ -21,40 +21,61 @@ function vclass(d) {
   return 'godan'
 }
 
+// Verbs whose polite stem is irregular: いらっしゃいます, おっしゃいます, くださいます, なさいます.
+const HONV = ['いらっしゃる', 'おっしゃる', 'くださる', 'なさる'];
+
+// Forms that ある cannot take, and its irregular negatives.
+const ARU = { nai: 'ない', nakatta: 'なかった', naide: 'ないで', nakereba: 'なければならない' };
+
+// Conjugate a verb: ichidan, godan, 来る and する (also compounds such as 勉強する).
+
+// Forms: dict masu mase mashita masendeshita nai nakatta naide nakereba te ta tai mashou teimasu tari tara ba pot pas cau caupas vol imp.
 function conj(d, f) {
   const c = vclass(d);
-  if (!c || c == 'suru') return null;
-  if (d.w == 'ある' && (f == 'nai' || f == 'nakatta')) return { s: f == 'nai' ? 'ない' : 'なかった', r: f == 'nai' ?
-    'ない' : 'なかった' };
-  let a,
-    i,
-    te,
-    ta;
+  if (!c) return null;
+  if (d.w == 'ある' && ARU[f]) return { s: ARU[f], r: ARU[f] };
+  if (d.w == 'ある' && ['pot', 'pas', 'cau', 'caupas', 'imp', 'vol'].includes(f)) return null;
+  if (HONV.includes(d.w) && ['pot', 'pas', 'cau', 'caupas', 'imp', 'vol'].includes(f)) return null;
   const U = x => x.slice(0, -1),
-    L = d.r.slice(-1);
-  if (c == 'ichidan') {
-    a = i = [U(d.w), U(d.r)];
-    te = a.map(x => x + 'て');
-    ta = a.map(x => x + 'た')
+    L = d.r.slice(-1),
+    suf = {};
+  let st;
+  if (c == 'suru') {
+    st = [d.w.slice(0, -2), d.r.slice(0, -2)];
+    Object.assign(suf, { dict: 'する', masu: 'します', mase: 'しません', mashita: 'しました', masendeshita: 'しませんでした',
+        te: 'して', ta: 'した', nai: 'しない', nakatta: 'しなかった', naide: 'しないで', nakereba: 'しなければならない', tai: 'したい',
+        mashou: 'しましょう', teimasu: 'しています', tari: 'したり', tara: 'したら', ba: 'すれば', pot: 'できる', pas: 'される',
+        cau: 'させる', caupas: 'させられる', vol: 'しよう', imp: 'しろ' })
+  } else if (c == 'ichidan') {
+    st = [U(d.w), U(d.r)];
+    Object.assign(suf, { dict: 'る', masu: 'ます', mase: 'ません', mashita: 'ました', masendeshita: 'ませんでした', te: 'て',
+        ta: 'た', nai: 'ない', nakatta: 'なかった', naide: 'ないで', nakereba: 'なければならない', tai: 'たい', mashou: 'ましょう',
+        teimasu: 'ています', tari: 'たり', tara: 'たら', ba: 'れば', pot: 'られる', pas: 'られる', cau: 'させる', caupas: 'させられる',
+        vol: 'よう', imp: 'ろ' })
   } else if (c == 'kuru') {
-    a = ['来', 'こ'];
-    i = ['来', 'き'];
-    te = ['来て', 'きて'];
-    ta = ['来た', 'きた']
+    const t = { dict: ['来る', 'くる'], masu: ['来ます', 'きます'], mase: ['来ません', 'きません'], mashita: ['来ました', 'きました'],
+      masendeshita: ['来ませんでした', 'きませんでした'], te: ['来て', 'きて'], ta: ['来た', 'きた'], nai: ['来ない', 'こない'], nakatta: ['来なかった',
+        'こなかった'], naide: ['来ないで', 'こないで'], nakereba: ['来なければならない', 'こなければならない'], tai: ['来たい', 'きたい'],
+      mashou: ['来ましょう', 'きましょう'], teimasu: ['来ています', 'きています'], tari: ['来たり', 'きたり'], tara: ['来たら', 'きたら'],
+      ba: ['来れば', 'くれば'], pot: ['来られる', 'こられる'], pas: ['来られる', 'こられる'], cau: ['来させる', 'こさせる'], caupas: ['来させられる',
+        'こさせられる'], vol: ['来よう', 'こよう'], imp: ['来い', 'こい'] }[f];
+    return t ? { s: t[0], r: t[1] } : null
   } else {
     const r = ROW[L],
       mk = t => [U(d.w) + t, U(d.r) + t],
       tt = d.w == '行く' ? 'って' : { う: 'って', つ: 'って', る: 'って', む: 'んで', ぶ: 'んで', ぬ: 'んで', く: 'いて', ぐ: 'いで',
-      す: 'して' }[L];
-    a = mk(r[0]);
-    i = mk(r[1]);
-    te = mk(tt);
-    ta = mk(tt.replace(/て$/, 'た').replace(/で$/, 'だ'))
+      す: 'して' }[L],
+      ta = tt.replace(/て$/, 'た').replace(/で$/, 'だ'),
+      ti = HONV.includes(d.w) ? mk('い') : mk(r[1]);
+    const X = { dict: [[d.w, d.r], ''], masu: [ti, 'ます'], mase: [ti, 'ません'], mashita: [ti, 'ました'], masendeshita: [ti,
+        'ませんでした'], te: [mk(tt), ''], ta: [mk(ta), ''], nai: [mk(r[0]), 'ない'], nakatta: [mk(r[0]), 'なかった'],
+      naide: [mk(r[0]), 'ないで'], nakereba: [mk(r[0]), 'なければならない'], tai: [ti, 'たい'], mashou: [ti, 'ましょう'],
+      teimasu: [mk(tt), 'います'], tari: [mk(ta), 'り'], tara: [mk(ta), 'ら'], ba: [mk(r[3]), 'ば'], pot: [mk(r[3]),
+        'る'], pas: [mk(r[0]), 'れる'], cau: [mk(r[0]), 'せる'], caupas: [mk(r[0]), 'せられる'], vol: [mk(r[4]),
+        'う'], imp: [mk(r[3]), ''] }[f];
+    return X ? { s: X[0][0] + X[1], r: X[0][1] + X[1] } : null
   }
-  const M = { masu: [i, 'ます'], mase: [i, 'ません'], mashita: [i, 'ました'], te: [te, ''], ta: [ta, ''], nai: [a,
-      'ない'], nakatta: [a, 'なかった'], dict: [[d.w, d.r], ''], tai: [i, 'たい'], mashou: [i, 'ましょう'], teimasu: [te,
-      'います'] }[f];
-  return M ? { s: M[0][0] + M[1], r: M[0][1] + M[1] } : null
+  return suf[f] === undefined ? null : { s: st[0] + suf[f], r: st[1] + suf[f] }
 }
 
 let _vf = null,

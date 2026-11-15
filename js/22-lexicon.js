@@ -18,7 +18,9 @@ function mkLex() {
     if (x.j.length > 1) LEXM[x.j] = ['x', i]
   });
   V.forEach(w => {
-    if (K.test(w.w) || w.w.length >= 3) LEXM[w.w] = ['w', w.w]
+    if (K.test(w.w) || w.w.length >= 3) LEXM[w.w] = ['w', w.w];
+    // counters after a number (五枚, 二台): index the counter itself when its sound never changes
+    if (w.w.startsWith('〜') && '枚台番度'.includes(w.w.slice(1))) LEXM[w.w.slice(1)] = ['w', w.w]
   });
   const add = (a, b, st) => {
     if (a && b && K.test(a) && !WM[a] && !RDX[a]) {
