@@ -20,7 +20,7 @@ function dict(i) {
     .slice(0, 8),
     la = [...new Set(ks.flatMap(c => SIM.filter(g => g.includes(c)).join('')
         .split('')))].filter(x => !ks.includes(x));
-  dv(`<div class="big">${ruby(w,1)}</div><p class="mean">${e(w.m)} ${lvb(w)}</p><p class="mu">Reading ${e(w.r)} (${romaji(w.r)}). Audio comes later.</p>${ex?`<div class="card"><b>Example</b><p>${[...ex[0]].map(kc).join('')}</p><p class="mu" style="text-align:left">${e(ex[1])}</p></div>`:''}${ks.length?`<p>Kanji</p>${ks.map(c=>`<span class="kj" tabindex="0" data-k="${c}" data-w="${i}">${c}</span>`).join(' ')}`:''}${rel.length?`<p>Related words</p>${rel.map(x=>`<a class="wl" onclick="dict(${W().indexOf(x)})">${e(x.w)}</a>`).join(' ')}`:''}${la.length?`<p>Look-alike kanji</p>${la.map(x=>kc(x)).join(' ')}`:''}${gr(w)}${vtab(w)}${it?`<p class="mu" style="text-align:left">Your memory of this word: ${Math.round(ret(it,Date.now())*100)}%, seen ${it.n} times, missed ${it.l}.</p>`:''}`)
+  dv(`<div class="big">${ruby(w,1)}</div><p class="mean">${e(w.m)} ${lvb(w)}</p><p class="mu">Reading ${e(w.r)} (${romaji(w.r)}). Audio comes later.</p>${ex?`<div class="card"><b>Example</b><p>${ej(ex[0])}</p><p class="mu" style="text-align:left">${e(ex[1])}</p></div>`:''}${ks.length?`<p>Kanji</p>${ks.map(c=>`<span class="kj" tabindex="0" data-k="${c}" data-w="${i}">${c}</span>`).join(' ')}`:''}${rel.length?`<p>Related words</p>${rel.map(x=>`<a class="wl" onclick="dict(${W().indexOf(x)})">${e(x.w)}</a>`).join(' ')}`:''}${la.length?`<p>Look-alike kanji</p>${la.map(x=>kc(x)).join(' ')}`:''}${gr(w)}${vtab(w)}${it?`<p class="mu" style="text-align:left">Your memory of this word: ${Math.round(ret(it,Date.now())*100)}%, seen ${it.n} times, missed ${it.l}.</p>`:''}`)
 }
 
 function kd(c) {

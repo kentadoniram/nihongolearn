@@ -12,7 +12,7 @@ test('example sentences, verb relations and conjugation tables',async t=>{
  await t.test('should be able to give a reading to every kanji in the example sentences',()=>{
   const n=app.run(`(()=>{if(!LEXRE)mkLex();let n=0;W().filter(w=>!w.g&&w.e).forEach(w=>w.e[0].split(LEXRE).forEach((p,i)=>{if(i%2==0)[...p].forEach(c=>{if(K.test(c))n++})}));return n})()`);assert.equal(n,0)});
  await t.test('should show furigana in an example only for kanji above your level',()=>{
-  const h=app.run(`S.jl=5;GATE.t=0;ej(${v('火事')}.e[0])`);assert.match(h,/<ruby>昨日<rt>きのう<\/rt><\/ruby>/);assert.ok(!/<ruby>夜/.test(h))});
+  const h=app.run(`S.jl=5;GATE.t=0;ej(${v('火事')}.e[0])`).replace(/<span class="kj"[^>]*>(.)<\/span>/g,'$1');assert.match(h,/<ruby>昨日<rt>きのう<\/rt><\/ruby>/);assert.ok(!/<ruby>夜/.test(h))});
  await t.test('should have at least 20 close-meaning verb pairs, with notes that explain the difference',()=>{
   const n=app.run(`REL.filter(r=>r[2]=='s'&&posOf(WM[r[0]]||{m:''})=='verb').length`);assert.ok(n>=20,n);
   assert.ok(app.run(`REL.filter(r=>r[2]=='s'&&posOf(WM[r[0]]||{m:''})=='verb'&&!r[3]).length`)<=4)});

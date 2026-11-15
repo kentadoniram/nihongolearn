@@ -1,6 +1,6 @@
 # Build plan
 
-App version 1.20.20261115. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
+App version 1.20.20261116. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
 
 ## In progress (4)
 

@@ -58,7 +58,7 @@ function ej(s, nr) {
       const w = m[0] == 'w' ? WM[m[1]] : null;
       return `<span class="jp lx" data-lx="${m[0]}:${m[0]=='w'?e(m[1]):m[1]}">${jw(p,w&&w.r)}</span>`
     }
-    return e(p).replace(JPR, x => `<span class="jp">${x}</span>`)
+    return e(p).replace(JPR, x => `<span class="jp">${kb(x)}</span>`)
   }).join('')
 }
 

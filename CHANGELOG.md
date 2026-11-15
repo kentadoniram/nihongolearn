@@ -7,6 +7,13 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.20.20261116
+- Tappable kanji everywhere in sentences: every kanji of every Japanese sentence (examples, dictionary pages, questions, fill-in-the-blank sentences, check-up, reading passages, feedback) is now its own tap target, including kanji inside words and kanji outside the word list
+- A tap shows the kanji's hiragana reading (on and kun), its meaning and the word it is in, for example 宿題 (しゅくだい): homework, even when the study toggles hide readings or meanings elsewhere
+- Furigana above your JLPT level is kept; tiles stay free of tap targets so a tile can still be chosen
+- The dictionary page now shows its example sentence with the same tappable words and kanji
+- Tests: 350
+
 ## v1.20.20261115
 - Example sentences: every N5 and N4 word (1,349) now has a Japanese sentence with an English translation (`data/examples1.json`); kanji readings are shown as furigana above your level, and the names, counters and words the sentences needed were added (`data/n4l.json`)
 - Verb relations: 29 close-meaning verb pairs (was 4), 29 antonym pairs, 31 transitive and intransitive pairs and honorific and humble pairs, each with a note shown in the dictionary under "How they differ" (`data/semantics3.json`)

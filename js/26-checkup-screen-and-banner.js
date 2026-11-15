@@ -29,7 +29,7 @@ function diag() {
 function dq() {
   const q = DX[dg.i];
   q.p = shuffle(q.o.map((t, i) => ({ t, c: i == q.a })));
-  $('#m').innerHTML = `<div class="card"><p class="mu">Question ${dg.i+1} of ${DX.length}</p><p style="font-size:1.3rem;text-align:center;margin:8px 0">${e(q.q)}</p><div id="dc">${q.p.map((o,j)=>`<button class="opt" onclick="da(${j})">${e(o.t)}</button>`).join('')}<button class="opt" style="color:var(--mu)" onclick="da(-1)">I don’t know yet</button></div></div><div id="fb"></div>`
+  $('#m').innerHTML = `<div class="card"><p class="mu">Question ${dg.i+1} of ${DX.length}</p><p style="font-size:1.3rem;text-align:center;margin:8px 0">${ej(q.q)}</p><div id="dc">${q.p.map((o,j)=>`<button class="opt" onclick="da(${j})">${e(o.t)}</button>`).join('')}<button class="opt" style="color:var(--mu)" onclick="da(-1)">I don’t know yet</button></div></div><div id="fb"></div>`
 }
 
 function da(j) {

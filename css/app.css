@@ -880,3 +880,11 @@ details.pgi > summary {
 details.pg > summary {
   font-weight: 700
 }
+
+.jp .kj {
+  border-bottom: 1px dotted var(--mu)
+}
+
+.lx .kj {
+  border-bottom: none
+}

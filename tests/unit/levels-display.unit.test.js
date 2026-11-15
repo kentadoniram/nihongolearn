@@ -3,7 +3,7 @@ const {test}=require('node:test'),assert=require('node:assert/strict'),{loadApp}
 test('levels, furigana and Progress groups',async t=>{
  const app=await loadApp({seed:11});
  const S0=`S.jl=0;S.i={};GATE.t=0;`;
- const ej=(lv,s)=>app.run(`S.jl=${lv};GATE.t=0;ej(${JSON.stringify(s)})`);
+ const N=h=>h.replace(/<span class="kj"[^>]*>(.)<\/span>/g,'$1'),ej=(lv,s)=>N(app.run(`S.jl=${lv};GATE.t=0;ej(${JSON.stringify(s)})`));
  const s='私は概要を学校で説明しました。';
  await t.test('should hold the vocabulary of every JLPT level, N5 to N1',()=>{
   const c=app.run(`(()=>{const c={};W().filter(w=>!w.g&&!w.t).forEach(w=>c[w.l]=(c[w.l]||0)+1);return c})()`);
@@ -19,10 +19,10 @@ test('levels, furigana and Progress groups',async t=>{
   const h=ej(3,s);assert.match(h,/>説明</);assert.ok(!/<ruby>説明/.test(h));assert.match(h,/<ruby>概要/)});
  await t.test('should show every kanji plainly to an N1 learner',()=>{assert.ok(!/<ruby>/.test(ej(1,s)))});
  await t.test('should never print an N1 kanji bare to an N5 learner, in tiles or passages',()=>{
-  assert.match(app.run(`S.jl=5;GATE.t=0;jw('概要')`),/<ruby>概要<rt>がいよう/);
-  assert.match(app.run(`S.jl=5;GATE.t=0;pj('概要を読む')`),/<ruby>概要/)});
+  assert.match(N(app.run(`S.jl=5;GATE.t=0;jw('概要')`)),/<ruby>概要<rt>がいよう/);
+  assert.match(N(app.run(`S.jl=5;GATE.t=0;pj('概要を読む')`)),/<ruby>概要/)});
  await t.test('should use hiragana readings and keep kana text as it is',()=>{
-  assert.equal(app.run(`S.jl=5;GATE.t=0;jw('です')`),'です');assert.equal(app.run(`S.jl=5;GATE.t=0;jw('学校')`),'学校')});
+  assert.equal(app.run(`S.jl=5;GATE.t=0;jw('です')`),'です');assert.equal(N(app.run(`S.jl=5;GATE.t=0;jw('学校')`)),'学校')});
  await t.test('should find the level of a kanji from its entry, or from its easiest word',()=>{
   assert.equal(app.run(`kjLv('学')`),5);assert.equal(app.run(`kjLv('曖')`),1)});
  await t.test('should not print the whole sentence in romaji unless you turn that on',()=>{

@@ -1,6 +1,6 @@
 /* js/29-levels-and-display.js
  * Purpose: Which JLPT levels are open, and furigana for kanji above your level.
- * Defines (10): GATE, gateLv, lvOpen, lvIntro, ulv, kjLv, kjOk, needFg, rdOf, jw
+ * Defines (12): GATE, gateLv, lvOpen, lvIntro, ulv, kjLv, kjOk, needFg, rdOf, kb, jw
  * Classic script: shares one global scope with the other files, so load order (see index.html) matters.
  */
 
@@ -67,5 +67,13 @@ function rdOf(w) {
 }
 
 // A word in a sentence: kanji within your level as they are, anything above your level with furigana (hiragana).
-const jw = (w, r) => (r = r || rdOf(w)) && K.test(w) && needFg(w) ? `<ruby>${e(w)}<rt>${e(r)}</rt></ruby>` :
-  e(w);
+
+// Every kanji of a sentence is a tap target (.kj): the tip shows its hiragana reading and meaning, and the word it is in.
+const kb = w => [...w].map(c => K.test(c) ? `<span class="kj" tabindex="0" data-k="${c}" data-s="1">${c}</span>` :
+  e(c)).join('');
+
+// plain = no tap targets (tiles that are buttons themselves).
+const jw = (w, r, plain) => {
+  const b = plain ? e(w) : kb(w);
+  return (r = r || rdOf(w)) && K.test(w) && needFg(w) ? `<ruby>${b}<rt>${e(r)}</rt></ruby>` : b
+};

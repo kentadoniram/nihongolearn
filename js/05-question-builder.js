@@ -99,7 +99,7 @@ function show() {
   const q = { rw: `<div class="big">${e(w.r)}</div><p class="mu">Which word is read like this?</p>`, ty: `<div class="big">${e(w.m)}</div><p class="mu">Type the Japanese word: romaji, hiragana or kanji</p>`,
     oo: `<p style="font-size:1.25rem;text-align:center;margin:8px 0">Three of these share a kanji. Which one is the odd one out?</p>`,
     bt: `<div class="big">${e(w.m)}</div><p class="mu">Build the reading of ${e(w.w)} from kana tiles</p>`,
-    gq: `<p style="font-size:1.25rem;text-align:center;margin:8px 0">${e(cur.qv||w.q)}</p><p class="mu">Choose the best fit</p>`,
+    gq: `<p style="font-size:1.25rem;text-align:center;margin:8px 0">${ej(cur.qv||w.q)}</p><p class="mu">Choose the best fit</p>`,
     mj: `<div class="big">${e(w.m)}</div><p class="mu">Which word is this?</p>`, jm: `<div class="big">${ruby(w,it.s<6)}</div><p class="mu">What does it mean?</p>`,
     jr: `<div class="big">${e(w.w)}</div><p class="mu">How is it read?</p>`, tr: `<div class="big">${e(w.w)}</div><p class="mu">Type the reading: romaji or kana</p>` }[t];
   let h = (cur.fresh ? `<div class="card nw"><span class="mu">New word</span> <b style="font-size:1.5rem">${ruby(w,1)}</b> <span>${e(w.m)}</span> ${lvb(w)} <a class="wl" onclick="dict(${W().indexOf(w)})">details</a></div>` :
