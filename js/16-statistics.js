@@ -14,7 +14,7 @@ let ZR = {},
   SM = null,
   LV2 = { nb: 'n/a', sm: 'n/a', note: 'needs more words' };
 const zv = w => 1 / (ZR[w.w] || 999),
-  openW = w => w.l >= 4 || S.n3 || S.cnt > 120;
+  openW = w => lvOpen(w.l);
 function knownK() {
   const k = new Set();
   W().forEach(w => {

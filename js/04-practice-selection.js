@@ -43,9 +43,7 @@ function pick(fn) {
   const now = Date.now(),
     all = W(),
     L = all.filter(w => S.i[w.w]),
-    b4 = all.filter(w => w.l >= 4 && !w.t),
-    n3 = S.n3 || L.filter(w => w.l >= 4 && !w.t).length / b4.length > .7,
-    un = all.filter(w => !S.i[w.w] && (w.l >= 4 || n3)),
+    un = all.filter(w => !S.i[w.w] && lvIntro(w.l)),
     rc = S.rec;
   const day = new Date().setHours(0, 0, 0, 0),
     nt = L.filter(w => S.i[w.w].f >= day).length,
@@ -134,7 +132,7 @@ function goq(c) {
 function opts(w, key, g) {
   const pw = [.6, 1.6, 2, 3][g == null ? 1 : g],
     it = S.i[w.w] || {},
-    c = W().filter(x => !x.g && (x.l >= 4 || S.i[x.w] || S.n3 || w.l == 3) && x.w !== w.w && x[key] !== w[key] &&
+    c = W().filter(x => !x.g && (lvOpen(x.l) || S.i[x.w] || w.l <= 3) && x.w !== w.w && x[key] !== w[key] &&
     (key != 'r' || K.test(x.w)));
   const Z = c.reduce((a, y) => a + 1 + Math.pow(sim(w, y), 2), 0),
     tot = Object.values(it.x || {}).reduce((a, b) => a + b, 0),

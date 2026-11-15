@@ -62,7 +62,7 @@ function phraseQ(x) {
 }
 
 function labItems() {
-  const op = l => l >= 4 || S.n3 || S.cnt > 120;
+  const op = l => lvOpen(l);
   const U = LAB.map((u, k) => ({ id: 'u' + (u.id || k), u, l: u.l || 5 }))
     .filter(x => op(x.l)),
     C = W().filter(w => !w.g && op(w.l) && [...w.w].filter(c => K.test(c))
@@ -138,7 +138,7 @@ function lab() {
   lcur = c;
   c.done = 0;
   etStart();
-  $('#m').innerHTML = `<div class="card q-oo"><div class="mu" style="display:flex;justify-content:space-between;margin:0 0 6px"><span>${labChips()}${c.l&&!S.hl?' <span class="lv">N'+c.l+'</span>':''}</span><a class="wl" onclick="diag()">Check-up</a></div><b>${e(c.t)}</b>${c.big?`<div class="big">${e(c.big)}</div><p class="mu">${e(c.clue)}</p>`:''}${c.p?`<p class="pass">${pj(c.p)}</p>`:''}<div class="ex">${c.ex.map(z=>`<span><big>${e(z[0])}</big><small>${e(z[1])}</small></span>`).join('')}</div><p>${e(c.q)}</p>${c.en?`<p class="mu" style="margin:0 0 6px">${e(c.en)}</p>`:''}<div id="lq">${c.o.map((o,j)=>`<button class="opt" onclick="lq(${j})">${e(o)}</button>`).join('')}</div><button class="skip" onclick="lskip()">Skip</button></div><div id="fb"></div>`
+  $('#m').innerHTML = `<div class="card q-oo"><div class="mu" style="display:flex;justify-content:space-between;margin:0 0 6px"><span>${labChips()}${c.l&&!S.hl?' <span class="lv">N'+c.l+'</span>':''}</span><a class="wl" onclick="diag()">Check-up</a></div><b>${e(c.t)}</b>${c.big?`<div class="big">${e(c.big)}</div><p class="mu">${e(c.clue)}</p>`:''}${c.p?`<p class="pass">${pj(c.p)}</p>`:''}<div class="ex">${c.ex.map(z=>`<span><big>${e(z[0])}</big><small>${e(z[1])}</small></span>`).join('')}</div><p>${ej(c.q)}</p>${c.en?`<p class="mu" style="margin:0 0 6px">${e(c.en)}</p>`:''}<div id="lq">${c.o.map((o,j)=>`<button class="opt" onclick="lq(${j})">${e(o)}</button>`).join('')}</div><button class="skip" onclick="lskip()">Skip</button></div><div id="fb"></div>`
 }
 
 function lq(j) {

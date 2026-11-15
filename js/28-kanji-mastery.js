@@ -45,7 +45,7 @@ const kmMastered = c => kmLevel(c) == 3;
 
 // Record one learning event for a kanji: tap, more (See more), rep (repeat tap in the same passage, logged only),
 
-// ok (read without help and answered correctly), rom (understood from romaji only), miss (no help, wrong answer).
+// ok (read without help and answered correctly), rom (read with the furigana given), miss (no help, wrong answer).
 function kmAdd(c, kind) {
   if (!K.test(c)) return;
   const now = Date.now(),
@@ -71,7 +71,7 @@ function kmHelp(chars, deep, rep) {
 
 // Called when a passage question is answered: kanji read without help get independent credit (full credit if the kanji
 
-// was shown, half credit if only the romaji was shown), or a small deduction when the answer was wrong.
+// was shown plainly, half credit if furigana gave the reading), or a small deduction when the answer was wrong.
 function kmDone(c, ok) {
   const ks = [...new Set([...(c.p || '')].filter(x => K.test(x) && KJ[x]))].filter(x => !PKH.has(x));
   if (!ks.length) return '';
@@ -100,7 +100,7 @@ function kmStatus() {
   const ks = Object.keys(S.km || {}).filter(c => kmRec(c).n),
     m = ks.filter(kmMastered).length,
     wk = kmWeak(5);
-  if (!ks.length) return 'No kanji tracked yet. Reading passages show unmastered kanji as romaji; tap one to see the kanji, and See more for its meaning and readings.';
+  if (!ks.length) return 'No kanji tracked yet. Tap a word in a reading passage for help; each tap and each full entry is counted.';
   return `${ks.length} kanji tracked, ${m} mastered. Needs practice: ${wk.length?wk.map(c=>c+' '+Math.round(kmScore(c)*100)+'%').join(', '):'none'}. Each tap costs a little, See more costs more, reading without help earns it back.`
 }
 
@@ -110,7 +110,9 @@ function kmCard() {
     ''
 }
 
-// Passage text: words with a kanji you have not mastered are shown as romaji only (tap for the kanji, See more for the meaning and readings).
+// Passage text: kanji within your level as they are, kanji above it with furigana (see jw). Tracks which kanji were shown with
+
+// furigana (PKR, the reading was given) and which plainly (PKK), for the mastery credit in kmDone.
 function pj(s) {
   if (!LEXRE) mkLex();
   PKR = new Set();
@@ -119,13 +121,9 @@ function pj(s) {
     if (i % 2) {
       const m = LEXM[p],
         rd = m[0] == 'r' ? RDX[p] : m[0] == 'w' ? (WM[m[1]] || {}).r : '',
-        ks = [...p].filter(c => K.test(c));
-      if (ks.length && rd && ks.some(c => !kmMastered(c))) {
-        ks.forEach(c => PKR.add(c));
-        return `<span class="jp lx kr" tabindex="0" role="button" aria-label="Show the kanji" data-lx="${m[0]}:${m[0]=='w'?e(m[1]):m[1]}" data-kj="${e(ks.join(''))}">${romaji(rd)}</span>`
-      }
-      ks.forEach(c => PKK.add(c))
+        fg = rd && needFg(p);
+      [...p].filter(c => K.test(c)).forEach(c => (fg ? PKR : PKK).add(c))
     }
-    return ej(p, 1)
+    return ej(p)
   }).join('')
 }

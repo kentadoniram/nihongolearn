@@ -63,7 +63,7 @@ function build0(w, t) {
   if (H.length > 8) H.shift();
   it.lt = t;
   if (t == 'cl' && cz) {
-    const c = W().filter(x => !x.g && x !== w && posOf(x) == posOf(w) && (x.l >= 4 || S.i[x.w] || S.n3)),
+    const c = W().filter(x => !x.g && x !== w && posOf(x) == posOf(w) && (lvOpen(x.l) || S.i[x.w])),
       o = [w],
       pw = [.6, 1.6, 2, 3][g];
     while (o.length < 4 && c.length) {

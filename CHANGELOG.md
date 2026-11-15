@@ -7,6 +7,15 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.19.20261115
+- Progress tab: vocabulary in collapsible groups by JLPT level (N5 to N1 and Work), difficulty (easy, medium, hard) and newly acquired words (today, last 7 days, last 30 days); groups fill when opened
+- Furigana by level: kanji within your JLPT level are shown as they are even if not studied yet, kanji above it get furigana in sentences, passages, tiles and questions. Set your level in Memory, Display (automatic by default). Romaji under whole sentences is now off by default (setting: Show romaji under sentences)
+- Kanji mastery now uses these rules instead of romaji-only passages; tapping a word still counts as help, and kanji shown with furigana earn half credit
+- Content: N4 is completed (N4 packs 10 and 11: 248 words, 103 kanji), new N2 pack (222 words, 90 kanji) and N1 pack (181 words, 92 kanji), most common words first
+- Levels: new `lvOpen`, `lvIntro` and `ulv` (js/29): N3, N2 and N1 content opens level by level, or when you choose your level
+- Speed: look-alike lookup and word similarity are cached, so the first practice question appears about 5 times faster with the bigger deck
+- Tests: 282
+
 ## v1.18.20261114
 - Content: N5 pack 3 completes the N5 vocabulary (670 N5 words, up from 266) with 20 new kanji entries and about 50 sample sentences; about 130 words that were filed as N4 are moved to N5 (new `relevel` pack field)
 - Content: Japanese counters pack (26 counters, special readings for 1 to 10, 25 questions)

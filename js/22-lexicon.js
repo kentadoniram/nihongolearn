@@ -52,9 +52,9 @@ function ej(s, nr) {
   return String(s).split(LEXRE).map((p, i) => {
     if (i % 2) {
       const m = LEXM[p];
-      if (m[0] == 'r') return `<span class="jp">${nr?e(p):`<ruby>${e(p)}<rt>${e(RDX[p])}</rt></ruby>`}</span>`;
+      if (m[0] == 'r') return `<span class="jp">${jw(p,RDX[p])}</span>`;
       const w = m[0] == 'w' ? WM[m[1]] : null;
-      return `<span class="jp lx" data-lx="${m[0]}:${m[0]=='w'?e(m[1]):m[1]}">${w&&K.test(p)&&!nr?`<ruby>${e(p)}<rt>${e(w.r)}</rt></ruby>`:e(p)}</span>`
+      return `<span class="jp lx" data-lx="${m[0]}:${m[0]=='w'?e(m[1]):m[1]}">${jw(p,w&&w.r)}</span>`
     }
     return e(p).replace(JPR, x => `<span class="jp">${x}</span>`)
   }).join('')
@@ -100,13 +100,13 @@ function tokH(t, rd) {
   const i = EXI[t],
     w = WM[t];
   if (i != null) return `<span class="jp lx" data-lx="x:${i}">${e(t)}</span>`;
-  if (w) return `<span class="jp lx" data-lx="w:${e(t)}">${K.test(t)?`<ruby>${e(t)}<rt>${e(w.r)}</rt></ruby>`:e(t)}</span>`;
+  if (w) return `<span class="jp lx" data-lx="w:${e(t)}">${jw(t,w.r)}</span>`;
   const rr = rd || RDX[t];
-  return `<span class="jp">${K.test(t)&&rr?`<ruby>${e(t)}<rt>${e(rr)}</rt></ruby>`:e(t)}</span>`
+  return `<span class="jp">${jw(t,rr)}</span>`
 }
 
-const trioT = q => `<div class="trio"><div class="t1">${q.t.map((t,i)=>tokH(t,q.r?q.r[i]:'')).join('')}</div><div class="rm">${q.r?romajiS(q.r):rj(q.t.join(' '))}</div>${q.en?`<div class="en">${e(q.en)}</div>`:''}</div>`;
-const trioS = (jp, en) => `<div class="trio"><div class="t1">${ej(jp)}</div><div class="rm">${rj(jp)}</div>${en?`<div class="en">${e(en)}</div>`:''}</div>`;
+const trioT = q => `<div class="trio"><div class="t1">${q.t.map((t,i)=>tokH(t,q.r?q.r[i]:'')).join('')}</div>${S.rm?`<div class="rm">${q.r?romajiS(q.r):rj(q.t.join(' '))}</div>`:''}${q.en?`<div class="en">${e(q.en)}</div>`:''}</div>`;
+const trioS = (jp, en) => `<div class="trio"><div class="t1">${ej(jp)}</div>${S.rm?`<div class="rm">${rj(jp)}</div>`:''}${en?`<div class="en">${e(en)}</div>`:''}</div>`;
 const trioW = w => `<div class="trio"><div class="t1">${K.test(w.w)?`<ruby>${lk(w)}<rt>${e(w.r)}</rt></ruby>`:lk(w)}</div><div class="rm">${romaji(w.r)}</div><div class="en">${e(w.m)} ${lvb(w)}</div></div>`;
 const tn = n => WM[n] ? WM[n].m : n,
   KN = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9, 十: 10 },
@@ -127,17 +127,6 @@ function showLx(el) {
   const [ty, v] = el.dataset.lx.split(/:(.+)/),
     t = $('#tip');
   let h = '';
-  if (el.classList.contains('kr')) {
-    // romaji-only word: first help shows the kanji and the reading, See more gives the meaning and the readings of each kanji
-    const w = ty == 'w' ? WM[v] : null,
-      rd = w ? w.r : RDX[v],
-      kj = w ? w.w : v;
-    if (!rd) return;
-    h = `<b class="tg" style="font-size:1.2rem">${e(kj)}</b><div>${e(rd)} <span class="mu">(${romaji(rd)})</span></div><div class="mu"><u>See more</u>: meaning and readings</div>`;
-    placeTip(el, h);
-    t.dataset.open = w ? 'w:' + v : 'k:' + [...kj].find(c => K.test(c));
-    return
-  }
   if (ty == 'w') {
     const w = WM[v];
     if (!w) return;

@@ -11,7 +11,7 @@ const nlq = () => {
 const PT = 'はがをにでへとも';
 let bq = null;
 const fm = id => FM.find(f => f.id == id),
-  open3 = x => x.l >= 4 || S.n3 || S.cnt > 120;
+  open3 = x => lvOpen(x.l);
 const blk = f => f.blocks.map((b, i) => `<span class="blk${i==f.blocks.length-1?' v':''}">${e(b)}</span>`)
   .join('');
 function bld() {
@@ -46,7 +46,7 @@ function bsh() {
   const { q, pool, sel } = bq,
     f = fm(q.f),
     lb = x => S.hl ? '' : ` <span class="lv">N${x.l}</span>`;
-  $('#m').innerHTML = `${f?`<div class="card pat" onclick="pat('${f.id}')"><div class="mu" style="text-align:left;margin:0">Pattern: <b>${e(f.name)}</b>${lb(f)} <a class="wl">how it works</a></div><div class="blks">${blk(f)}</div></div>`:''}<div class="card q-bt"><div class="mu" style="display:flex;justify-content:space-between;margin:0"><span>Natural Japanese order${lb(q)}</span><a class="wl" onclick="S.bm='type';save();typ()">Type it</a> <a class="wl" onclick="pats()">Patterns</a></div><div class="mean">${e(q.en)}</div><div id="bs">${sel.map((k,j)=>`<button class="tile on" onclick="su(${j})">${e(q.t[k])}</button>`).join('')||'<span class="mu">Tap the words in order</span>'}</div><div>${pool.map(k=>`<button class="tile" ${sel.includes(k)?'disabled':''} onclick="sp(${k})">${e(q.t[k])}</button>`).join('')}</div><button class="pri" onclick="sc()">Check</button><button class="skip" onclick="sskip()">Skip</button></div><div id="fb"></div>`
+  $('#m').innerHTML = `${f?`<div class="card pat" onclick="pat('${f.id}')"><div class="mu" style="text-align:left;margin:0">Pattern: <b>${e(f.name)}</b>${lb(f)} <a class="wl">how it works</a></div><div class="blks">${blk(f)}</div></div>`:''}<div class="card q-bt"><div class="mu" style="display:flex;justify-content:space-between;margin:0"><span>Natural Japanese order${lb(q)}</span><a class="wl" onclick="S.bm='type';save();typ()">Type it</a> <a class="wl" onclick="pats()">Patterns</a></div><div class="mean">${e(q.en)}</div><div id="bs">${sel.map((k,j)=>`<button class="tile on" onclick="su(${j})">${jw(q.t[k])}</button>`).join('')||'<span class="mu">Tap the words in order</span>'}</div><div>${pool.map(k=>`<button class="tile" ${sel.includes(k)?'disabled':''} onclick="sp(${k})">${jw(q.t[k])}</button>`).join('')}</div><button class="pri" onclick="sc()">Check</button><button class="skip" onclick="sskip()">Skip</button></div><div id="fb"></div>`
 }
 
 function sp(k) {
