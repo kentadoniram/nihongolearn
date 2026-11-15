@@ -1,16 +1,15 @@
 # Build plan
 
-App version 1.18.20261114. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
+App version 1.19.20261115. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
 
 ## In progress (3)
 
-- [ ] Complete N4 vocabulary and kanji (Content: about 483 words filed as N4 so far (about 125 words moved to N5 where they belong); roughly 700 expected)
 - [ ] N3 vocabulary, kanji and grammar (Content: 126 words, 18 grammar questions and 5 sentence patterns so far, of roughly 3,700 words and about 100 grammar points)
 - [ ] Hand-written reading passages (Content: 13 hand-written passages with 23 questions so far; the 9 generators fill the rest)
+- [ ] N2 and N1 packs (Content: 222 N2 and 181 N1 words so far, most common first; roughly 1,500 N2 and 2,500 N1 words in full)
 
-## Not started (25)
+## Not started (26)
 
-- [ ] N2 and N1 packs (Content)
 - [ ] Audio and pitch accent (Content: needs recorded or synthesised audio)
 - [ ] Real corpus frequency ranks (Content: current ranks are my estimate)
 - [ ] Grammar library with one page per pattern (Content)
@@ -35,10 +34,16 @@ App version 1.18.20261114. Edit data/roadmap.json, then run `node tools/make-roa
 - [ ] Counter practice in typed and Build modes (Practice)
 - [ ] Choose reading passages by weak kanji (Learning engine: weak kanji already return in word practice and on the Today screen)
 - [ ] Interface tests for the romaji-first passage flow (Quality)
+- [ ] Extend the word-level predictor to N2 and N1 (Learning engine: it still learns N3 to N5 only)
+- [ ] N2 and N1 kanji beyond the 2,000 most common words (Content)
 
-## Done (34)
+## Done (38)
 
+- [x] Complete N4 vocabulary and kanji (Content: 666 N4 words (verbs, nouns, adjectives, adverbs) with kanji entries)
 - [x] Synonym evaluator for conjugated verbs (Learning engine: verbs in the ます, ません, ました, て, た, ない and なかった forms)
+- [x] Furigana by your JLPT level (Practice: kanji within your level are shown as they are, kanji above it get furigana; romaji lines under sentences are off by default (setting))
+- [x] Vocabulary groups in the Progress tab (Progress: collapsible groups by JLPT level, difficulty and newly acquired words)
+- [x] Level gate for N2 and N1 (Learning engine: new words and questions open level by level (70 percent of the level above), or at once when you set your level)
 - [x] Fit the forgetting model to your own history (Learning engine: fits a time scale and curve shape from your reviews once there are 60 or more)
 - [x] Offline web app with export and import of your memory (Core)
 - [x] Forgetting model, difficulty regression, Thompson sampling (Learning engine)
