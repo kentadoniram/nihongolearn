@@ -6,10 +6,10 @@ test('N5 database and verb conjugation table',async t=>{
  await t.test('should hold at least 50 N5 verbs',()=>assert.ok(n5('filter(w=>posOf(w)=="verb").length')>=50));
  await t.test('should give at least 60 N5 words a sample sentence',()=>assert.ok(n5('filter(w=>w.e).length')>=60));
  await t.test('should attach every sample sentence in N5 pack 2 to a word in the deck',()=>{const ex=JSON.parse(read('data/n5b.json')).examples.rows;const m=app.run(`${JSON.stringify(ex.map(r=>r[0]))}.filter(w=>!W().some(x=>x.w==w))`);assert.deepEqual([...m],[])});
- await t.test('should show a conjugation table with 11 forms for every N5 verb that can be conjugated',()=>{
-  const bad=app.run(`W().filter(w=>!w.g&&w.l==5&&posOf(w)=='verb'&&vclass(w)&&vclass(w)!='suru'&&(vtab(w).match(/<tr>/g)||[]).length!=11).map(w=>w.w)`);assert.deepEqual([...bad],[])});
+ await t.test('should show a grouped conjugation table of at least 23 forms for every N5 verb (ある has fewer) that can be conjugated',()=>{
+  const bad=app.run(`W().filter(w=>!w.g&&w.l==5&&posOf(w)=='verb'&&vclass(w)&&w.w!='ある'&&(vtab(w).match(/<tr><td>/g)||[]).length<23).map(w=>w.w)`);assert.deepEqual([...bad],[])});
  await t.test('should use the irregular ない and て forms for ある and 行く',()=>{const r=app.run(`(()=>{const f=(n,x)=>conj(W().find(w=>w.w==n),x).s;return[f('ある','nai'),f('ある','nakatta'),f('行く','te'),f('来る','masu'),f('いる','nai'),f('飲む','tai'),f('食べる','mashou')]})()`);assert.deepEqual([...r],['ない','なかった','行って','来ます','いない','飲みたい','食べましょう'])});
- await t.test('should not show a table for nouns or for する',()=>{assert.equal(app.run(`vtab(W().find(w=>w.w=='学校'))`),'');assert.equal(app.run(`vtab(W().find(w=>w.w=='する'))`),'')});
+ await t.test('should not show a table for nouns, but show one for する',()=>{assert.equal(app.run(`vtab(W().find(w=>w.w=='学校'))`),'');assert.match(app.run(`vtab(W().find(w=>w.w=='する'))`),/しました/)});
  await t.test('should put the table in the dictionary entry of a verb',()=>{const h=app.run(`(()=>{dict(W().findIndex(w=>w.w=='食べる'));return document.querySelector('#dv').innerHTML})()`);assert.match(h,/Polite negative/);assert.match(h,/食べません/)});
  await t.test('should hold at least 600 N5 words with a kanji entry for every kanji in them',()=>{assert.ok(n5('length')>=600);const m=app.run(`(()=>{const u=new Set();W().filter(w=>!w.g&&w.l==5).forEach(w=>[...w.w].forEach(c=>{if(K.test(c))u.add(c)}));return [...u].filter(c=>!KJ[c])})()`);assert.deepEqual([...m],[])});
  await t.test('should teach the counters with their irregular readings',()=>{const r=app.run(`['三本','六匹','三階','一日','二十日','一人','八分','何歳'].map(x=>(W().find(w=>w.w==x)||{}).r)`);assert.deepEqual([...r],['さんぼん','ろっぴき','さんがい','ついたち','はつか','ひとり','はっぷん','なんさい'])});
