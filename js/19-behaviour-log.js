@@ -1,6 +1,6 @@
 /* js/19-behaviour-log.js
  * Purpose: Behaviour log: engaged time, skips and slow-question context.
- * Defines (17): ET, etTouch, etStart, etEnd, robZ, logEv, ctxP, ctxL, skipQ, lskip, tskip, sskip, cxTile, hardTop, ...
+ * Defines (20): ET, etTouch, etStart, etEnd, robZ, logEv, ctxP, ctxL, skipFeedback, skipQ, lskip, ...
  * Classic script: shares one global scope with the other files, so load order (see index.html) matters.
  */
 
@@ -98,6 +98,9 @@ const ctxP = (w, t, o, i, val) => {
 };
 const ctxL = (c, j) => `${c.t}|${(c.p||c.big||'').slice(0,60)}|${c.q}|${c.o.join('/')}|pick ${c.o[j]||''}`
   .slice(0, 200);
+
+// Card after skipping a question: what the answer was, and the buttons.
+const skipFeedback = info => `<div class="card fb"><b>Skipped</b> <span class="mu">(recorded separately from mistakes)</span><br>${info}` + `<div class="row2"><button class="sec" onclick="nav(-1)">‹ Back</button><button class="pri" onclick="nq()">Next</button></div></div>`;
 function skipQ() {
   if (!cur || cur.done || cur.study) return;
   cur.done = 1;
@@ -114,7 +117,8 @@ function skipQ() {
     b.disabled = true;
     if (o && (t == 'gq' ? o[j].c : t == 'oo' ? o[j] === cur.odd : o[j].w == w.w)) b.classList.add('ok')
   });
-  $('#fb').innerHTML = `<div class="card fb"><b>Skipped</b> <span class="mu">(recorded separately from mistakes)</span><br>${t=='gq'?e(cur.y||w.y):t=='oo'?e(cur.ch)+' is in the other three. '+lk(cur.odd):trioW(w)}<div class="row2"><button class="sec" onclick="nav(-1)">‹ Back</button><button class="pri" onclick="nq()">Next</button></div></div>`;
+  $('#fb').innerHTML = skipFeedback(t == 'gq' ? e(cur.y || w.y) : t == 'oo' ? e(cur.ch) + ' is in the other three. ' + lk(cur
+      .odd) : trioW(w));
   save()
 }
 
@@ -179,16 +183,28 @@ function hardTop() {
     .join(', ') || 'not enough data yet'
 }
 
+// Timing part of the summary: engaged time, slow and fast answers, long pauses and skips.
+function behTiming(L) {
+  const A = L.filter(x => !x.sk).map(x => x.a),
+    n = k => L.filter(x => x.f.includes(k)).length;
+  return `Behaviour indicators, not diagnoses: median engaged time ${(med(A)/1000).toFixed(1)}s, ${n('slow')} slow, ${n('fast')} fast, ${n('pause')} with long pauses, ${S.skips||0} skips. Slow-prone: ${hardTop()}.`
+}
+
+// Sentence building part of the summary: English word order and revisions before checking.
+function behBuilding(C) {
+  const T = C.filter(x => x.k == 'tile'),
+    eng = T.length ? Math.round(T.filter(x => x.eng).length / T.length * 100) + '% of first tries used English word order, ' :
+    '';
+  return `Sentence building: ${eng}${C.filter(x=>x.first&&x.first!=x.final).length} of ${C.length} were revised before checking.`
+}
+
 function behSummary() {
   const L = S.lg || [];
   if (L.length < 5) return 'Timing and skip analysis starts after a few answers.';
-  const A = L.filter(x => !x.sk).map(x => x.a),
-    C = S.cx || [],
-    T = C.filter(x => x.k == 'tile');
-  return `Behaviour indicators, not diagnoses: median engaged time ${(med(A)/1000).toFixed(1)}s, ${L.filter(x=>x.f.includes('slow')).length} slow, ${L.filter(x=>x.f.includes('fast')).length} fast, ${L.filter(x=>x.f.includes('pause')).length} with long pauses, ${S.skips||0} skips. Slow-prone: ${hardTop()}. Sentence building: ${T.length?Math.round(T.filter(x=>x.eng).length/T.length*100)+'% of first tries used English word order, ':''}${C.filter(x=>x.first&&x.first!=x.final).length} of ${C.length} were revised before checking.`
+  return behTiming(L) + ' ' + behBuilding(S.cx || [])
 }
 
-const dataCard = () => `<p class="mu" style="text-align:left">${(S.lg||[]).length} timed answers, ${(S.hd||[]).length} slow-question records, ${(S.cx||[]).length} sentence-building records, ${S.skips||0} skips. Stored: ${Math.round(JSON.stringify(S).length/1024)} KB of roughly 5000 KB available in this browser. Old detail is trimmed automatically and summaries stay. Everything is included in Download my memory.</p><button class="sec" onclick="expLog()">Download learning log only</button>`;
+const dataCard = () => `<p class="mu" style="text-align:left">${(S.lg||[]).length} timed answers, ${(S.hd||[]).length} slow-question records, ${(S.cx||[]).length} sentence-building records, ${S.skips||0} skips. ` + `Stored: ${Math.round(JSON.stringify(S).length/1024)} KB of roughly 5000 KB available in this browser. Old detail is trimmed automatically and summaries stay. Everything is included in Download my memory.</p>` + `<button class="sec" onclick="expLog()">Download learning log only</button>`;
 function expLog() {
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([JSON.stringify({ app: VER.app, lg: S.lg, hd: S.hd, cx: S.cx,

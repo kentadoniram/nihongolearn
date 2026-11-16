@@ -7,6 +7,16 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.21.20261116
+- Accessibility review, first part (`js/30-accessibility.js`, `css/app.css`, `index.html`):
+  - Contrast: the green text colour in the light theme now passes 4.5 to 1, and buttons, tiles, inputs and chips use a new border colour (`--bdc`) that passes 3 to 1 in both themes
+  - Keyboard: everything that reacts to a click (cards, rows, links, arrows) gets a button role and a tab stop, Enter and Space work on it and on tappable kanji, Tab stays inside a dialog, Escape closes the tooltip and then the dialog, and the arrow keys no longer change the question while a menu or dialog has the focus
+  - Dialogs: the focus moves in when one opens and back to where it was when it closes, and the page behind it is made inert
+  - Screen readers: answers and feedback are announced, tapped kanji tips are read out, each screen sets the page title and the current tab, Japanese text is marked lang="ja", fields and menus have labels, and file pickers can be reached with the keyboard
+  - Other: skip link, a mark (✓ or ✗) on answers so colour is not the only cue, forced-colours styles
+- Code: the long HTML template strings are built from small functions (22 templates over 350 characters before, none over 290 now), and scripts 07 and 14 are split into eight files; screen output was checked identical on 320 screens
+- Tests: 377
+
 ## v1.20.20261116
 - Tappable kanji everywhere in sentences: every kanji of every Japanese sentence (examples, dictionary pages, questions, fill-in-the-blank sentences, check-up, reading passages, feedback) is now its own tap target, including kanji inside words and kanji outside the word list
 - A tap shows the kanji's hiragana reading (on and kun), its meaning and the word it is in, for example 宿題 (しゅくだい): homework, even when the study toggles hide readings or meanings elsewhere

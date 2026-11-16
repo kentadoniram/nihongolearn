@@ -32,7 +32,9 @@ function go(v, skip) {
   document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.v == v));
   if (skip) return;
   v == 't' ? today() : v == 'p' ? practice() : v == 'l' ? lab() : v == 'b' ? bld() : v == 'm' ? mem() :
-    prog()
+    prog();
+  a11yScreen(v);
+  a11yMain()
 }
 
 function ruby(w, on) {

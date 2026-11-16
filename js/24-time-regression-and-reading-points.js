@@ -34,7 +34,7 @@ function absence() {
 
 function wbCard() {
   const a = S.ab;
-  return a ? `<div class="card"><b>Welcome back after ${a.g} days</b><p>Estimated recall across your words: ${Math.round(a.r0*100)}% when you left, ${Math.round(a.r1*100)}% now. Your ability estimate was eased back by ${Math.round((1-a.k)*100)}%, and questions start with easier forms. Both recover as you answer.</p></div>` :
+  return a ? `<div class="card"><b>Welcome back after ${a.g} days</b><p>Estimated recall across your words: ${Math.round(a.r0*100)}% when you left, ${Math.round(a.r1*100)}% now. ` + `Your ability estimate was eased back by ${Math.round((1-a.k)*100)}%, and questions start with easier forms. Both recover as you answer.</p></div>` :
     ''
 }
 

@@ -69,7 +69,7 @@ function rdOf(w) {
 // A word in a sentence: kanji within your level as they are, anything above your level with furigana (hiragana).
 
 // Every kanji of a sentence is a tap target (.kj): the tip shows its hiragana reading and meaning, and the word it is in.
-const kb = w => [...w].map(c => K.test(c) ? `<span class="kj" tabindex="0" data-k="${c}" data-s="1">${c}</span>` :
+const kb = w => [...w].map(c => K.test(c) ? `<span class="kj" tabindex="0" lang="ja" data-k="${c}" data-s="1">${c}</span>` :
   e(c)).join('');
 
 // plain = no tap targets (tiles that are buttons themselves).

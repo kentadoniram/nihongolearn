@@ -1,6 +1,6 @@
 /* js/05-question-builder.js
  * Purpose: Difficulty stages, building questions and checking answers.
- * Defines (8): sEff, stg, cloze, build, build0, show, ans, nq
+ * Defines (9): sEff, stg, cloze, build, build0, show, qFeedback, ans, nq
  * Classic script: shares one global scope with the other files, so load order (see index.html) matters.
  */
 
@@ -108,7 +108,7 @@ function show() {
     ['tr', 'ty'].includes(t) ? `<input id="ti" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="romaji, hiragana or kanji" aria-label="answer"><button class="pri" onclick="ans(0,$('#ti').value)">Check</button>` :
     o.map((x, i) => `<button class="opt" onclick="ans(${i})">${e(t=='gq'?x.t:{jm:x.m,mj:x.w,jr:x.r,oo:x.w,rw:x.w}[t])}</button>`)
     .join('');
-  $('#m').innerHTML = h + '<button class="skip" onclick="skipQ()">Skip</button></div><div id="fb"></div>';
+  $('#m').innerHTML = h + '<button class="skip" onclick="skipQ()">Skip</button></div><div id="fb" role="status"></div>';
   if (t == 'bt') bshow();
   if (['tr', 'ty'].includes(t)) {
     const i = $('#ti');
@@ -117,6 +117,15 @@ function show() {
       if (ev.key == 'Enter') ans(0, i.value)
     }
   }
+}
+
+// Feedback card after a practice answer: the result line, what to know about the word and the buttons.
+function qFeedback(ok, gain, info, why) {
+  const head = ok ? '✓ ' + (cmb > 2 ? 'Combo x' + cmb + '! +' + gain + ' XP' : 'Correct, +' + gain + ' XP') :
+    '✗ Not quite',
+    checkup = !S.diag && S.mdl.n >= 20 && S.mdl.n < 24 ? '<p class="mu" style="text-align:left">Curious where you stand? There is a check-up in the Patterns tab.</p>' :
+    '';
+  return `<div class="card fb ${ok?'':'r'}"><b>${head}</b><br>${info}${why}${checkup}` + `<div class="row2"><button class="sec" onclick="nav(-1)">‹ Back</button><button class="pri" onclick="nq()">Next</button></div></div>`
 }
 
 function ans(i, val) {
@@ -179,7 +188,8 @@ function ans(i, val) {
   });
   const info = t == 'gq' ? ej(cur.y || w.y) + ' ' + lvb(w) : t == 'oo' ? `${ej(cur.ch)} is in the other three.${trioW(cur.odd)}` :
     trioW(w);
-  $('#fb').innerHTML = `<div class="card fb ${ok?'':'r'}"><b>${ok?'✓ '+(cmb>2?'Combo x'+cmb+'! +'+gain+' XP':'Correct, +'+gain+' XP'):'✗ Not quite'}</b><br>${info}${!ok&&t!='gq'&&t!='oo'?'<br>'+(ty?tyWhy(w,val):why(w,x)):''}${!S.diag&&S.mdl.n>=20&&S.mdl.n<24?'<p class="mu" style="text-align:left">Curious where you stand? There is a check-up in the Patterns tab.</p>':''}<div class="row2"><button class="sec" onclick="nav(-1)">‹ Back</button><button class="pri" onclick="nq()">Next</button></div></div>`;
+  $('#fb').innerHTML = qFeedback(ok, gain, info, !ok && t != 'gq' && t != 'oo' ? '<br>' + (ty ? tyWhy(w,
+        val) : why(w, x)) : '');
   if (ok && S.aa !== false) {
     const c0 = cur;
     setTimeout(() => {

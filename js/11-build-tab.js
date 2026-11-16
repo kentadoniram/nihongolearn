@@ -1,6 +1,6 @@
 /* js/11-build-tab.js
  * Purpose: Sentence patterns and the Build tab.
- * Defines (10): nlq, PT, fm, blk, bld, bsh, sp, pat, pats, sc
+ * Defines (20): nlq, PT, bq, fm, blk, bld, lvLabel, bshPattern, bshHead, bshChosen, bshPool, bsh, sp, ...
  * Classic script: shares one global scope with the other files, so load order (see index.html) matters.
  */
 const nlq = () => {
@@ -42,11 +42,24 @@ function bld() {
   bsh()
 }
 
+// N-level label, unless level labels are hidden.
+const lvLabel = x => S.hl ? '' : ` <span class="lv">N${x.l}</span>`;
+
+// The pattern card above the sentence (tap for how it works).
+const bshPattern = f => f ? `<div class="card pat" onclick="pat('${f.id}')"><div class="mu" style="text-align:left;margin:0">Pattern: <b>${e(f.name)}</b>${lvLabel(f)} <a class="wl">how it works</a></div><div class="blks">${blk(f)}</div></div>` :
+  '';
+
+// Header row of the sentence card: title and the two links.
+const bshHead = q => `<div class="mu" style="display:flex;justify-content:space-between;margin:0"><span>Natural Japanese order${lvLabel(q)}</span>` + `<a class="wl" onclick="S.bm='type';save();typ()">Type it</a> <a class="wl" onclick="pats()">Patterns</a></div>`;
+
+// Chosen tiles (tap one to take it back) and the pool of tiles left.
+const bshChosen = (q, sel) => sel.map((k, j) => `<button class="tile on" onclick="su(${j})">${jw(q.t[k],'',1)}</button>`)
+  .join('') || '<span class="mu">Tap the words in order</span>';
+const bshPool = (q, pool, sel) => pool.map(k => `<button class="tile" ${sel.includes(k)?'disabled':''} onclick="sp(${k})">${jw(q.t[k],'',1)}</button>`)
+  .join('');
 function bsh() {
-  const { q, pool, sel } = bq,
-    f = fm(q.f),
-    lb = x => S.hl ? '' : ` <span class="lv">N${x.l}</span>`;
-  $('#m').innerHTML = `${f?`<div class="card pat" onclick="pat('${f.id}')"><div class="mu" style="text-align:left;margin:0">Pattern: <b>${e(f.name)}</b>${lb(f)} <a class="wl">how it works</a></div><div class="blks">${blk(f)}</div></div>`:''}<div class="card q-bt"><div class="mu" style="display:flex;justify-content:space-between;margin:0"><span>Natural Japanese order${lb(q)}</span><a class="wl" onclick="S.bm='type';save();typ()">Type it</a> <a class="wl" onclick="pats()">Patterns</a></div><div class="mean">${e(q.en)}</div><div id="bs">${sel.map((k,j)=>`<button class="tile on" onclick="su(${j})">${jw(q.t[k],'',1)}</button>`).join('')||'<span class="mu">Tap the words in order</span>'}</div><div>${pool.map(k=>`<button class="tile" ${sel.includes(k)?'disabled':''} onclick="sp(${k})">${jw(q.t[k],'',1)}</button>`).join('')}</div><button class="pri" onclick="sc()">Check</button><button class="skip" onclick="sskip()">Skip</button></div><div id="fb"></div>`
+  const { q, pool, sel } = bq;
+  $('#m').innerHTML = bshPattern(fm(q.f)) + `<div class="card q-bt">${bshHead(q)}<div class="mean">${e(q.en)}</div>` + `<div id="bs">${bshChosen(q,sel)}</div><div>${bshPool(q,pool,sel)}</div>` + `<button class="pri" onclick="sc()">Check</button><button class="skip" onclick="sskip()">Skip</button></div><div id="fb" role="status"></div>`
 }
 
 function sp(k) {
@@ -65,13 +78,25 @@ function su(j) {
   bsh()
 }
 
+const patExample = x => `<div class="card"><p style="margin:0">${[...x[0]].map(kc).join('')}</p><p class="mu" style="text-align:left;margin:4px 0 0">${e(x[1])}</p></div>`;
 function pat(id) {
   const f = fm(id);
-  dv(`<h2 style="margin:8px 0">${e(f.name)}${S.hl?'':' <span class="lv">N'+f.l+'</span>'}</h2><div class="blks">${blk(f)}</div><p>${e(f.note)}</p><p class="mu" style="text-align:left">${e(f.trap)}</p>${f.ex.map(x=>`<div class="card"><p style="margin:0">${[...x[0]].map(kc).join('')}</p><p class="mu" style="text-align:left;margin:4px 0 0">${e(x[1])}</p></div>`).join('')}<button class="pri" onclick="$('#dv').hidden=true">Try it</button>`)
+  dv(`<h2 style="margin:8px 0">${e(f.name)}${S.hl?'':' <span class="lv">N'+f.l+'</span>'}</h2><div class="blks">${blk(f)}</div>` + `<p>${e(f.note)}</p><p class="mu" style="text-align:left">${e(f.trap)}</p>${f.ex.map(patExample).join('')}<button class="pri" onclick="dvClose()">Try it</button>`)
 }
 
+const patRow = f => `<div class="card pat" onclick="pat('${f.id}')"><b>${e(f.name)}</b>${S.hl?'':' <span class="lv">N'+f.l+'</span>'}<div class="blks">${blk(f)}</div></div>`;
 function pats() {
-  dv(`<h2 style="margin:8px 0">Sentence patterns</h2>${FM.filter(open3).map(f=>`<div class="card pat" onclick="pat('${f.id}')"><b>${e(f.name)}</b>${S.hl?'':' <span class="lv">N'+f.l+'</span>'}<div class="blks">${blk(f)}</div></div>`).join('')}`)
+  dv(`<h2 style="margin:8px 0">Sentence patterns</h2>${FM.filter(open3).map(patRow).join('')}`)
+}
+
+// Feedback card after checking tiles: both answers, the reason, other orders and the pattern.
+function scFeedback(q, t, f, ok, same, m) {
+  const why = ok ? (same ? '' : 'Japanese lets you move these blocks around. The usual order is: ' + ej(q
+      .t.join(' '))) : ej(m),
+    others = ok && q.ex ? `<p class="mu" style="text-align:left">Other natural orders: ${ej(q.ex.join('   '))}</p>` :
+    '',
+    pat = !ok && f ? `<div class="blks">${blk(f)}</div>` : '';
+  return `<div class="card fb ${ok?'':'r'}"><b>${ok?'✓ Natural Japanese, +15 XP':'✗ Not quite'}</b>${revTiles(q,t,ok)}<p>${why}</p>${others}${trioT(q)}${pat}` + `<p class="mu" style="text-align:left">${ej(q.y||(f&&f.note)||'')}</p><button class="pri" onclick="adv('b')">Next sentence</button></div>`
 }
 
 function sc() {
@@ -101,7 +126,7 @@ function sc() {
     S.pf[q.f] = (S.pf[q.f] || 0) + 1;
     save()
   }
-  $('#fb').innerHTML = `<div class="card fb ${ok?'':'r'}"><b>${ok?'✓ Natural Japanese, +15 XP':'✗ Not quite'}</b>${revTiles(q,t,ok)}<p>${ok?(same?'':'Japanese lets you move these blocks around. The usual order is: '+ej(q.t.join(' '))):ej(m)}</p>${ok&&q.ex?`<p class="mu" style="text-align:left">Other natural orders: ${ej(q.ex.join('   '))}</p>`:''}${trioT(q)}${!ok&&f?`<div class="blks">${blk(f)}</div>`:''}<p class="mu" style="text-align:left">${ej(q.y||(f&&f.note)||'')}</p><button class="pri" onclick="adv('b')">Next sentence</button></div>`;
+  $('#fb').innerHTML = scFeedback(q, t, f, ok, same, m);
   if (ok && S.aa !== false) {
     const b0 = bq;
     setTimeout(() => {

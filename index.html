@@ -2,26 +2,33 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Nihongo Lab</title><meta name="description" content="Offline Japanese practice for JLPT N5 to N3"><link rel="manifest" href="manifest.json"><link rel="icon" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/icon-192.png"><meta name="theme-color" content="#1f3a5f">
-<link rel="stylesheet" href="css/app.css"></head><body><div class="w">
+<link rel="stylesheet" href="css/app.css"></head><body><a class="skip-link" href="#m">Skip to content</a><div class="w">
 <header><h1>日本語 Lab</h1><nav aria-label="Sections"><button data-v="t" onclick="go('t')">Today</button><button data-v="p" onclick="go('p')">Play</button><button data-v="b" onclick="go('b')">Build</button><button data-v="l" onclick="go('l')">Lab</button><button data-v="g" onclick="go('g')">Progress</button><button data-v="m" onclick="go('m')">Memory</button></nav></header>
-<div id="bn"></div><div id="st" aria-live="polite"></div><main id="m"></main>
+<div id="bn"></div><div id="st"></div><main id="m" tabindex="-1"></main>
+<div id="sr" class="sr-only" role="status" aria-live="polite"></div>
 </div>
-<div id="zl" onclick="nav(-1)" aria-label="Previous question">‹</div><div id="zr" onclick="nav(1)" aria-label="Next question">›</div>
-<div id="dv" hidden></div>
-<div id="tip" role="tooltip" hidden></div>
+<div id="zl" role="button" tabindex="0" onclick="nav(-1)" aria-label="Previous question">‹</div><div id="zr" role="button" tabindex="0" onclick="nav(1)" aria-label="Next question">›</div>
+<div id="dv" role="dialog" aria-modal="true" aria-label="Details" tabindex="-1" hidden></div>
+<div id="tip" role="status" aria-live="polite" hidden></div>
 <script src="js/01-core-state.js"></script>
 <script src="js/02-forgetting-model.js"></script>
 <script src="js/03-difficulty-model.js"></script>
 <script src="js/04-practice-selection.js"></script>
 <script src="js/05-question-builder.js"></script>
 <script src="js/06-lab-and-casual.js"></script>
-<script src="js/07-progress-and-memory-screens.js"></script>
+<script src="js/07-progress-screen.js"></script>
+<script src="js/07-memory-export-import.js"></script>
+<script src="js/07-level-strip.js"></script>
+<script src="js/07-tile-builder.js"></script>
+<script src="js/07-settings-screen.js"></script>
 <script src="js/08-content-loading.js"></script>
 <script src="js/09-display-helpers.js"></script>
 <script src="js/10-dictionary.js"></script>
 <script src="js/11-build-tab.js"></script>
 <script src="js/12-tooltips.js"></script>
 <script src="js/13-play-navigation.js"></script>
+<script src="js/14-kana-input.js"></script>
+<script src="js/14-typed-diagnosis.js"></script>
 <script src="js/14-typed-translation.js"></script>
 <script src="js/15-generators-and-lint.js"></script>
 <script src="js/16-statistics.js"></script>
@@ -38,5 +45,6 @@
 <script src="js/27-answer-review.js"></script>
 <script src="js/28-kanji-mastery.js"></script>
 <script src="js/29-levels-and-display.js"></script>
+<script src="js/30-accessibility.js"></script>
 <script src="js/99-boot.js"></script>
 </body></html>

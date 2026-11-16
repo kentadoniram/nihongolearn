@@ -1,6 +1,6 @@
 /* js/26-checkup-screen-and-banner.js
  * Purpose: Backup banner and the check-up screen.
- * Defines (6): banner, dg, diag, dq, da, dn
+ * Defines (9): banner, dg, diag, dqOptions, dqCard, dq, da, diagResult, dn
  * Classic script: shares one global scope with the other files, so load order (see index.html) matters.
  */
 function banner() {
@@ -26,10 +26,13 @@ function diag() {
   dq()
 }
 
+const dqOptions = q => q.p.map((o, j) => `<button class="opt" onclick="da(${j})">${e(o.t)}</button>`)
+  .join('') + `<button class="opt" style="color:var(--mu)" onclick="da(-1)">I don’t know yet</button>`;
+const dqCard = q => `<div class="card"><p class="mu">Question ${dg.i+1} of ${DX.length}</p><p style="font-size:1.3rem;text-align:center;margin:8px 0">${ej(q.q)}</p><div id="dc">${dqOptions(q)}</div></div><div id="fb" role="status"></div>`;
 function dq() {
   const q = DX[dg.i];
   q.p = shuffle(q.o.map((t, i) => ({ t, c: i == q.a })));
-  $('#m').innerHTML = `<div class="card"><p class="mu">Question ${dg.i+1} of ${DX.length}</p><p style="font-size:1.3rem;text-align:center;margin:8px 0">${ej(q.q)}</p><div id="dc">${q.p.map((o,j)=>`<button class="opt" onclick="da(${j})">${e(o.t)}</button>`).join('')}<button class="opt" style="color:var(--mu)" onclick="da(-1)">I don’t know yet</button></div></div><div id="fb"></div>`
+  $('#m').innerHTML = dqCard(q)
 }
 
 function da(j) {
@@ -47,6 +50,7 @@ function da(j) {
   $('#fb').innerHTML = `<div class="card fb ${ok?'':'r'}"><b>${ok?'Correct':j<0?'No problem, here is how it works':'Not quite'}</b><p>Answer: ${e(q.o[q.a])}</p>${q.w&&WM[q.w]?trioW(WM[q.w]):''}<p>${e(q.y)}</p><button class="pri" onclick="dn()">${dg.i+1<DX.length?'Next':'See my result'}</button></div>`
 }
 
+const diagResult = (lv, a, b) => `<div class="card"><b>Your starting point: ${lv}</b><p>N5 questions: ${a[0]} of ${a[1]}. N4 questions: ${b[0]} of ${b[1]}.</p>` + `<p class="mu" style="text-align:left">Words you got right are scheduled for review instead of being taught again. Everything else is introduced step by step.</p>` + `<button class="pri" onclick="practice()">Start practising</button></div>`;
 function dn() {
   dg.i++;
   if (dg.i < DX.length) return dq();
@@ -63,5 +67,5 @@ function dn() {
   const lv = a[0] / a[1] < .5 ? 'N5 basics' : b[0] / b[1] < .5 ? 'N5 solid, ready to start N4' : 'N4 working level';
   S.diag = { t: n, n5: a, n4: b, lv };
   save();
-  $('#m').innerHTML = `<div class="card"><b>Your starting point: ${lv}</b><p>N5 questions: ${a[0]} of ${a[1]}. N4 questions: ${b[0]} of ${b[1]}.</p><p class="mu" style="text-align:left">Words you got right are scheduled for review instead of being taught again. Everything else is introduced step by step.</p><button class="pri" onclick="practice()">Start practising</button></div>`
+  $('#m').innerHTML = diagResult(lv, a, b)
 }

@@ -1,124 +1,16 @@
 /* js/14-typed-translation.js
- * Purpose: Fonts, romaji to kana and typed translation.
- * Defines (15): RK, FONTS, setFont, toKana, toK1, EN, ending, PR, diagT, tq, typ, TB, tbIn, tbRec, ...
+ * Purpose: Typed translation screen, answer tracking and checking.
+ * Defines (11): tq, typPick, typPattern, typCard, typ, TB, tbIn, tbRec, pctOf, tcFeedback, tc
  * Classic script: shares one global scope with the other files, so load order (see index.html) matters.
  */
-
-// Typed translation: romaji/hiragana/kanji answers are normalised to hiragana, then compared with the target reading.
-const RK = new Map(),
-  VW = 'aiueo',
-  cs = (a, b) => {
-  let i = 0;
-  while (i < a.length && i < b.length && a[a.length - 1 - i] == b[b.length - 1 - i]) i++;
-  return i
-};
-Object.entries({ '': 'あいうえお', k: 'かきくけこ', s: 'さしすせそ', t: 'たちつてと', n: 'なにぬねの', h: 'はひふへほ', m: 'まみむめも',
-    r: 'らりるれろ', g: 'がぎぐげご', z: 'ざじずぜぞ', d: 'だぢづでど', b: 'ばびぶべぼ', p: 'ぱぴぷぺぽ' })
-  .forEach(([c, r]) => [...r].forEach((k, j) => RK.set(c + VW[j], k)));
-Object.entries({ ya: 'や', yu: 'ゆ', yo: 'よ', wa: 'わ', wo: 'を', shi: 'し', chi: 'ち', tsu: 'つ', fu: 'ふ', ji: 'じ',
-    sha: 'しゃ', shu: 'しゅ', sho: 'しょ', cha: 'ちゃ', chu: 'ちゅ', cho: 'ちょ', ja: 'じゃ', ju: 'じゅ', jo: 'じょ' })
-  .forEach(([a, b]) => RK.set(a, b));
-Object.entries({ k: 'き', g: 'ぎ', n: 'に', h: 'ひ', m: 'み', r: 'り', b: 'び', p: 'ぴ' })
-  .forEach(([c, k]) => [['ya', 'ゃ'], ['yu', 'ゅ'], ['yo', 'ょ']].forEach(([y, x]) => RK.set(c + y, k + x)));
-const FONTS = { kyo: '"Klee","UD Digi Kyokasho N-R","UD デジタル 教科書体 N-R","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif',
-  maru: '"Hiragino Maru Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif', sans: '"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif',
-  mincho: '"Hiragino Mincho ProN","Noto Serif JP","Yu Mincho",serif' };
-function setFont() {
-  if (document.documentElement && document.documentElement.style) document.documentElement.style.setProperty('--jp',
-    FONTS[S.fn || 'kyo'])
-}
-
-function toKana(s) {
-  return s.toLowerCase().split(/\s+/).map(toK1).join('')
-}
-
-Object.entries({ sya: 'しゃ', syu: 'しゅ', syo: 'しょ', tya: 'ちゃ', tyu: 'ちゅ', tyo: 'ちょ', zya: 'じゃ', zyu: 'じゅ',
-    zyo: 'じょ', jya: 'じゃ', jyu: 'じゅ', jyo: 'じょ', dya: 'ぢゃ', dyu: 'ぢゅ', dyo: 'ぢょ', she: 'しぇ', che: 'ちぇ',
-    je: 'じぇ', fa: 'ふぁ', fi: 'ふぃ', fe: 'ふぇ', fo: 'ふぉ', thi: 'てぃ', dhi: 'でぃ', wi: 'うぃ', we: 'うぇ' })
-  .forEach(([a, b]) => RK.set(a, b));
-
-// Romaji to kana: Hepburn, Kunrei and IME styles, macrons, n/nn/n', doubled consonants (tch too).
-function toK1(s) {
-  s = s.replace(/ā/g, 'aa').replace(/ī/g, 'ii').replace(/ū/g, 'uu').replace(/ē/g, 'ee')
-    .replace(/ō/g, 'ou').replace(/n'/g, 'ん').replace(/'/g, '');
-  let o = '';
-  const v = x => !!x && /[aiueo]/.test(x);
-  for (let i = 0; i < s.length;) {
-    const c = s[i],
-      d = s[i + 1];
-    if (c == '-') {
-      o += 'ー';
-      i++;
-      continue
-    }
-    if (c == 'n' && !v(d) && d != 'y') {
-      if (d == 'n' && !(v(s[i + 2]) || s[i + 2] == 'y')) i += 2;
-      else i++;
-      o += 'ん';
-      continue
-    }
-    if ((c == d && /[kstphmrgzdbjfc]/.test(c)) || (c == 't' && d == 'c' && s[i + 2] == 'h')) {
-      o += 'っ';
-      i++;
-      continue
-    }
-    let k = 3,
-      hit = 0;
-    for (; k > 0; k--) {
-      const t = RK.get(s.slice(i, i + k));
-      if (t) {
-        o += t;
-        i += k;
-        hit = 1;
-        break
-      }
-    }
-    if (!hit) {
-      o += c;
-      i++
-    }
-  }
-  return o
-}
-
-const EN = [[/ませんでした$/, 'past negative (polite)'], [/でした$/, 'was / were (polite)'], [/ました$/, 'past (polite)'],
-  [/ません$/, 'negative (polite)'], [/[てで]います$/, 'ongoing or resulting state (-ている)'], [/ですか$/, 'question (polite)'],
-  [/たいです$/, 'want to (-たい)'], [/[てで]ください$/, 'please do (-てください)'], [/ます$/, 'present or future (polite)'],
-  [/です$/, 'is / am / are (polite)']];
-const ending = x => (EN.find(y => y[0].test(x)) || [])[1];
-const PR = { は: 'topic', が: 'subject', を: 'object', に: 'target, destination or time', で: 'place of action or means',
-  へ: 'direction', と: 'together with', も: 'also' };
-function diagT(q, un, cn, hk) {
-  const m = [],
-    nz = x => x.replace(/を/g, 'お').replace(/は/g, 'わ').replace(/へ/g, 'え'),
-    a = ending(un),
-    b = ending(cn);
-  if (hk) m.push('I could not read some kanji in your answer. Try writing those words in hiragana or romaji.');
-  if (a != b) m.push(`Tense or form: your sentence ends as “${a||'no clear verb ending'}”, but it needs “${b}”.`);
-  if ([...un].sort().join('') == [...cn].sort().join('')) m.push('You have the right pieces in the wrong order. Japanese keeps each particle right after its word and puts the verb last. English order (subject, verb, object) does not carry over.');
-  else {
-    const tl = nz(q.r[q.r.length - 1]);
-    if (!un.endsWith(tl) && un.includes(tl)) m.push('The verb (predicate) must come last in a Japanese sentence.');
-    q.t.forEach((t, i) => {
-      if (PR[t] && i) {
-        if (!un.includes(nz(q.r[i - 1] + q.r[i]))) m.push(`Check the particle after ${q.t[i-1]}: it needs ${t} (${PR[t]}).`)
-      } else if (!PR[t] && i < q.t.length - 1 && !un.includes(nz(q.r[i]))) m.push(`I cannot find ${t} (${q.r[i]}) in your answer.`)
-    })
-  }
-  return m
-}
-
 let tq = null;
-function typ() {
-  S.bm = 'type';
+
+// Pick the next sentence: not one of the last few, favouring patterns you get wrong and the ones you have done less.
+function typPick() {
   const P = TY.filter(open3),
     rc = S.trec,
-    pf = S.pf = S.pf || {};
-  if (!P.length) {
-    $('#m').innerHTML = '<div class="card">No typing exercises yet.</div>';
-    return
-  }
-  const last = rc.length ? TY.find(x => x.en == rc[rc.length - 1]) : null,
+    pf = S.pf = S.pf || {},
+    last = rc.length ? TY.find(x => x.en == rc[rc.length - 1]) : null,
     c = P.filter(x => !rc.includes(x.en)),
     A = c.length ? c : P,
     w = x => (1 + ((S.cxw || {})[x.f] || 0) * .4) * (last && x.k == last.k ? .3 : 1) / (1 + (pf['t' + x
@@ -133,9 +25,23 @@ function typ() {
     }
   }
   if (GEN.frames && Math.random() < .6) q = gs();
-  q = tq = { ...q };
-  const f = fm(q.f);
-  $('#m').innerHTML = `${f?`<div class="card pat" onclick="pat('${f.id}')"><div class="mu" style="text-align:left;margin:0">Pattern: <b>${e(f.name)}</b> <a class="wl">how it works</a></div><div class="blks">${blk(f)}</div></div>`:''}<div class="card q-tr"><div class="mu" style="display:flex;justify-content:space-between;margin:0"><span>Translate into Japanese${S.hl?'':' <span class="lv">N'+q.l+'</span>'}</span><a class="wl" onclick="S.bm='tile';save();bld()">Tiles</a></div><div class="mean">${e(q.en)}</div><input id="ti2" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="romaji, hiragana or kanji" aria-label="your answer"><button class="pri" onclick="tc()">Check</button><button class="skip" onclick="tskip()">Skip</button></div><div id="fb"></div>`;
+  return { ...q }
+}
+
+// The pattern card above the sentence.
+const typPattern = f => f ? `<div class="card pat" onclick="pat('${f.id}')"><div class="mu" style="text-align:left;margin:0">Pattern: <b>${e(f.name)}</b> <a class="wl">how it works</a></div><div class="blks">${blk(f)}</div></div>` :
+  '';
+
+// Sentence card: the English sentence, the answer box and the buttons.
+const typCard = q => `<div class="card q-tr"><div class="mu" style="display:flex;justify-content:space-between;margin:0"><span>Translate into Japanese${S.hl?'':' <span class="lv">N'+q.l+'</span>'}</span>` + `<a class="wl" onclick="S.bm='tile';save();bld()">Tiles</a></div><div class="mean">${e(q.en)}</div>` + `<input id="ti2" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="romaji, hiragana or kanji" aria-label="your answer">` + `<button class="pri" onclick="tc()">Check</button><button class="skip" onclick="tskip()">Skip</button></div><div id="fb" role="status"></div>`;
+function typ() {
+  S.bm = 'type';
+  if (!TY.filter(open3).length) {
+    $('#m').innerHTML = '<div class="card">No typing exercises yet.</div>';
+    return
+  }
+  const q = tq = typPick();
+  $('#m').innerHTML = typPattern(fm(q.f)) + typCard(q);
   const i = $('#ti2');
   i.focus();
   etStart();
@@ -177,6 +83,20 @@ function tbRec(q, v, E, r) {
         ['err:' + r.msg[0].slice(0, 24)] : []), ctx: `${q.en}|${v}|${q.t.join('')}`.slice(0, 200) })
 }
 
+const pctOf = x => Math.round(x * 100),
+  tcNote = t => `<p class="mu" style="text-align:left;margin:4px 0">${t}</p>`;
+
+// Feedback card after a typed answer: how close, both answers, what differs, and sentences with the same idea.
+function tcFeedback(q, v, r, al, sib) {
+  const ok = r.ok,
+    head = ok ? '✓ Correct' + (r.alt.length ? ' (accepted variation)' : '') + ', +20 XP' : '✗ ' + r.pct + '% close',
+    miss = ok ? '' : tcNote(`Words ${pctOf(r.p.w)}%, particles ${pctOf(r.p.p)}%, form ${pctOf(r.p.f)}%, order ${pctOf(r.p.o)}%`) + tcNote('Japanese verbs do not change for I, you, he or they, so there is no subject-verb agreement to get wrong. The form depends on tense and politeness.');
+  return `<div class="card fb ${ok?'':'r'}"><b>${head}</b>${revTyped(q,v,r)}${miss}` + (al ? tcNote(`Word choice: ${ej(al)}`) :
+    '') + (ok && q.ex ? tcNote(`Other natural orders: ${ej(q.ex.join('   '))}`) : '') + trioT(q) + (sib
+    .length ? tcNote(`Same idea, other structures: ${sib.map(x=>e(x.en+' '+x.t.join(''))).join(' / ')}`) :
+    '') + `<button class="pri" onclick="adv('t')">Next</button></div>`
+}
+
 function tc() {
   const q = tq,
     v = $('#ti2').value;
@@ -198,10 +118,9 @@ function tc() {
   save();
   const sib = q.sib || TY.filter(x => x.k == q.k && x.en != q.en && open3(x))
     .slice(0, 3),
-    pc = x => Math.round(x * 100),
     al = r.alt.map(a => `${a.from} → ${a.to} (${a.m})${a.n?': '+a.n:''}`)
     .join('; ');
-  $('#fb').innerHTML = `<div class="card fb ${ok?'':'r'}"><b>${ok?'✓ Correct'+(r.alt.length?' (accepted variation)':'')+', +20 XP':'✗ '+r.pct+'% close'}</b>${revTyped(q,v,r)}${ok?'':`<p class="mu" style="text-align:left;margin:4px 0">Words ${pc(r.p.w)}%, particles ${pc(r.p.p)}%, form ${pc(r.p.f)}%, order ${pc(r.p.o)}%</p><p class="mu" style="text-align:left;margin:4px 0">Japanese verbs do not change for I, you, he or they, so there is no subject-verb agreement to get wrong. The form depends on tense and politeness.</p>`}${al?`<p class="mu" style="text-align:left;margin:4px 0">Word choice: ${ej(al)}</p>`:''}${ok&&q.ex?`<p class="mu" style="text-align:left;margin:4px 0">Other natural orders: ${ej(q.ex.join('   '))}</p>`:''}${trioT(q)}${sib.length?`<p class="mu" style="text-align:left;margin:4px 0">Same idea, other structures: ${sib.map(x=>e(x.en+' '+x.t.join(''))).join(' / ')}</p>`:''}<button class="pri" onclick="adv('t')">Next</button></div>`;
+  $('#fb').innerHTML = tcFeedback(q, v, r, al, sib);
   if (ok && S.aa !== false) {
     const q0 = q;
     setTimeout(() => {

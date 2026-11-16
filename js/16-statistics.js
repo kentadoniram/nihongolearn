@@ -1,6 +1,6 @@
 /* js/16-statistics.js
  * Purpose: Statistics layer: Zipf, knapsack, classifiers, robust z-score, Poisson and Monte Carlo forecast.
- * Defines (25): CR, CRM, cband, ZR, zv, knownK, cost, nextW, cov, topW, ft, nbP, smP, trainLv, predLv, post, med, ...
+ * Defines (23): CR, cband, knownK, cost, nextW, cov, topW, ft, nbP, smP, trainLv, predLv, post, med, ...
  * Classic script: shares one global scope with the other files, so load order (see index.html) matters.
  */
 
@@ -265,9 +265,10 @@ function forecast(H = 14) {
   return { med: R[100], lo: R[20], hi: R[180] }
 }
 
+const statLine = t => `<p class="mu" style="text-align:left">${t}</p>`;
 function statsCard() {
   const fc = forecast(),
     days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d, i) => d + ' ' + lam(i)
     .toFixed(0)).join(', ');
-  return `<div class="card"><b>Statistics</b><p class="mu" style="text-align:left">Zipf-weighted coverage ${Math.round(cov()*100)}%. New words are ranked by frequency value divided by study cost, and each unknown kanji adds cost. Until real frequency ranks are added, rank is a deck-based proxy.</p><p class="mu" style="text-align:left">Level classifiers on character n-grams: Naive Bayes ${LV2.nb}, softmax ${LV2.sm} (${LV2.note}).</p><p class="mu" style="text-align:left">Response-time outliers (median and MAD z-score): ${S.slips||0} careless slips softened.</p><p class="mu" style="text-align:left">Poisson daily volume by weekday: ${days}.</p><p class="mu" style="text-align:left">14-day Monte Carlo: ${fc.med} secure words (${fc.lo} to ${fc.hi}).</p><p class="mu" style="text-align:left">${behSummary()}</p></div>`
+  return `<div class="card"><b>Statistics</b>` + statLine(`Zipf-weighted coverage ${Math.round(cov()*100)}%. New words are ranked by frequency value divided by study cost, and each unknown kanji adds cost. Until real frequency ranks are added, rank is a deck-based proxy.`) + statLine(`Level classifiers on character n-grams: Naive Bayes ${LV2.nb}, softmax ${LV2.sm} (${LV2.note}).`) + statLine(`Response-time outliers (median and MAD z-score): ${S.slips||0} careless slips softened.`) + statLine(`Poisson daily volume by weekday: ${days}.`) + statLine(`14-day Monte Carlo: ${fc.med} secure words (${fc.lo} to ${fc.hi}).`) + statLine(behSummary()) + `</div>`
 }

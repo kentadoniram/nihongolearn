@@ -82,10 +82,11 @@ if (document.addEventListener) {
     }
   }, true);
   document.addEventListener('keydown', ev => {
-    if (ev.key == 'Escape') $('#tip').hidden = true;
-    else if (ev.key == 'Enter' && ev.target.classList && ev.target.classList.contains('kj')) showTip(ev
-      .target);
-    else if (!/INPUT|TEXTAREA/.test(ev.target.tagName || '')) {
+    if (ev.key == 'Escape') {
+      if (!$('#tip').hidden) $('#tip').hidden = true;
+      else if (!$('#dv').hidden) dvClose()
+    } else if (!/INPUT|TEXTAREA|SELECT/.test(ev.target.tagName || '') && $('#dv')
+      .hidden) {
       if (ev.key == 'ArrowRight') nav(1);
       else if (ev.key == 'ArrowLeft') nav(-1)
     }
