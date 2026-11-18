@@ -1,6 +1,6 @@
 /* js/29-levels-and-display.js
  * Purpose: Which JLPT levels are open, and furigana for kanji above your level.
- * Defines (12): GATE, gateLv, lvOpen, lvIntro, ulv, kjLv, kjOk, needFg, rdOf, kb, jw
+ * Defines (10): GATE, gateLv, lvOpen, ulv, kjLv, kjOk, rdOf, kb, rubyOf, jw
  * Classic script: shares one global scope with the other files, so load order (see index.html) matters.
  */
 
@@ -72,8 +72,20 @@ function rdOf(w) {
 const kb = w => [...w].map(c => K.test(c) ? `<span class="kj" tabindex="0" lang="ja" data-k="${c}" data-s="1">${c}</span>` :
   e(c)).join('');
 
+// Furigana goes over the kanji only: 変わる is 変 over か followed by わる, and お金 is お followed by 金 over かね.
+function rubyOf(w, r, plain) {
+  const kz = x => plain ? e(x) : kb(x);
+  let a = 0,
+    z = 0;
+  while (a < w.length && a < r.length && w[a] == r[a] && !K.test(w[a])) a++;
+  while (z < w.length - a && z < r.length - a && w[w.length - 1 - z] == r[r.length - 1 - z] && !K.test(w[w
+        .length - 1 - z])) z++;
+  const mw = w.slice(a, w.length - z),
+    mr = r.slice(a, r.length - z);
+  if (!mw || !mr || !K.test(mw)) return `<ruby>${kz(w)}<rt>${e(r)}</rt></ruby>`;
+  return e(w.slice(0, a)) + `<ruby>${kz(mw)}<rt>${e(mr)}</rt></ruby>` + e(w.slice(w.length - z))
+}
+
 // plain = no tap targets (tiles that are buttons themselves).
-const jw = (w, r, plain) => {
-  const b = plain ? e(w) : kb(w);
-  return (r = r || rdOf(w)) && K.test(w) && needFg(w) ? `<ruby>${b}<rt>${e(r)}</rt></ruby>` : b
-};
+const jw = (w, r, plain) => (r = r || rdOf(w)) && K.test(w) && needFg(w) ? rubyOf(w, r, plain) : plain ?
+  e(w) : kb(w);

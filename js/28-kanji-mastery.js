@@ -126,7 +126,8 @@ function pj(s) {
   return String(s).split(LEXRE).map((p, i) => {
     if (i % 2) {
       const m = LEXM[p],
-        rd = m[0] == 'r' ? RDX[p] : m[0] == 'w' ? (WM[m[1]] || {}).r : '',
+        rd = m[0] == 'r' ? RDX[p] : m[0] == 'f' ? FRD[p] : m[0] == 'w' ? (WM[m[1]] || {})
+        .r : '',
         fg = rd && needFg(p);
       [...p].filter(c => K.test(c)).forEach(c => (fg ? PKR : PKK).add(c))
     }

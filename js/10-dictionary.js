@@ -16,7 +16,7 @@ const dictLinks = list => list.map(x => `<a class="wl" onclick="dict(${W().index
 
 // A heading and the pieces under it, or nothing when there are none.
 const dictBlock = (title, html) => html ? `<p>${title}</p>${html}` : '';
-const dictExample = ex => ex ? `<div class="card"><b>Example</b><p>${ej(ex[0])}</p><p class="mu" style="text-align:left">${e(ex[1])}</p></div>` :
+const dictExample = (ex, w) => ex ? `<div class="card"><b>Example</b><p>${ej(ex[0],w)}</p><p class="mu" style="text-align:left">${e(ex[1])}</p></div>` :
   '';
 const dictMemory = it => it ? `<p class="mu" style="text-align:left">Your memory of this word: ${Math.round(ret(it,Date.now())*100)}%, seen ${it.n} times, missed ${it.l}.</p>` :
   '';
@@ -30,8 +30,8 @@ function dict(i) {
         .split('')))].filter(x => !ks.includes(x)),
     kanji = ks.map(c => `<span class="kj" tabindex="0" data-k="${c}" data-w="${i}">${c}</span>`)
     .join(' ');
-  dv(`<div class="big">${ruby(w,1)}</div><p class="mean">${e(w.m)} ${lvb(w)}</p><p class="mu">Reading ${e(w.r)} (${romaji(w.r)}). Audio comes later.</p>` + dictExample(exOf(w)) + (ks
-      .length ? dictBlock('Kanji', kanji) : '') + (rel.length ? dictBlock('Related words', dictLinks(rel)) :
+  dv(`<div class="big">${ruby(w,1)}</div><p class="mean">${e(w.m)} ${lvb(w)}</p><p class="mu">Reading ${e(w.r)} (${romaji(w.r)}). Audio comes later.</p>` + dictExample(exOf(w),
+      w.w) + (ks.length ? dictBlock('Kanji', kanji) : '') + (rel.length ? dictBlock('Related words', dictLinks(rel)) :
       '') + (la.length ? dictBlock('Look-alike kanji', la.map(x => kc(x))
         .join(' ')) : '') + gr(w) + vtab(w) + dictMemory(S.i[w.w]))
 }

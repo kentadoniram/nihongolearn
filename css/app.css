@@ -951,3 +951,97 @@ label: focus-within {
     border: 2px solid Highlight
   }
 }
+
+.wa {
+  margin: 8px 0;
+  padding: 8px 10px;
+  border-left: 3px solid var(--bad);
+  background: var(--grid);
+  border-radius: 0 8px 8px 0;
+  text-align: left
+}
+
+.wa div {
+  margin: 4px 0
+}
+
+header {
+  position: relative;
+  padding-right: 44px
+}
+
+.gear {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--bdc);
+  background: var(--card);
+  color: var(--ink);
+  cursor: pointer
+}
+
+.gear.on {
+  background: var(--ink);
+  color: var(--bg)
+}
+
+.sh {
+  margin: 4px 0 10px;
+  font-size: 1.15rem
+}
+
+.mc {
+  cursor: pointer;
+  color: #16202b
+}
+
+.grid span.mc {
+  background: var(--hi);
+  color: #16202b
+}
+
+.grid span.mc.u, .legend .mc.u {
+  background: var(--grid);
+  color: var(--fg)
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 10px;
+  font-size: .8rem;
+  color: var(--mu);
+  flex-wrap: wrap
+}
+
+.legend .mc {
+  padding: 2px 7px;
+  border-radius: 3px
+}
+
+.gbar {
+  flex: 1;
+  min-width: 80px;
+  max-width: 220px;
+  height: 10px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, hsl(0 62% 78%), hsl(60 62% 78%), hsl(120 62% 78%))
+}
+
+.mg {
+  margin: 10px 0 14px;
+  padding-top: 8px;
+  border-top: 1px solid var(--bd)
+}
+
+.mgh {
+  margin-bottom: 6px
+}

@@ -14,11 +14,15 @@ The scripts are classic scripts, so they share one global scope. They must load 
 | `04-practice-selection.js` | Learning update, screen router and choosing the next item (Thompson sampling) | learn, go, ruby, pick, practice, meet, goq, opts |
 | `05-question-builder.js` | Difficulty stages, building questions and checking answers | sEff, stg, cloze, build, build0, show, qFeedback, ans, nq |
 | `06-lab-and-casual.js` | Lab activities, casual speech rules and phrases | wpick, labObj, CAS, tev, CAS_FN, ruleQ, phraseQ, labItems, labPick, lcur, labTitle |
-| `07-progress-screen.js` | Progress screen: vocabulary groups | progCell, progGroupsCard, progMap, progModel, MODEL_NOTE, progLinks, prog |
+| `07-progress-screen.js` | Progress screen: summary, the difficulty model and links | progCell, progGroupsCard, progMap, progModel, MODEL_NOTE, progLinks, prog |
+| `07-progress-vocab.js` | Progress: one vocabulary card with JLPT level, difficulty and newly acquired filters | pgDiff, PV_LV, PV_DF, PV_NW, pvSet, pvBody, pvCard, pvf, pvMore |
+| `07-progress-patterns.js` | Progress: sentence patterns with JLPT level and difficulty filters | PP_D, PP_LV, PP_DF, ppSet, ppCount, ppRow, ppBody, ppCard, ppf |
+| `07-progress-map.js` | Progress: memory map as a colour gradient, grouped by level with See more | MAP_SHOW, mapColor, mapCell, mapGroup, mapBody, progMap, mapMore |
 | `07-memory-export-import.js` | Memory export, import and merge, and reset | exp, addCp, isPack, mrg, imp, impt, rst |
 | `07-level-strip.js` | Level names and the strip of level progress | LV, stripTop, stripRound, strip |
 | `07-tile-builder.js` | Tile builder helpers: odd-one-out words and kana tiles | oddg, bshow, bp, bu |
-| `07-settings-screen.js` | Memory and settings screen | memCk, memOpts, memNote, memBackup, memDisplay, memLearning, memContent, memMisc, mem |
+| `07-memory-screen.js` | Memory screen: backup and transfer, what the app remembers, learning data | memBackup, memStatusCard, memDataCard, mem |
+| `07-settings-screen.js` | Settings screen (the gear) | memCk, memOpts, memNote, memBackup, memDisplay, memLearning, memContent, memMisc, mem |
 | `08-content-loading.js` | Loading data packs into the shared content tables | rows, applyPacks, loadContent |
 | `09-display-helpers.js` | Romaji output, tappable kanji and explanations for wrong answers | RM, romaji, kc, lk, lvb, why, tyWhy |
 | `10-dictionary.js` | Dictionary and kanji views | dv, dictLinks, dictBlock, dictExample, dictMemory, dict, kdHead, kd |
@@ -44,6 +48,7 @@ The scripts are classic scripts, so they share one global scope. They must load 
 | `28-kanji-mastery.js` | Kanji reading mastery (Beta model), romaji-only kanji in passages, help events | KMP, kmRec, kmScore, kmLevel, kmMastered, kmAdd, kmHelp, kmDone, kmWeak, cfStatus |
 | `29-levels-and-display.js` | Level gate (which JLPT levels are open), your JLPT level, furigana for kanji above it | GATE, gateLv, lvOpen, lvIntro, ulv, kjLv, kjOk, needFg, rdOf, kb, jw |
 | `30-accessibility.js` | Keyboard use, roles, announcements, dialog focus and page titles for screen readers | A11Y_SEL, a11yFixList, a11yLangList, a11yFix, announce, a11yScreen, a11yMain, dvOpener, dvOpen, dvClose, a11yTrap, a11yKey |
+| `31-wrong-answers.js` | Wrong answers: what the chosen answer means, why it does not fit, and an example with it | FORM_LBL, formMap, optInfo, fillBlank, wordReason, relNote, why, wrongOdd, optReason, waCard, tyCause, tyWhy |
 | `99-boot.js` | Start-up: service worker registration and loading the content | (runs at start-up) |
 
 ## How the pieces fit

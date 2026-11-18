@@ -1,6 +1,6 @@
 /* js/05-question-builder.js
  * Purpose: Difficulty stages, building questions and checking answers.
- * Defines (9): sEff, stg, cloze, build, build0, show, qFeedback, ans, nq
+ * Defines (10): sEff, stg, cloze, build, build0, show, qFeedback, wrongHtml, ans, nq
  * Classic script: shares one global scope with the other files, so load order (see index.html) matters.
  */
 
@@ -128,6 +128,14 @@ function qFeedback(ok, gain, info, why) {
   return `<div class="card fb ${ok?'':'r'}"><b>${head}</b><br>${info}${why}${checkup}` + `<div class="row2"><button class="sec" onclick="nav(-1)">‹ Back</button><button class="pri" onclick="nq()">Next</button></div></div>`
 }
 
+// The explanation under a wrong practice answer, by kind of question.
+function wrongHtml(w, t, x, val, o) {
+  if (['tr', 'bt', 'ty'].includes(t)) return tyWhy(w, val);
+  if (t == 'gq') return waCard(x.t, o.find(z => z.c).t, (cur.qv || '').split('  ')[0]);
+  if (t == 'oo') return wrongOdd(x, cur);
+  return why(w, x)
+}
+
 function ans(i, val) {
   if (cur.done) return;
   cur.done = 1;
@@ -188,8 +196,7 @@ function ans(i, val) {
   });
   const info = t == 'gq' ? ej(cur.y || w.y) + ' ' + lvb(w) : t == 'oo' ? `${ej(cur.ch)} is in the other three.${trioW(cur.odd)}` :
     trioW(w);
-  $('#fb').innerHTML = qFeedback(ok, gain, info, !ok && t != 'gq' && t != 'oo' ? '<br>' + (ty ? tyWhy(w,
-        val) : why(w, x)) : '');
+  $('#fb').innerHTML = qFeedback(ok, gain, info, ok ? '' : '<br>' + wrongHtml(w, t, x, val, o));
   if (ok && S.aa !== false) {
     const c0 = cur;
     setTimeout(() => {

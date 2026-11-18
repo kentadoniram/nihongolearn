@@ -1,6 +1,6 @@
 /* js/23-checkup-vocab-roadmap.js
  * Purpose: Check-up builder, vocabulary list, Progress groups and roadmap.
- * Defines (16): diagBuild, vf, vocabStatus, vocabLevel, vocabBar, vocabChips, vocabSearch, vocab, ...
+ * Defines (11): diagBuild, vf, vocabStatus, vocabLevel, vocabBar, vocabChips, vocabSearch, vocab, ...
  * Classic script: shares one global scope with the other files, so load order (see index.html) matters.
  */
 
@@ -65,7 +65,7 @@ function vocabBar(A, k) {
 }
 
 // A row of filter chips: k is the filter, list the [value, label] pairs.
-const vocabChips = (F, k, list) => `<div class="chips">${list.map(([v,t])=>`<a class="${(F[k]||'')==v?'on':''}" onclick="vf('${k}','${v}')">${t}</a>`).join('')}</div>`;
+const vocabChips = (F, k, list, fn) => `<div class="chips">${list.map(([v,t])=>`<a class="${(F[k]||'')==v?'on':''}" onclick="${fn||'vf'}('${k}','${v}')">${t}</a>`).join('')}</div>`;
 const vocabSearch = F => `<input id="vq" aria-label="Search the vocabulary" placeholder="Search word, reading, romaji or meaning" value="${e(F.q||'')}" oninput="S.vf.q=this.value;S.vf.n=40;vocabList()" ` + `style="width:100%;padding:10px;border:1px solid var(--bdc);border-radius:8px;background:var(--bg);color:var(--fg);font-size:1rem">`;
 function vocab() {
   const F = S.vf = S.vf || { lv: '', st: '', q: '', n: 40, ls: '' },
@@ -96,58 +96,6 @@ function vocabList() {
       .toLowerCase().includes(q))).sort((a, b) => (ZR[a.w] || 999) - (ZR[b.w] || 999));
   $('#vl').innerHTML = `<p class="mu" style="text-align:left;margin:0 0 4px">${R.length} words, ordered by everyday use</p>` + R
     .slice(0, F.n).map(w => vocabRow(w, now)).join('') + (R.length > F.n ? `<button class="sec" onclick="S.vf.n+=40;vocabList()">Show more</button>` :
-    '')
-}
-
-// ---- Progress tab: vocabulary in collapsible groups (JLPT level, difficulty, newly acquired) ----
-
-// Difficulty of a word: what you have learned about it (item difficulty, 1 to 10) once you have met it, otherwise an estimate
-
-// from its JLPT level, number of kanji and length.
-function pgDiff(w) {
-  const it = S.i[w.w];
-  if (it) return Math.min(1, Math.max(0, it.d / 10));
-  const k = [...w.w].filter(c => K.test(c)).length;
-  return Math.min(1, ({ 5: .2, 4: .4, 3: .55, 2: .7, 1: .85 }[w.l] || .5) + Math.min(.2, k * .06) + Math
-    .min(.1, Math.max(0, w.w.length - 3) * .02))
-}
-
-const PG = [['lv', 'By JLPT level', [['5', 'N5'], ['4', 'N4'], ['3', 'N3'], ['2', 'N2'], ['1', 'N1'],
-      ['W', 'Work']]], ['df', 'By difficulty', [['e', 'Easy'], ['m', 'Medium'], ['h', 'Hard']]], ['nw',
-    'Newly acquired', [['d', 'Today'], ['w', 'Last 7 days'], ['m', 'Last 30 days']]]];
-function pgSet(kind, g) {
-  const A = W().filter(w => !w.g),
-    day = new Date().setHours(0, 0, 0, 0);
-  if (kind == 'lv') return A.filter(w => (w.t ? 'W' : String(w.l)) == g);
-  if (kind == 'df') return A.filter(w => {
-    const d = pgDiff(w);
-    return g == 'e' ? d < .4 : g == 'm' ? d >= .4 && d < .6 : d >= .6
-  }).sort((a, b) => pgDiff(b) - pgDiff(a));
-  const lim = { d: day, w: day - 6 * 864e5, m: day - 29 * 864e5 }[g];
-  return A.filter(w => S.i[w.w] && S.i[w.w].f >= lim).sort((a, b) => S.i[b.w].f - S.i[a.w].f)
-}
-
-function pgGroups(kind) {
-  const P = PG.find(x => x[0] == kind);
-  return P[2].map(([g, t]) => {
-    const L = pgSet(kind, g),
-      m = L.filter(w => S.i[w.w]).length,
-      sd = L.filter(w => S.i[w.w] && S.i[w.w].s >= 7).length;
-    return `<details class="pgi" data-k="${kind}" data-g="${g}" ontoggle="pgList(this)"><summary>${t} <span class="mu">${L.length} words, ${m} met, ${sd} solid</span></summary><div class="pgl"></div></details>`
-  }).join('')
-}
-
-// A group fills its list the first time it is opened (about 2,000 words would make the page slow).
-function pgList(d, more) {
-  if (!d.open) return;
-  const box = d.querySelector('.pgl'),
-    n = more ? +box.dataset.n + 40 : 40;
-  if (!more && box.dataset.n) return;
-  box.dataset.n = n;
-  const L = pgSet(d.dataset.k, d.dataset.g),
-    now = Date.now();
-  box.innerHTML = (L.length ? L.slice(0, n).map(w => vocabRow(w, now)).join('') : '<p class="mu">No words here yet.</p>') + (L
-    .length > n ? '<button class="sec" onclick="pgList(this.closest(\'details\'),1)">Show more</button>' :
     '')
 }
 

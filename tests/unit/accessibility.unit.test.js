@@ -78,7 +78,7 @@ test('labels and announcements in the screens',async t=>{
   h.forEach(x=>assert.match(x,/id="fb" role="status"/));
   for(const f of ['js/05-question-builder.js','js/11-build-tab.js'])assert.match(read(f),/id=\\?"fb\\?" role=\\?"status\\?"/)});
  await t.test('should label every field and menu on the settings screen',()=>{
-  const h=app.run(`(()=>{mem();return $('#m').innerHTML})()`);
+  const h=app.run(`(()=>{settings();return $('#m').innerHTML})()`);
   for(const tag of h.match(/<(select|textarea)[^>]*>/g)||[])assert.match(tag,/aria-label=/,tag);
   assert.match(h,/<input type="range" aria-label=/);assert.ok(!/<input type="file"[^>]*hidden/.test(h));assert.match(h,/<input type="file" class="sr-only"/)});
  await t.test('should label the vocabulary search',()=>{

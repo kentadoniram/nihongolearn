@@ -7,6 +7,15 @@ Version format: MAJOR.MINOR.BUILD
 
 The single source of truth is `version.json`. Lesson data has its own version in `data/content.json` (contentVersion).
 
+## v1.22.20261117
+- Furigana: every inflected form of a verb or い-adjective is in the lexicon with its reading, so 変わりました is かわりました and not 変 (へん) plus わりました; furigana now sits over the kanji only (変 over か, then わりました); when two words share a form (降ります), the word of the sentence decides (`ej(sentence, word)`); the pattern for the lexicon is a prefix tree so matching stays fast
+- Wrong answers (`js/31-wrong-answers.js`): you now see what your answer means, why it does not fit and an example sentence with it, for word choices, counters, particles and grammar, look-alike kanji, meanings, inflected forms, typed readings (your reading next to the right one, what went wrong, and what you wrote if it is another word) and the mismatched parts of a typed sentence; 43 more grammar expressions (`data/expressions2.json`) explain the grammar options
+- Sentence patterns: 22 N5 and 33 N4 patterns with two examples, a note and a common mistake each, plus 110 build sentences and 55 typing sentences (`data/patterns-n5.json`, `data/patterns-n4.json`); every pattern has a difficulty band (beginner, pre-intermediate, intermediate, upper-intermediate, advanced)
+- Settings: a gear at the upper right opens a Settings screen (display, learning, content, advanced, about); Memory keeps backup and transfer, what the app remembers and the learning data
+- Progress: one vocabulary card with JLPT level, difficulty and newly acquired filters; a sentence-pattern card with level and difficulty filters; the memory map is a red-to-green gradient grouped by level with See more
+- Examples: the 65 work words have a sentence too, so every N5 and N4 word does
+- Tests: 416
+
 ## v1.21.20261116
 - Accessibility review, first part (`js/30-accessibility.js`, `css/app.css`, `index.html`):
   - Contrast: the green text colour in the light theme now passes 4.5 to 1, and buttons, tiles, inputs and chips use a new border colour (`--bdc`) that passes 3 to 1 in both themes

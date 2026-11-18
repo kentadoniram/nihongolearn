@@ -82,6 +82,17 @@ function revTyped(q, v, r) {
   });
   if (cur) runs.push(cur);
   if (runs.length && !r.ok) notes.push(`In your answer these parts do not match the correct sentence: ${runs.map(x=>'<b>'+e(x)+'</b>').join(', ')}.`);
+  if (!r.ok) {
+    // what the parts that do not match mean, and what the whole sentence would mean if it is another sentence of the deck
+    runs.slice(0, 3).forEach(x => {
+      const i = optInfo(x);
+      if (i) notes.push(`Your “${e(x)}”: ${i.brief}.` + (i.ex ? ` Example: ${ej(i.ex[0],i.w&&i.w.w)} (${e(i.ex[1])})` :
+          ''))
+    });
+    const same = TY.concat(SN.map(z => ({ r: z.t, en: z.en }))).find(z => z.en != q.en && nkana(z.r.join('')) == r
+      .un);
+    if (same) notes.push(`Your sentence means “${e(same.en)}”.`)
+  }
   r.msg.slice(0, 3).forEach(m => notes.push(ej(m)));
   if (r.ok && !notes.length) notes.push('Your sentence matches.');
   if (r.ok && r.alt.length) notes.unshift('Accepted: you used a different but fitting word or form.');

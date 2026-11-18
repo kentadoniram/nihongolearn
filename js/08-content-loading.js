@@ -25,6 +25,7 @@ function applyPacks(ps) {
   FI = {};
   CR = {};
   CRM = null;
+  PDM = {};
   RMP = [];
   EXPR = [];
   const seen = new Set();
@@ -76,8 +77,11 @@ function applyPacks(ps) {
       TR[w] = +t;
       FI[w] = i
     }));
-    (p.forms || []).forEach(f => FM.push({ ...f, l: +f.l || L }))
+    (p.forms || []).forEach(f => FM.push({ ...f, l: +f.l || L }));
+    Object.assign(PDM, p.pd || {})
   });
+  // difficulty band of a pattern: 1 beginner to 5 advanced (set in the data, otherwise from the level)
+  FM.forEach(f => f.d = PDM[f.id] || f.d || (f.l >= 5 ? 2 : f.l == 4 ? 3 : f.l == 3 ? 4 : 5));
   {
     const vm = new Map(V.map(w => [w.w, w]));
     ps.forEach(p => rows(p.examples || []).forEach(x => {

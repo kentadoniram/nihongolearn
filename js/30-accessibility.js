@@ -8,7 +8,7 @@
 const A11Y_SEL = '[onclick]:not(button):not(a[href]):not(input):not(select):not(textarea):not(summary):not(label)',
   A11Y_JA = /[\u3040-\u30ff\u4e00-\u9fff]/,
   A11Y_LATIN = /[A-Za-z]{3}/,
-  A11Y_NAMES = { t: 'Today', p: 'Play', b: 'Build', l: 'Lab', g: 'Progress', m: 'Memory' };
+  A11Y_NAMES = { t: 'Today', p: 'Play', b: 'Build', l: 'Lab', g: 'Progress', m: 'Memory', s: 'Settings' };
 function a11yFixList(els) {
   els.forEach(el => {
     if (!el.getAttribute('role')) el.setAttribute('role', 'button');
@@ -42,8 +42,8 @@ function announce(msg) {
 function a11yScreen(v) {
   const n = A11Y_NAMES[v] || 'Nihongo Lab';
   document.title = n + ' – Nihongo Lab';
-  document.querySelectorAll('nav button').forEach(b => b.setAttribute('aria-current', b.dataset.v == v ?
-      'page' : 'false'));
+  document.querySelectorAll('nav button, .gear').forEach(b => b.setAttribute('aria-current', b.dataset
+      .v == v ? 'page' : 'false'));
   announce(n)
 }
 

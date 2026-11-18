@@ -1,6 +1,6 @@
 # Build plan
 
-App version 1.21.20261116. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
+App version 1.22.20261117. Edit data/roadmap.json, then run `node tools/make-roadmap-md.js`. The app shows the same list under Roadmap.
 
 ## In progress (5)
 
@@ -8,9 +8,9 @@ App version 1.21.20261116. Edit data/roadmap.json, then run `node tools/make-roa
 - [ ] Hand-written reading passages (Content: 13 hand-written passages with 23 questions so far; the 9 generators fill the rest)
 - [ ] N2 and N1 packs (Content: 222 N2 and 181 N1 words so far, most common first; roughly 1,500 N2 and 2,500 N1 words in full)
 - [ ] Real corpus frequency ranks (Content: the app and tools/import-corpus-freq.py are ready; it still needs a corpus list (for example the free NINJAL BCCWJ word list) to be imported, so ranks are estimates until then)
-- [ ] Accessibility review (Design: done: contrast of text and control borders, keyboard use of every clickable item, dialog focus and Escape, live announcements, labels, lang="ja", skip link, page titles. Still to do: testing with VoiceOver, TalkBack and NVDA)
+- [ ] Accessibility review (Design: done: contrast of text and control borders, keyboard use of every clickable item, dialog focus and Escape, live announcements, labels, lang="ja", skip link, page titles. Still to do: testing with VoiceOver, TalkBack and NVDA; settings and memory are separate screens, headings on Progress, Memory and Settings)
 
-## Not started (23)
+## Not started (25)
 
 - [ ] Audio and pitch accent (Content: needs recorded or synthesised audio)
 - [ ] Grammar library with one page per pattern (Content)
@@ -25,7 +25,6 @@ App version 1.21.20261116. Edit data/roadmap.json, then run `node tools/make-roa
 - [ ] Pronunciation practice: long vowels, small っ, pitch accent (Practice)
 - [ ] Synonym evaluator for する-verbs, adjectives in other forms and compound verbs (Learning engine)
 - [ ] Casual speech reference screen, typed casual practice and more phrases (Content)
-- [ ] Sample sentences for the remaining N5 words (Content: about 100 N5 words now have a sample sentence; roughly 570 remain)
 - [ ] Counter practice in typed and Build modes (Practice)
 - [ ] Choose reading passages by weak kanji (Learning engine: weak kanji already return in word practice and on the Today screen)
 - [ ] Interface tests for the romaji-first passage flow (Quality)
@@ -35,8 +34,11 @@ App version 1.21.20261116. Edit data/roadmap.json, then run `node tools/make-roa
 - [ ] More synonym pairs for adjectives and nouns, with notes (Content)
 - [ ] Test with real screen readers (VoiceOver, TalkBack, NVDA) and fix what they find (Design)
 - [ ] Larger touch targets for text links and a heading on every screen (Design)
+- [ ] Example sentences for the N3 words that have none (130) (Content)
+- [ ] Kana forms of verbs (あります, います) in the lexicon so every form can be tapped (Content)
+- [ ] Explain wrong answers for lab reading-comprehension options (Practice: these still show the options and the explanation only)
 
-## Done (43)
+## Done (49)
 
 - [x] Complete N4 vocabulary and kanji (Content: 666 N4 words (verbs, nouns, adjectives, adverbs) with kanji entries)
 - [x] Synonym evaluator for conjugated verbs (Learning engine: verbs in the ます, ません, ました, て, た, ない and なかった forms)
@@ -76,8 +78,14 @@ App version 1.21.20261116. Edit data/roadmap.json, then run `node tools/make-roa
 - [x] Japanese counters (Content: 26 counters, special readings for 1 to 10 (本, 匹, 階, 分, 日 and more), 25 practice questions)
 - [x] Answer review for sentence writing (Practice: typed and tile answers: your answer beside the correct one, differences marked, each mistake explained)
 - [x] Kanji reading mastery from help requests (Learning engine: Beta score per kanji: taps and See more lower it, independent correct reading raises it, evidence fades over 60 days; unmastered kanji show as romaji in passages)
+- [x] Sample sentences for the remaining N5 words (Content: all 694 N5 and 698 N4 words (and the 65 work words) have a sentence with a translation)
 - [x] Conjugation table: potential, passive, causative and conditional forms (Content: 23 forms in five groups for every verb, including する compounds and 来る)
 - [x] Code split into css/app.css and 40 js files with an architecture guide and structure tests (Quality: docs/ARCHITECTURE.md)
 - [x] Dependency-free formatter (tools/format-js.js), editor config, README and npm scripts; all scripts and the stylesheet formatted (Quality: 3,900 lines instead of 700; syntax tree checked unchanged)
 - [x] Break the long HTML template strings in the scripts into smaller pieces (Quality: the 22 templates over 350 characters are now built from small functions (none over 290); output checked identical on 320 screens)
 - [x] Split the longest scripts (07 and 14) into smaller files (Quality: 07 became five files and 14 became three; every script is under 6 KB)
+- [x] Sentence patterns from N5 to N4 (Content: 22 N5 and 33 N4 patterns (55 new), each with two examples, a note, a common mistake, build sentences and typing sentences; five difficulty bands)
+- [x] Explain wrong answers (Practice: what your answer means, why it does not fit and an example with it, for words, counters, particles, grammar, kanji, typed readings and typed sentences)
+- [x] Furigana for every form of a verb or い-adjective (Display: 変わりました reads か; furigana sits on the kanji only; shared forms use the sentence word)
+- [x] Settings screen behind a gear; Memory screen for backup and what the app remembers (Design)
+- [x] One vocabulary filter card, a sentence-pattern card, and a gradient memory map grouped by level (Progress)

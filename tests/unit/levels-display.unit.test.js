@@ -38,18 +38,4 @@ test('levels, furigana and Progress groups',async t=>{
  await t.test('should rate an N5 word easier than an N1 word, and use the learned difficulty once you have met a word',()=>{
   const a=app.run(`pgDiff(W().find(w=>w.w=='水'))`),b=app.run(`pgDiff(W().find(w=>w.w=='概要'))`);assert.ok(a<b);
   assert.equal(app.run(`S.i['概要']={s:2,f:Date.now(),d:2,l:1,n:3};pgDiff(W().find(w=>w.w=='概要'))`),.2);app.run(S0)});
- await t.test('should group vocabulary by JLPT level, difficulty and newly acquired words',()=>{
-  const g=k=>app.run(`pgGroups('${k}')`);
-  assert.equal((g('lv').match(/<details/g)||[]).length,6);assert.equal((g('df').match(/<details/g)||[]).length,3);assert.equal((g('nw').match(/<details/g)||[]).length,3);
-  assert.equal(app.run(`pgSet('lv','1').length`),app.run(`W().filter(w=>!w.g&&w.l==1).length`));
-  assert.equal(app.run(`pgSet('df','e').length+pgSet('df','m').length+pgSet('df','h').length`),app.run(`W().filter(w=>!w.g).length`))});
- await t.test('should list words learned today under newly acquired, newest first',()=>{
-  app.run(`S.i={};S.i['水']={s:1,f:Date.now(),d:5,l:1,n:1};S.i['火']={s:1,f:Date.now()-3*864e5,d:5,l:1,n:1};S.i['木']={s:1,f:Date.now()-60*864e5,d:5,l:1,n:1}`);
-  assert.deepEqual([...app.run(`pgSet('nw','d').map(w=>w.w)`)],['水']);assert.deepEqual([...app.run(`pgSet('nw','w').map(w=>w.w)`)],['水','火']);assert.deepEqual([...app.run(`pgSet('nw','m').map(w=>w.w)`)],['水','火']);app.run(S0)});
- await t.test('should fill a group with word rows when it is opened and offer more',()=>{
-  const h=app.run(`(()=>{const box={dataset:{},innerHTML:''},d={open:true,dataset:{k:'lv',g:'5'},querySelector:()=>box};pgList(d);return box.innerHTML})()`);
-  assert.equal((h.match(/class="vr"/g)||[]).length,40);assert.match(h,/Show more/)});
- await t.test('should show the groups in the Progress tab as collapsed sections',()=>{
-  app.run(`prog()`);const h=app.ctx.document.querySelector('#m').innerHTML;
-  assert.match(h,/By JLPT level/);assert.match(h,/By difficulty/);assert.match(h,/Newly acquired/);assert.ok(!/<details class="card pg" open/.test(h))});
 });

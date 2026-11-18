@@ -11,6 +11,7 @@
 // Knapsack: greedy value/cost, where cost grows with unknown kanji. Coverage = sum of values met / sum of all values.
 let CR = {},
   CRM = null,
+  PDM = {},
   ZR = {},
   NB = null,
   SM = null,
@@ -270,5 +271,5 @@ function statsCard() {
   const fc = forecast(),
     days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d, i) => d + ' ' + lam(i)
     .toFixed(0)).join(', ');
-  return `<div class="card"><b>Statistics</b>` + statLine(`Zipf-weighted coverage ${Math.round(cov()*100)}%. New words are ranked by frequency value divided by study cost, and each unknown kanji adds cost. Until real frequency ranks are added, rank is a deck-based proxy.`) + statLine(`Level classifiers on character n-grams: Naive Bayes ${LV2.nb}, softmax ${LV2.sm} (${LV2.note}).`) + statLine(`Response-time outliers (median and MAD z-score): ${S.slips||0} careless slips softened.`) + statLine(`Poisson daily volume by weekday: ${days}.`) + statLine(`14-day Monte Carlo: ${fc.med} secure words (${fc.lo} to ${fc.hi}).`) + statLine(behSummary()) + `</div>`
+  return `<div class="card"><b>Statistics</b>` + statLine(`Zipf-weighted coverage ${Math.round(cov()*100)}%. New words are ranked by frequency value divided by study cost, and each unknown kanji adds cost. Ranks come from the imported corpus list when there is one, otherwise from a deck-based proxy.`) + statLine(`Level classifiers on character n-grams: Naive Bayes ${LV2.nb}, softmax ${LV2.sm} (${LV2.note}).`) + statLine(`Response-time outliers (median and MAD z-score): ${S.slips||0} careless slips softened.`) + statLine(`Poisson daily volume by weekday: ${days}.`) + statLine(`14-day Monte Carlo: ${fc.med} secure words (${fc.lo} to ${fc.hi}).`) + statLine(behSummary()) + `</div>`
 }

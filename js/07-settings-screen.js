@@ -1,6 +1,6 @@
 /* js/07-settings-screen.js
- * Purpose: Memory and settings screen, built from one function per section.
- * Defines (9): memCk, memOpts, memNote, memBackup, memDisplay, memLearning, memContent, memMisc, mem
+ * Purpose: Settings screen (the gear), built from one function per section.
+ * Defines (9): memCk, memOpts, memNote, memDisplay, memLearning, memContent, memAdvanced, memAbout, settings
  * Classic script: shares one global scope with the other files, so load order (see index.html) matters.
  */
 
@@ -11,12 +11,6 @@ const memCk = (k, t) => `<p><label><input type="checkbox" ${S[k]?'checked':''} o
 const memOpts = (list, sel) => list.map(([k, t]) => `<option value="${k}" ${sel==k?'selected':''}>${t}</option>`)
   .join('');
 const memNote = (t, st) => `<p class="mu" style="text-align:left${st||''}">${t}</p>`;
-function memBackup(d) {
-  const file = `<label class="pri" style="display:block;text-align:center;cursor:pointer">Load memory from file<input type="file" class="sr-only" accept=".json,application/json" onchange="imp(this)"></label>`,
-    text = `<details><summary class="mu">Use text instead</summary><textarea id="mt" aria-label="Memory text" placeholder="Paste memory text here"></textarea>` + `<button class="sec" onclick="$('#mt').value=JSON.stringify(S)">Show as text</button>` + `<button class="sec" onclick="navigator.clipboard&&navigator.clipboard.writeText(JSON.stringify(S))">Copy</button>` + `<button class="sec" onclick="impt()">Load from text</button></details>`;
-  return `<details class="card" open><summary>Backup and transfer</summary>` + memNote(`Last backup: ${d}. Memory means your progress, mistakes, XP and difficulty model.`) + `<button class="pri" onclick="exp()">Download my memory</button>${file}${text}</details>`
-}
-
 function memDisplay() {
   const lvl = [[0, 'Automatic (now N' + gateLv().u + ')'], [5, 'N5'], [4, 'N4'], [3, 'N3'], [2, 'N2'],
     [1, 'N1']],
@@ -26,7 +20,7 @@ function memDisplay() {
     ['w', 'Example words'], ['s', 'Look-alike kanji']],
     head = t => `<p class="mu" style="text-align:left;margin:8px 0 2px">${t}</p>`,
     tipRow = ([k, t]) => `<p style="margin:4px 0"><label><input type="checkbox" ${S.tf[k]?'checked':''} onchange="S.tf.${k}=this.checked;save()"> ${t}</label></p>`,
-    preset = (t, o) => `<button class="sec" onclick="S.tf=${o};save();mem()">${t}</button>`;
+    preset = (t, o) => `<button class="sec" onclick="S.tf=${o};save();settings()">${t}</button>`;
   return `<details class="card"><summary>Display</summary>${memCk('hl','Hide JLPT level labels')}` + memCk('rm',
     'Show romaji under sentences (off: hiragana and furigana only)') + head('My JLPT level: kanji above it get furigana') + `<select aria-label="My JLPT level" onchange="S.jl=+this.value||0;GATE.t=0;save()">${memOpts(lvl,S.jl||0)}</select>` + head('Japanese font') + `<select aria-label="Japanese font" onchange="S.fn=this.value;save();setFont()">${memOpts(fonts,S.fn||'kyo')}</select>` + head('Kanji tooltip shows') + tips
     .map(tipRow).join('') + preset('Reading only', '{r:1,m:0,p:0,l:0,w:0,s:0}') + preset('Reading + meaning',
@@ -36,7 +30,7 @@ function memDisplay() {
 
 function memLearning() {
   const rare = Math.round((S.rare ?? .2) * 100);
-  return `<details class="card"><summary>Learning</summary>${memCk('aa','Move on automatically after a correct answer')}` + memNote(`Forgetting model: ${fmStatus()}`) + memNote(`Reading help: ${kiStatus()}`) + memNote(`Kanji mastery: ${kmStatus()}`) + memNote(`Word ranking: ${cfStatus()}`) + `<button class="sec" onclick="refitFm();mem()">Refit now</button>` + memCk('wk',
+  return `<details class="card"><summary>Learning</summary>${memCk('aa','Move on automatically after a correct answer')}` + memCk('wk',
     'Include work vocabulary (plant engineering)') + `<p style="margin:8px 0 2px">Rare words mixed in: <b id="rv">${rare}%</b></p>` + `<input type="range" aria-label="Share of rare words" min="0" max="40" step="10" value="${rare}" oninput="S.rare=this.value/100;$('#rv').textContent=this.value+'%';save()" style="width:100%">` + memCk('n3',
     'Open N3 content now') + memNote('Otherwise N3 opens once most N5 and N4 words are met.') + `</details>`
 }
@@ -47,9 +41,9 @@ function memContent(pk) {
     .join('') + `<label class="sec" style="cursor:pointer">Import content pack<input type="file" class="sr-only" accept=".json" onchange="imp(this)"></label></details>`
 }
 
-const memMisc = () => `<details class="card"><summary>Learning data</summary>${dataCard()}</details>\n` + `<details class="card"><summary>Advanced</summary><button class="sec" onclick="rst()">Erase everything on this device</button></details>\n` + `<details class="card"><summary>About</summary><p>Nihongo Lab v${e(VER.app)}</p>` + memNote(`Lesson data ${e(VER.content)}. Version format is MAJOR.MINOR.BUILD.`) + `</details>`;
-function mem() {
-  const d = S.bk ? new Date(S.bk).toLocaleDateString() : 'never';
-  $('#m').innerHTML = [memBackup(d), memDisplay(), memLearning(), memContent(PK.concat(S.cp)), memMisc()]
-    .join('\n')
+const memAdvanced = () => `<details class="card"><summary>Advanced</summary><button class="sec" onclick="rst()">Erase everything on this device</button></details>`;
+const memAbout = () => `<details class="card"><summary>About</summary><p>Nihongo Lab v${e(VER.app)}</p>` + memNote(`Lesson data ${e(VER.content)}. Version format is MAJOR.MINOR.BUILD.`) + `</details>`;
+function settings() {
+  $('#m').innerHTML = '<h2 class="sh">Settings</h2>' + [memDisplay(), memLearning(), memContent(PK.concat(S
+        .cp)), memAdvanced(), memAbout()].join('\n')
 }

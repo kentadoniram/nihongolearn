@@ -47,7 +47,7 @@ function da(j) {
     if (q.p[k] && q.p[k].c) b.classList.add('ok');
     else if (k == j) b.classList.add('bad')
   });
-  $('#fb').innerHTML = `<div class="card fb ${ok?'':'r'}"><b>${ok?'Correct':j<0?'No problem, here is how it works':'Not quite'}</b><p>Answer: ${e(q.o[q.a])}</p>${q.w&&WM[q.w]?trioW(WM[q.w]):''}<p>${e(q.y)}</p><button class="pri" onclick="dn()">${dg.i+1<DX.length?'Next':'See my result'}</button></div>`
+  $('#fb').innerHTML = `<div class="card fb ${ok?'':'r'}"><b>${ok?'Correct':j<0?'No problem, here is how it works':'Not quite'}</b><p>Answer: ${e(q.o[q.a])}</p>${ok||j<0?'':waCard(q.p[j].t,q.o[q.a],q.q)}${q.w&&WM[q.w]?trioW(WM[q.w]):''}<p>${e(q.y)}</p><button class="pri" onclick="dn()">${dg.i+1<DX.length?'Next':'See my result'}</button></div>`
 }
 
 const diagResult = (lv, a, b) => `<div class="card"><b>Your starting point: ${lv}</b><p>N5 questions: ${a[0]} of ${a[1]}. N4 questions: ${b[0]} of ${b[1]}.</p>` + `<p class="mu" style="text-align:left">Words you got right are scheduled for review instead of being taught again. Everything else is introduced step by step.</p>` + `<button class="pri" onclick="practice()">Start practising</button></div>`;

@@ -1,17 +1,66 @@
 /* js/22-lexicon.js
  * Purpose: Tappable words and expressions inside Japanese text.
- * Defines (16): JPR, mkLex, ej, ENDS, rj, tokH, trioT, trioS, trioW, tn, placeTip, showLx, openX, expd, ...
+ * Defines (21): JPR, FORMS_V, ADJ_ENDS, FLM, formsOf, lexRe, mkLex, ej, ENDS, rj, tokH, trioT, trioS, ...
  * Classic script: shares one global scope with the other files, so load order (see index.html) matters.
  */
 
 // ---- Display helpers: spacing and furigana in explanations ----
 const JPR = /[\u3040-\u30ff\u4e00-\u9fff々ー]+/g;
 
+// Inflected forms of a verb or い-adjective with their readings, so 変わりました is read かわりました and not 変 (へん) + わり.
+const FORMS_V = ['masu', 'mase', 'mashita', 'masendeshita', 'nai', 'nakatta', 'naide', 'nakereba', 'te',
+  'ta', 'tai', 'mashou', 'teimasu', 'tari', 'tara', 'ba', 'pot', 'pas', 'cau', 'caupas', 'vol', 'imp'];
+const ADJ_ENDS = ['く', 'くて', 'かった', 'くない', 'くなかった', 'ければ', 'さ', 'そう', 'すぎる', 'くなる'];
+let FLM = {},
+  FRD = {},
+  FALT = {};
+function formsOf(w) {
+  if (w.g || !K.test(w.w)) return [];
+  const p = posOf(w),
+    out = [];
+  if (p == 'verb' && vclass(w)) {
+    FORMS_V.forEach(f => {
+      const x = conj(w, f);
+      if (x) out.push([x.s, x.r])
+    });
+    ['masu', 'nai'].forEach(f => {
+      const x = conj(w, f);
+      if (x && x.s.length > 2) out.push([x.s.slice(0, f == 'masu' ? -2 : -2), x.r.slice(0, -2)])
+    })
+  } else if (p == 'i-adjective' && w.w.length > 1) {
+    const s = w.w.slice(0, -1),
+      r = w.r == 'いい' ? 'よ' : w.r.slice(0, -1);
+    ADJ_ENDS.forEach(t => out.push([s + t, r + t]))
+  }
+  return out
+}
+
+// One pattern for all keys as a prefix tree, so that finding the longest match stays fast with thousands of entries.
+function lexRe(keys) {
+  const T = {};
+  keys.forEach(k => {
+    let n = T;
+    for (const c of k) n = n[c] = n[c] || {};
+    n[''] = 1
+  });
+  const esc = c => c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'),
+    walk = n => {
+    const cs = Object.keys(n).filter(c => c),
+      inner = cs.map(c => esc(c) + walk(n[c])),
+      x = inner.length > 1 ? '(?:' + inner.join('|') + ')' : inner.join('');
+    return n[''] && cs.length ? '(?:' + x + ')?' : x
+  };
+  return new RegExp('(' + walk(T) + ')', 'g')
+}
+
 // Lexicon: deck words and grammar expressions inside any Japanese text become tappable (tooltip first, full window on a second tap).
 function mkLex() {
   LEXM = {};
   EXI = {};
   RDX = {};
+  FLM = {};
+  FRD = {};
+  FALT = {};
   STM = new Set();
   EXPR.forEach((x, i) => {
     EXI[x.j] = i;
@@ -44,17 +93,29 @@ function mkLex() {
   Object.keys(RDX).forEach(k => {
     if (!LEXM[k]) LEXM[k] = ['r', k]
   });
-  const ks = Object.keys(LEXM).sort((a, b) => b.length - a.length).map(x => x.replace(/[.*+?^${}()|[\]\\]/g,
-      '\\$&'));
-  LEXRE = ks.length ? new RegExp('(' + ks.join('|') + ')', 'g') : /$^/g
+  V.forEach(w => formsOf(w).forEach(([f, r]) => {
+    if (!LEXM[f] || LEXM[f][0] == 'f')(FALT[f] = FALT[f] || []).push([w.w, r]);
+    if (!LEXM[f]) {
+      FLM[f] = w.w;
+      FRD[f] = r;
+      LEXM[f] = ['f', w.w]
+    }
+  }));
+  const ks = Object.keys(LEXM);
+  LEXRE = ks.length ? lexRe(ks) : /$^/g
 }
 
-function ej(s, nr) {
+// hint: the word the sentence is about. Two words can share a form (降ります is おります or ふります), and the hint decides.
+function ej(s, hint) {
   if (!LEXRE) mkLex();
   return String(s).split(LEXRE).map((p, i) => {
     if (i % 2) {
       const m = LEXM[p];
       if (m[0] == 'r') return `<span class="jp">${jw(p,RDX[p])}</span>`;
+      if (m[0] == 'f') {
+        const alt = (FALT[p] || []).find(a => a[0] == hint) || [m[1], FRD[p]];
+        return `<span class="jp lx" data-lx="w:${e(alt[0])}">${jw(p,alt[1])}</span>`
+      }
       const w = m[0] == 'w' ? WM[m[1]] : null;
       return `<span class="jp lx" data-lx="${m[0]}:${m[0]=='w'?e(m[1]):m[1]}">${jw(p,w&&w.r)}</span>`
     }
@@ -70,6 +131,7 @@ function rj(s) {
     if (i % 2) {
       const m = LEXM[p];
       if (m[0] == 'r') P.push({ s: romaji(RDX[p]), a: STM.has(p) ? 'n' : '' });
+      else if (m[0] == 'f') P.push({ s: romaji(FRD[p]), a: '' });
       else if (m[0] == 'x') P.push({ s: romaji(p), a: ENDS.has(p) ? 'p' : '' });
       else P.push({ s: romaji(WM[m[1]].r), a: '' })
     } else {

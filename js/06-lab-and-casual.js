@@ -110,7 +110,7 @@ const labOptions = c => `<div id="lq">${c.o.map((o,j)=>`<button class="opt" oncl
 const labCard = c => `<div class="card q-oo">${labTitle(c)}${labBig(c)}${c.p?`<p class="pass">${pj(c.p)}</p>`:''}${labExamples(c)}<p>${ej(c.q)}</p>` + `${c.en?`<p class="mu" style="margin:0 0 6px">${e(c.en)}</p>`:''}${labOptions(c)}<button class="skip" onclick="lskip()">Skip</button></div><div id="fb" role="status"></div>`;
 
 // Feedback card after a lab answer: the explanation, passage lookup points, kanji check and the word or sentence.
-const labFeedback = (c, ok, kmh) => `<div class="card fb ${ok?'':'r'}"><b>${ok?'✓ Correct':'✗ Not quite'}</b><p>${ej(c.y)}</p>` + `${c.p&&PLK.n?`<p class="mu" style="text-align:left">Lookups in this passage earned ${PLK.n} point${PLK.n>1?'s':''}.</p>`:''}${kmh}` + `${c.aw?trioW(c.aw):c.full?trioS(c.full,c.fen):''}<button class="pri" onclick="adv('l')">Next</button></div>`;
+const labFeedback = (c, ok, kmh, j) => `<div class="card fb ${ok?'':'r'}"><b>${ok?'✓ Correct':'✗ Not quite'}</b>${ok||c.o[j]==null?'':waCard(c.o[j],c.o[c.a],c.q)}<p>${ej(c.y)}</p>` + `${c.p&&PLK.n?`<p class="mu" style="text-align:left">Lookups in this passage earned ${PLK.n} point${PLK.n>1?'s':''}.</p>`:''}${kmh}` + `${c.aw?trioW(c.aw):c.full?trioS(c.full,c.fen):''}<button class="pri" onclick="adv('l')">Next</button></div>`;
 function lab() {
   PLK = {};
   PKH = new Set();
@@ -188,7 +188,7 @@ function lq(j) {
     else if (k == j) b.classList.add('bad')
   });
   const kmh = c.p ? kmDone(c, ok) : '';
-  $('#fb').innerHTML = labFeedback(c, ok, kmh);
+  $('#fb').innerHTML = labFeedback(c, ok, kmh, j);
   if (ok && S.aa !== false) setTimeout(() => {
     if (lcur === c && $('nav .on') && $('nav .on').dataset.v == 'l') adv('l')
   }, 2600)

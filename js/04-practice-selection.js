@@ -29,10 +29,10 @@ function go(v, skip) {
   banner();
   $('#st').innerHTML = '';
   if (document.body) document.body.classList.toggle('pl', v == 'p');
-  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.v == v));
+  document.querySelectorAll('nav button, .gear').forEach(b => b.classList.toggle('on', b.dataset.v == v));
   if (skip) return;
   v == 't' ? today() : v == 'p' ? practice() : v == 'l' ? lab() : v == 'b' ? bld() : v == 'm' ? mem() :
-    prog();
+    v == 's' ? settings() : prog();
   a11yScreen(v);
   a11yMain()
 }
